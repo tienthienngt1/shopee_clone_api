@@ -1,0 +1,6 @@
+POST https://shopee.vn/api/v4/banner/batch_list
+
+{
+    "types": [{"type":  
+"pc_home_squares"}]
+}
