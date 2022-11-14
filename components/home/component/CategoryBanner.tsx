@@ -1,36 +1,48 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { WrapCategoryBannerStyled } from "../styled";
 import Image from "next/image";
-import axios from "axios";
+import { useSelector } from "react-redux";
+import { RootState } from "redux/store";
+import { useThunkDispatch } from "redux/store";
+import { setSubCarouselBanner } from "redux/slice/homeBanner";
+import ApiError from "components/common/component/ApiError";
+import { Loading } from "components/common/component";
 
 const CategoryBanner = () => {
-	const [categoryBanner, setCategoryBanner] = useState<any>();
+	const { categoryBanner } = useSelector(
+		(state: RootState) => state.homeBanner
+	);
+	const dispatch = useThunkDispatch();
 	useEffect(() => {
-		axios
-			.post("/api/v4/banner/batch_list", {
-				types: [{ type: "pc_home_squares" }],
-			})
-			.then((res) => setCategoryBanner(res?.data?.data?.banners?.[0]))
-			.catch((err) => console.log(err));
-	}, []);
+		dispatch(setSubCarouselBanner());
+	}, [dispatch]);
 	return (
 		<WrapCategoryBannerStyled>
-			{categoryBanner &&
-				categoryBanner?.banners.map((res: any) => (
-					<div key={res.id}>
+			{!categoryBanner ? (
+				<ApiError />
+			) : categoryBanner.length > 0 ? (
+				categoryBanner.map((res: any) => (
+					<div key={res?.id}>
 						<div>
 							<Image
-								src={res.banner_image}
-								alt={res.navigate_params.navbar.title.vi}
+								src={
+									res?.banner_image_gif
+										? res.banner_image_gif
+										: res?.banner_image
+										? res.banner_image
+										: ""
+								}
+								alt={JSON.parse(res.title)?.vi}
 								width="40"
 								height="40"
 							/>
 						</div>
-						<div>
-							{JSON.parse(res.navigate_params.navbar.title).vi}
-						</div>
+						<div>{JSON.parse(res.title).vi}</div>
 					</div>
-				))}
+				))
+			) : (
+				<Loading />
+			)}
 		</WrapCategoryBannerStyled>
 	);
 };

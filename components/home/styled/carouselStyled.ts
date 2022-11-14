@@ -25,8 +25,8 @@ export const WrapCarouselStyled = styled.div<Props>`
 	.swiper-button-prev::after,
 	.swiper-button-next::after {
 		display: ${(props) => (props.status ? "block" : "none")};
-		padding: 1rem;
-		border-radius: 3px;
+		padding: 1.5rem 1rem;
+		border-radius: 2px;
 		background: rgb(0, 0, 0, 0.2);
 		color: #fff;
 		font-size: 1.4rem;

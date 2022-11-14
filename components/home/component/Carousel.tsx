@@ -1,60 +1,74 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import { WrapCarouselStyled } from "../styled";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination, Navigation, EffectFade } from "swiper";
+import { useSelector } from "react-redux";
+import { RootState, useThunkDispatch } from "redux/store";
+import { setCarouselBanner } from "redux/slice/homeBanner";
+import emptyImage from "public/emptyImage.png";
 
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/autoplay";
 import "swiper/css/effect-fade";
+import ApiError from "components/common/component/ApiError";
+import { Loading } from "components/common/component";
 
-type Props = {
-	banner: any;
-};
-
-const Carousel = ({ banner }: Props) => {
+const Carousel = () => {
+	const { carouselBanner } = useSelector(
+		(state: RootState) => state.homeBanner
+	);
+	const dispatch = useThunkDispatch();
 	const [hover, setHover] = useState(false);
+	useEffect(() => {
+		dispatch(setCarouselBanner());
+	}, [dispatch]);
 	return (
 		<WrapCarouselStyled status={hover}>
 			<div
 				onMouseEnter={() => setHover(true)}
 				onMouseLeave={() => setHover(false)}
 			>
-				<Swiper
-					autoplay={{
-						delay: 2500,
-						disableOnInteraction: false,
-					}}
-					pagination={{
-						clickable: true,
-					}}
-					navigation
-					modules={[Pagination, Navigation, Autoplay, EffectFade]}
-					loop
-				>
-					{banner?.banners.map((ban: any) => (
-						<SwiperSlide key={ban.image_hash}>
-							<div
-								style={{
-									width: "100%",
-									height: "19rem",
-									position: "relative",
-									overflow: "hidden",
-									borderRadius: "4px",
-								}}
-							>
-								<Image
-									loading="lazy"
-									src={ban.image_url}
-									alt={ban.target_url}
-									layout="fill"
-								/>
-							</div>
-						</SwiperSlide>
-					))}
-				</Swiper>
+				{!carouselBanner ? (
+					<ApiError />
+				) : carouselBanner?.length > 0 ? (
+					<Swiper
+						autoplay={{
+							delay: 2500,
+							disableOnInteraction: false,
+						}}
+						pagination={{
+							clickable: true,
+						}}
+						navigation
+						modules={[Pagination, Navigation, Autoplay, EffectFade]}
+						loop
+					>
+						{carouselBanner.map((ban: any) => (
+							<SwiperSlide key={ban?.image_hash}>
+								<div
+									style={{
+										width: "100%",
+										height: "19rem",
+										position: "relative",
+										overflow: "hidden",
+										borderRadius: "4px",
+									}}
+								>
+									<Image
+										src={ban?.image_url}
+										alt={ban?.target_url}
+										layout="fill"
+									/>
+								</div>
+							</SwiperSlide>
+						))}
+					</Swiper>
+				) : (
+					<Loading />
+				)}
 			</div>
 			<div>
 				<div
@@ -64,11 +78,15 @@ const Carousel = ({ banner }: Props) => {
 				>
 					<Image
 						src={
-							banner?.banners[banner.banners.length - 1].image_url
+							carouselBanner && carouselBanner?.length > 0
+								? carouselBanner[carouselBanner?.length - 1]
+										?.image_url
+								: emptyImage
 						}
 						alt={
-							banner?.banners[banner.banners.length - 1]
-								.target_url
+							carouselBanner &&
+							carouselBanner[carouselBanner?.length - 1]
+								?.target_url
 						}
 						layout="fill"
 					/>
@@ -80,11 +98,15 @@ const Carousel = ({ banner }: Props) => {
 				>
 					<Image
 						src={
-							banner?.banners[banner.banners.length - 2].image_url
+							carouselBanner && carouselBanner?.length > 0
+								? carouselBanner[carouselBanner?.length - 2]
+										?.image_url
+								: emptyImage
 						}
 						alt={
-							banner?.banners[banner.banners.length - 2]
-								.target_url
+							carouselBanner &&
+							carouselBanner[carouselBanner?.length - 2]
+								?.target_url
 						}
 						layout="fill"
 					/>
