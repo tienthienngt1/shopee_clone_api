@@ -23,7 +23,6 @@ export const ItemCategoryHomeStyled = styled.div`
 		align-items: center;
 		width: 2rem;
 		height: 2rem;
-		font-size: 1.3rem;
 		font-weight: 600;
 		position: absolute;
 		z-index: 9999;
@@ -43,7 +42,9 @@ export const ItemCategoryHomeStyled = styled.div`
 		height: 4rem;
 		top: 50%;
 		box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-		font-size: 2.6rem;
+		svg {
+			font-size: 1.8rem;
+		}
 	}
 	.swiper-button-prev-custom {
 		top: calc(50% + 1rem);
@@ -54,26 +55,32 @@ export const ItemCategoryHomeStyled = styled.div`
 		right: -1rem;
 		border-radius: 50%;
 	}
-	.swiper-button-prev-custom::after {
-		content: "<";
-	}
-	.swiper-button-next-custom::after {
-		content: ">";
-	}
 	.swiper-button-disabled {
 		display: none;
 	}
 	.swiper-wrapper {
-		flex-direction: row;
 		.swiper-slide {
 			background-color: #fff;
-			height: 12rem;
+			height: 12.5rem;
+			display: flex;
+			flex-direction: column;
+			padding: 0.5rem 0;
 			border: 0.5px solid #f5f5f5;
+			cursor: pointer;
+			&:hover {
+				transform: translateY(-1.5px);
+			}
 		}
 	}
-	.swiper {
-		.swiper-button-prev,
-		.swiper-button-next {
-		}
-	}
+`;
+
+export const SwiperSlideHeader = styled.div`
+	display: flex;
+	justify-content: center;
+`;
+export const SwiperSlideFooter = styled.div`
+	padding: 0 0.5rem;
+	font-size: 14px;
+	text-align: center;
+	color: rgba(0, 0, 0, 0.8);
 `;

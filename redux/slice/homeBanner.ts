@@ -64,8 +64,6 @@ const homeBannerState = createSlice({
 	},
 });
 
-export default homeBannerState.reducer;
-
 export const setCarouselBanner = createAsyncThunk(
 	"homeBanner/setCarouselBanner",
 	async () => {
@@ -88,3 +86,5 @@ export const setSubCarouselBanner = createAsyncThunk(
 		return res.data;
 	}
 );
+
+export default homeBannerState.reducer;

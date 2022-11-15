@@ -2,64 +2,83 @@ import {
 	WrapCategoryHomeStyled,
 	TitleCategoryHomeStyled,
 	ItemCategoryHomeStyled,
+	SwiperSlideHeader,
+	SwiperSlideFooter,
 } from "../styled";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Grid, Autoplay, Navigation } from "swiper";
+import { Grid, Navigation } from "swiper";
+import Image from "next/image";
+import { useEffect } from "react";
+import { useThunkDispatch } from "redux/store";
+import { setCategoryTree } from "redux/slice/categoryTree";
+import { useSelector } from "react-redux";
+import { RootState } from "redux/store";
 
+import "swiper/css/navigation";
 import "swiper/css";
 import "swiper/css/grid";
-import "swiper/css/navigation";
+import { ChevronLeft, ChevronRight } from "react-bootstrap-icons";
 
-type Props = {};
-
-export default function CategoryHome({}: Props) {
+export default function CategoryHome() {
+	const {
+		categoryTree: { data },
+	} = useSelector((state: RootState) => state);
+	const dispatch = useThunkDispatch();
+	useEffect(() => {
+		dispatch(setCategoryTree());
+	}, [dispatch]);
 	return (
 		<WrapCategoryHomeStyled>
 			<TitleCategoryHomeStyled>DANH MỤC</TitleCategoryHomeStyled>
 			<ItemCategoryHomeStyled>
 				<Swiper
+					freeMode
 					allowTouchMove={true}
 					navigation={{
 						nextEl: ".swiper-button-next-custom",
 						prevEl: ".swiper-button-prev-custom",
 					}}
-					slidesPerView={10}
+					modules={[Grid, Navigation]}
 					grid={{
 						rows: 2,
+						fill: "row",
 					}}
-					slidesPerGroup={3}
-					// spaceBetween={1}
-					modules={[Grid, Autoplay, Navigation]}
+					slidesPerView={10}
+					slidesPerGroup={10}
 				>
-					<SwiperSlide>Slide 1</SwiperSlide>
-					<SwiperSlide>Slide 2</SwiperSlide>
-					<SwiperSlide>Slide 3</SwiperSlide>
-					<SwiperSlide>Slide 4</SwiperSlide>
-					<SwiperSlide>Slide 5</SwiperSlide>
-					<SwiperSlide>Slide 6</SwiperSlide>
-					<SwiperSlide>Slide 7</SwiperSlide>
-					<SwiperSlide>Slide 8</SwiperSlide>
-					<SwiperSlide>Slide 9</SwiperSlide>
-					<SwiperSlide>Slide 10</SwiperSlide>
-					<SwiperSlide>Slide 11</SwiperSlide>
-					<SwiperSlide>Slide 12</SwiperSlide>
-					<SwiperSlide>Slide 13</SwiperSlide>
-					<SwiperSlide>Slide 14</SwiperSlide>
-					<SwiperSlide>Slide 15</SwiperSlide>
-					<SwiperSlide>Slide 16</SwiperSlide>
-					<SwiperSlide>Slide 17</SwiperSlide>
-					<SwiperSlide>Slide 18</SwiperSlide>
-					<SwiperSlide>Slide 19</SwiperSlide>
-					<SwiperSlide>Slide 20</SwiperSlide>
-					<SwiperSlide>Slide 21</SwiperSlide>
-					<SwiperSlide>Slide 22</SwiperSlide>
-					<SwiperSlide>Slide 23</SwiperSlide>
-					<SwiperSlide>Slide 24</SwiperSlide>
-					<SwiperSlide>Slide 25</SwiperSlide>
-					<SwiperSlide>Slide 26</SwiperSlide>
+					{data?.map((da) => {
+						if (da.catid === 11082137) return;
+						return (
+							<>
+								<SwiperSlide key={da.catid}>
+									<SwiperSlideHeader>
+										<div>
+											<Image
+												src={
+													process.env
+														.NEXT_PUBLIC_BASE_IMAGE_URL +
+													da.image
+												}
+												alt={da.name}
+												width={90}
+												height={90}
+											/>
+										</div>
+									</SwiperSlideHeader>
+									<SwiperSlideFooter>
+										{da.display_name}
+									</SwiperSlideFooter>
+								</SwiperSlide>
+							</>
+						);
+					})}
 				</Swiper>
-				<div className="swiper-button-prev-custom"></div>
-				<div className="swiper-button-next-custom"></div>
+				<div className="swiper-button-prev-custom">
+					<ChevronLeft />
+				</div>
+				<div className="swiper-button-next-custom">
+					<ChevronRight />
+				</div>
 			</ItemCategoryHomeStyled>
 		</WrapCategoryHomeStyled>
 	);

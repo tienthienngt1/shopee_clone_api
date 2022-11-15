@@ -7,14 +7,14 @@ a {
 }
 body,
 * {
-	font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-		Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+    font-family: Helvetica Neue,Helvetica,Arial,文泉驛正黑,WenQuanYi Zen Hei,Hiragino Sans GB,儷黑 Pro,LiHei Pro,Heiti TC,微軟正黑體,Microsoft JhengHei UI,Microsoft JhengHei,sans-serif;
 	padding: 0;
 	margin: 0;
 	box-sizing: border-box;
 	font-size: 13px;
+    transition: all 0.2s;
 }
-html {
+body{
 	background-color: #f5f5f5;
 }
 `;

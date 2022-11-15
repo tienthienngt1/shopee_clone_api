@@ -24,6 +24,7 @@ export const WrapCategoryBannerStyled = styled.div`
 		}
 		div:last-child {
 			padding-top: 0.5rem;
+			color: rgba(0, 0, 0, 0.8);
 			flex: 1;
 		}
 	}
