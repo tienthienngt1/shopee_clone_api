@@ -14,9 +14,6 @@ import { setCategoryTree } from "redux/slice/categoryTree";
 import { useSelector } from "react-redux";
 import { RootState } from "redux/store";
 
-import "swiper/css/navigation";
-import "swiper/css";
-import "swiper/css/grid";
 import { ChevronLeft, ChevronRight } from "react-bootstrap-icons";
 
 export default function CategoryHome() {
@@ -32,8 +29,7 @@ export default function CategoryHome() {
 			<TitleCategoryHomeStyled>DANH MỤC</TitleCategoryHomeStyled>
 			<ItemCategoryHomeStyled>
 				<Swiper
-					freeMode
-					allowTouchMove={true}
+					allowTouchMove={false}
 					navigation={{
 						nextEl: ".swiper-button-next-custom",
 						prevEl: ".swiper-button-prev-custom",

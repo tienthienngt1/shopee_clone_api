@@ -1,4 +1,5 @@
 import Head from "next/head";
+import { WIDTH_MAX } from "variable";
 
 type Props = {
 	title: string;
@@ -8,7 +9,10 @@ type Props = {
 export function Seo(props: Props) {
 	return (
 		<Head>
-			<meta name="viewport" content="width=1240,shrink-to-fit=no" />
+			<meta
+				name="viewport"
+				content={`width=${WIDTH_MAX},shrink-to-fit=no`}
+			/>
 			<title>{props.title}</title>
 			<meta name="title" content={props.title} />
 			<meta name="description" content={props.description} />

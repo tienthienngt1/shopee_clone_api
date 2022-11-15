@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import { WrapCarouselStyled } from "../styled";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay, Pagination, Navigation, EffectFade } from "swiper";
+import { Autoplay, Pagination, Navigation } from "swiper";
 import { useSelector } from "react-redux";
 import { RootState, useThunkDispatch } from "redux/store";
 import { setCarouselBanner } from "redux/slice/homeBanner";
@@ -12,7 +12,6 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/autoplay";
-import "swiper/css/effect-fade";
 import ApiError from "components/common/component/ApiError";
 import { Loading } from "components/common/component";
 
@@ -43,7 +42,7 @@ const Carousel = () => {
 							clickable: true,
 						}}
 						navigation
-						modules={[Pagination, Navigation, Autoplay, EffectFade]}
+						modules={[Pagination, Navigation, Autoplay]}
 						loop
 					>
 						{carouselBanner.map((ban: any) => (

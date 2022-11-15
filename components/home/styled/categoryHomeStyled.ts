@@ -2,7 +2,6 @@ import styled from "styled-components";
 
 export const WrapCategoryHomeStyled = styled.div`
 	position: relative;
-	margin-bottom: 100rem;
 `;
 
 export const TitleCategoryHomeStyled = styled.div`

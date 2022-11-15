@@ -1,23 +1,26 @@
-import { WrapSingleBannerStyled } from "../styled/singleBannerStyled";
+import { WrapSingleBannerStyled } from "../styled";
 import Image from "next/image";
 import { useSelector } from "react-redux";
-import { RootState } from "../../../redux/store";
+import { RootState } from "redux/store";
 
-const SingleBanner = () => {
-	const { subCarouselBanner } = useSelector(
+type Props = {
+	id: number;
+};
+
+const SingleBanner = ({ id }: Props) => {
+	let data;
+	const { subCarouselBanner, subCategoryBanner } = useSelector(
 		(state: RootState) => state.homeBanner
 	);
+	if (id === 1) data = subCarouselBanner;
+	else data = subCategoryBanner;
 	return (
 		<WrapSingleBannerStyled>
-			{subCarouselBanner && subCarouselBanner?.length > 0 && (
-				<a
-					href={subCarouselBanner?.[0].target_url}
-					target="_blank"
-					rel="noreferrer"
-				>
+			{data && data?.length > 0 && (
+				<a href={data?.[0].target_url} target="_blank" rel="noreferrer">
 					<Image
-						src={subCarouselBanner?.[0]?.image_url}
-						alt={subCarouselBanner?.[0]?.target_url}
+						src={data?.[0]?.image_url}
+						alt={data?.[0]?.target_url}
 						layout="fill"
 					/>
 				</a>

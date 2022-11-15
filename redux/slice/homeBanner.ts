@@ -17,12 +17,16 @@ export type HomeBannerState = {
 	subCarouselBanner:
 		| { image_hash: string; image_url: string; target_url: string }[]
 		| undefined;
+	subCategoryBanner:
+		| { image_hash: string; image_url: string; target_url: string }[]
+		| undefined;
 };
 
 const initialState: HomeBannerState = {
 	carouselBanner: [],
 	subCarouselBanner: [],
 	categoryBanner: [],
+	subCategoryBanner: [],
 };
 
 const homeBannerState = createSlice({
@@ -39,6 +43,12 @@ const homeBannerState = createSlice({
 						target_url: ban.target_url,
 					}));
 				if (res.space_key === "PC-VN-HOME_SKINNY_01")
+					state.subCategoryBanner = res.banners.map((ban: any) => ({
+						image_hash: ban.image_hash,
+						image_url: ban.image_url,
+						target_url: ban.target_url,
+					}));
+				if (res.space_key === "PC-VN-HOME_NUZ_CAROUSEL_01")
 					state.subCarouselBanner = res.banners.map((ban: any) => ({
 						image_hash: ban.image_hash,
 						image_url: ban.image_url,
@@ -71,6 +81,7 @@ export const setCarouselBanner = createAsyncThunk(
 			spaces: [
 				{ space_key: "PC-VN-HOME_CAROUSEL_01" },
 				{ space_key: "PC-VN-HOME_SKINNY_01" },
+				{ space_key: "PC-VN-HOME_NUZ_CAROUSEL_01" },
 			],
 		});
 		return res.data;
