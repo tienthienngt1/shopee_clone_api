@@ -4,3 +4,4 @@ export * from "./fullHomeBannerStyled";
 export * from "./singleBannerStyled";
 export * from "./categoryHomeStyled";
 export * from "./flashSaleStyled";
+export * from "./topSearchStyled";

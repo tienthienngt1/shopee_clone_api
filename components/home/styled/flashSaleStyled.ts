@@ -1,8 +1,7 @@
 import styled from "styled-components";
 
 export const WrapFlashSaleStyled = styled.div`
-	padding: 1rem 0;
-	margin-bottom: 400px;
+	padding-top: 1rem;
 `;
 
 export const FlashSaleHeaderStyled = styled.div`
@@ -10,6 +9,10 @@ export const FlashSaleHeaderStyled = styled.div`
 	padding: 1rem;
 	display: flex;
 	justify-content: space-between;
+	& > div:first-child {
+		display: flex;
+		align-items: center;
+	}
 	& > div:last-child {
 		color: rgb(255, 0, 0, 0.8);
 		cursor: pointer;
@@ -21,15 +24,9 @@ export const FlashSaleHeaderStyled = styled.div`
 	}
 `;
 
-export const FlashSaleMainStyled = styled.div`
-	.swiper-slide {
-		padding: 1rem 0;
-	}
-`;
+export const FlashSaleMainStyled = styled.div``;
 
 type Props = {
-	// stock: number;
-	// flashSaleStock: number;
 	percent: number;
 };
 
@@ -63,8 +60,13 @@ export const WrapSwiperSlide = styled.div<Props>`
 			text-align: center;
 			position: relative;
 			overflow: hidden;
-			&::after {
+			z-index: 1;
+			div {
+				z-index: 3;
+			}
+			div::after {
 				content: "";
+				z-index: 2;
 				width: ${(prop) => prop.percent + "%"};
 				height: 100%;
 				position: absolute;
@@ -95,4 +97,60 @@ export const WrapSwiperSlide = styled.div<Props>`
 			content: "GIẢM";
 		}
 	}
+`;
+
+export const WrapCountDown = styled.div`
+	display: flex;
+	padding: 0 1rem;
+	& > div {
+		margin: 0 2px;
+		border-radius: 2px;
+		position: relative;
+		width: 22px;
+		height: 15px;
+		background: rgb(0, 0, 0, 0.9);
+		& > div {
+			height: 15px;
+			text-align: center;
+			font-weight: bold;
+			/* color: rgb(255, 255, 255, 0.9); */
+			color: tomato;
+		}
+	}
+	.count_down {
+		&_first_number {
+			position: absolute;
+			top: -60px;
+			left: 2px;
+			& > div {
+				width: 10px;
+				height: 15px;
+			}
+		}
+		&_last_number {
+			position: absolute;
+			right: 2px;
+		}
+	}
+`;
+
+type ValueNumber = {
+	value: string;
+};
+
+export const CountdownFirstNumber = styled.div<ValueNumber>`
+	position: absolute;
+	transition: all 0.8s;
+	bottom: calc(${(props) => Number(props.value) * -1 * 15 + 75 + "px"});
+	left: 2px;
+	& > div {
+		width: 10px;
+		height: 15px;
+	}
+`;
+
+export const CountdownLastNumber = styled(CountdownFirstNumber)`
+	bottom: calc(${(props) => Number(props.value) * -1 * 15 + 135 + "px"});
+	right: 2px;
+	left: auto;
 `;

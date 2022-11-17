@@ -5,7 +5,7 @@ import {
 	SwiperSlideHeader,
 	SwiperSlideFooter,
 } from "../styled";
-import { Swiper, SwiperSlide } from "swiper/react";
+import { SwiperSlide } from "swiper/react";
 import { Grid, Navigation } from "swiper";
 import Image from "next/image";
 import { useEffect } from "react";
@@ -13,10 +13,9 @@ import { useThunkDispatch } from "redux/store";
 import { setCategoryTree } from "redux/slice/categoryTree";
 import { useSelector } from "react-redux";
 import { RootState } from "redux/store";
+import { Slide } from "components/common/component";
 
-import { ChevronLeft, ChevronRight } from "react-bootstrap-icons";
-
-export default function CategoryHome() {
+export function CategoryHome() {
 	const {
 		categoryTree: { data },
 	} = useSelector((state: RootState) => state);
@@ -28,12 +27,9 @@ export default function CategoryHome() {
 		<WrapCategoryHomeStyled>
 			<TitleCategoryHomeStyled>DANH MỤC</TitleCategoryHomeStyled>
 			<ItemCategoryHomeStyled>
-				<Swiper
+				<Slide
+					id="cat_home"
 					allowTouchMove={false}
-					navigation={{
-						nextEl: ".swiper-button-next-custom",
-						prevEl: ".swiper-button-prev-custom",
-					}}
 					modules={[Grid, Navigation]}
 					grid={{
 						rows: 2,
@@ -68,13 +64,7 @@ export default function CategoryHome() {
 							</>
 						);
 					})}
-				</Swiper>
-				<div className="swiper-button-prev-custom">
-					<ChevronLeft />
-				</div>
-				<div className="swiper-button-next-custom">
-					<ChevronRight />
-				</div>
+				</Slide>
 			</ItemCategoryHomeStyled>
 		</WrapCategoryHomeStyled>
 	);

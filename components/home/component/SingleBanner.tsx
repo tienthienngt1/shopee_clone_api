@@ -7,7 +7,7 @@ type Props = {
 	id: number;
 };
 
-const SingleBanner = ({ id }: Props) => {
+export function SingleBanner({ id }: Props) {
 	let data;
 	const { subCarouselBanner, subCategoryBanner } = useSelector(
 		(state: RootState) => state.homeBanner
@@ -27,6 +27,4 @@ const SingleBanner = ({ id }: Props) => {
 			)}
 		</WrapSingleBannerStyled>
 	);
-};
-
-export default SingleBanner;
+}
