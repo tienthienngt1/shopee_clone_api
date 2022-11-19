@@ -31,8 +31,8 @@ const Item = (props: ItemType) => (
 			100
 		}
 	>
-		<div className="swiper_slide_header">
-			<LazyLoad>
+		<LazyLoad>
+			<div className="swiper_slide_header">
 				<Image
 					src={
 						process.env.NEXT_PUBLIC_BASE_IMAGE_URL +
@@ -41,8 +41,8 @@ const Item = (props: ItemType) => (
 					alt={props.sale.name}
 					layout="fill"
 				/>
-			</LazyLoad>
-		</div>
+			</div>
+		</LazyLoad>
 		<div className="swiper_slide_footer">
 			<div className="swiper_slide_footer_price">
 				{(props.sale.price / 100000)
@@ -56,6 +56,7 @@ const Item = (props: ItemType) => (
 				<div>
 					ĐÃ BÁN {props.sale.flash_sale_stock - props.sale.stock}
 				</div>
+				<div></div>
 			</div>
 		</div>
 		<div className="swiper_slide_discount">{props.sale.raw_discount}%</div>
@@ -87,14 +88,14 @@ function CountDown({ session }: CountDownType) {
 	}, []);
 	useEffect(() => {
 		if (!session.end_time) return;
-		const time = session.end_time * 1000 - new Date().getTime();
-		if (time < 0) {
-			seth(["0", "0"]);
-			setm(["0", "0"]);
-			sets(["0", "0"]);
-			return;
-		}
 		const id = setInterval(() => {
+			const time = session.end_time * 1000 - new Date().getTime();
+			if (time < 0) {
+				seth(["0", "0"]);
+				setm(["0", "0"]);
+				sets(["0", "0"]);
+				return;
+			}
 			const timeObj = convertMsToTime(time);
 			const hArr = timeObj.h.split("");
 			const mArr = timeObj.m.split("");

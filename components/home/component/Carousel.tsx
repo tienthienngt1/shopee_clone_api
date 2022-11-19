@@ -71,6 +71,28 @@ const Carousel = () => {
 				)}
 			</div>
 			<div>
+				<LazyLoad>
+					<div
+						style={{
+							position: "relative",
+						}}
+					>
+						<Image
+							src={
+								carouselBanner && carouselBanner?.length > 0
+									? carouselBanner[carouselBanner?.length - 1]
+											?.image_url
+									: emptyImage
+							}
+							alt={
+								carouselBanner &&
+								carouselBanner[carouselBanner?.length - 1]
+									?.target_url
+							}
+							layout="fill"
+						/>
+					</div>
+				</LazyLoad>
 				<div
 					style={{
 						position: "relative",
@@ -79,39 +101,17 @@ const Carousel = () => {
 					<Image
 						src={
 							carouselBanner && carouselBanner?.length > 0
-								? carouselBanner[carouselBanner?.length - 1]
+								? carouselBanner[carouselBanner?.length - 2]
 										?.image_url
 								: emptyImage
 						}
 						alt={
 							carouselBanner &&
-							carouselBanner[carouselBanner?.length - 1]
+							carouselBanner[carouselBanner?.length - 2]
 								?.target_url
 						}
 						layout="fill"
 					/>
-				</div>
-				<div
-					style={{
-						position: "relative",
-					}}
-				>
-					<LazyLoad>
-						<Image
-							src={
-								carouselBanner && carouselBanner?.length > 0
-									? carouselBanner[carouselBanner?.length - 2]
-											?.image_url
-									: emptyImage
-							}
-							alt={
-								carouselBanner &&
-								carouselBanner[carouselBanner?.length - 2]
-									?.target_url
-							}
-							layout="fill"
-						/>
-					</LazyLoad>
 				</div>
 			</div>
 		</WrapCarouselStyled>

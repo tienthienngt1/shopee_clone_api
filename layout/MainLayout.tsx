@@ -1,11 +1,13 @@
 import { PropsWithChildren } from "react";
-import Header from "./header";
+import Footer from "./footer/component";
+import Header from "./header/component";
 
 const MainLayout = ({ children }: PropsWithChildren) => {
 	return (
 		<>
 			<Header />
 			{children}
+			<Footer />
 		</>
 	);
 };

@@ -6,7 +6,7 @@ import {
 	WrapSearchStyled,
 	WrapSearchInputStyled,
 	WrapSearchCategoryStyled,
-} from "./MainStyled";
+} from "../styled";
 import { LogoSvg } from "components/common/component";
 
 const Logo = () => {

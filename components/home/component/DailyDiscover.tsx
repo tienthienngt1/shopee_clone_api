@@ -32,4 +32,4 @@ const DailyDiscover = () => {
 	);
 };
 
-export default DailyDiscover;
+export { DailyDiscover };

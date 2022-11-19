@@ -1,12 +1,14 @@
+import { lazy, Suspense } from "react";
 import type { NextPage } from "next";
 import MainLayout from "layout/MainLayout";
-import { Seo, Container } from "components/common/component";
+import { Seo, Container, Loading } from "components/common/component";
 import {
 	FullHomeBanner,
 	SingleBanner,
 	CategoryHome,
 	FlashSale,
 	TopSearch,
+	DailyDiscover,
 } from "components/home/component";
 import "swiper/css";
 import "swiper/css/grid";
@@ -14,7 +16,6 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/autoplay";
 import "swiper/css/effect-fade";
-import DailyDiscover from "components/home/component/DailyDiscover";
 
 const Home: NextPage = () => {
 	return (

@@ -66,6 +66,9 @@ export const ItemHeader = styled.div`
 		height: 100%;
 	}
 	.item_image {
+		.Lazyload {
+			position: relative;
+		}
 	}
 `;
 export const ItemFooter = styled.div`

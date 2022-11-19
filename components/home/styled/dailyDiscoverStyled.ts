@@ -1,8 +1,6 @@
-import Item from "components/common/component/Item";
 import styled from "styled-components";
 export const WrapDailyDiscover = styled.div`
 	margin: 1rem 0;
-	margin-bottom: 500px;
 `;
 
 export const DailyDiscoverHeader = styled.div`

@@ -7,6 +7,7 @@ import categoryTree from "./slice/categoryTree";
 import flashSale from "./slice/flashSale";
 import topSearch from "./slice/topSearch";
 import dailyDiscover from "./slice/dailyDiscover";
+import footerLayout from "./slice/footerLayout";
 
 export const store = configureStore({
 	reducer: {
@@ -15,6 +16,7 @@ export const store = configureStore({
 		flashSale,
 		topSearch,
 		dailyDiscover,
+		footerLayout,
 	},
 });
 

@@ -54,19 +54,18 @@ export const WrapSwiperSlide = styled.div<Props>`
 		&_progress {
 			width: 80%;
 			padding: 2px 0;
-			color: #fff;
 			background: rgb(255, 0, 0, 0.3);
 			border-radius: 10px;
-			text-align: center;
 			position: relative;
 			overflow: hidden;
-			z-index: 1;
-			div {
-				z-index: 3;
+			& > div:first-child {
+				position: relative;
+				text-align: center;
+				z-index: 99;
+				color: #fff;
 			}
-			div::after {
+			& > div:last-child::before {
 				content: "";
-				z-index: 2;
 				width: ${(prop) => prop.percent + "%"};
 				height: 100%;
 				position: absolute;
