@@ -14,6 +14,7 @@ import "swiper/css/pagination";
 import "swiper/css/autoplay";
 import ApiError from "components/common/component/ApiError";
 import { Loading } from "components/common/component";
+import LazyLoad from "react-lazy-load";
 
 const Carousel = () => {
 	const { carouselBanner } = useSelector(
@@ -95,20 +96,22 @@ const Carousel = () => {
 						position: "relative",
 					}}
 				>
-					<Image
-						src={
-							carouselBanner && carouselBanner?.length > 0
-								? carouselBanner[carouselBanner?.length - 2]
-										?.image_url
-								: emptyImage
-						}
-						alt={
-							carouselBanner &&
-							carouselBanner[carouselBanner?.length - 2]
-								?.target_url
-						}
-						layout="fill"
-					/>
+					<LazyLoad>
+						<Image
+							src={
+								carouselBanner && carouselBanner?.length > 0
+									? carouselBanner[carouselBanner?.length - 2]
+											?.image_url
+									: emptyImage
+							}
+							alt={
+								carouselBanner &&
+								carouselBanner[carouselBanner?.length - 2]
+									?.target_url
+							}
+							layout="fill"
+						/>
+					</LazyLoad>
 				</div>
 			</div>
 		</WrapCarouselStyled>

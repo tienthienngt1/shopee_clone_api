@@ -6,7 +6,7 @@ import homeBanner from "./slice/homeBanner";
 import categoryTree from "./slice/categoryTree";
 import flashSale from "./slice/flashSale";
 import topSearch from "./slice/topSearch";
-import recommend from "./slice/recommend";
+import dailyDiscover from "./slice/dailyDiscover";
 
 export const store = configureStore({
 	reducer: {
@@ -14,7 +14,7 @@ export const store = configureStore({
 		categoryTree,
 		flashSale,
 		topSearch,
-		recommend,
+		dailyDiscover,
 	},
 });
 

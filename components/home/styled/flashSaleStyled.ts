@@ -109,6 +109,7 @@ export const WrapCountDown = styled.div`
 		width: 22px;
 		height: 15px;
 		background: rgb(0, 0, 0, 0.9);
+		overflow: hidden;
 		& > div {
 			height: 15px;
 			text-align: center;

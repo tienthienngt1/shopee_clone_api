@@ -15,6 +15,7 @@ import { useEffect } from "react";
 import { RootState, useThunkDispatch } from "redux/store";
 import { Data, setTopSearch } from "redux/slice/topSearch";
 import { useSelector } from "react-redux";
+import LazyLoad from "react-lazy-load";
 
 const TopSearch = () => {
 	const dispatch = useThunkDispatch();
@@ -44,15 +45,17 @@ const TopSearch = () => {
 									<WrapSlide>
 										<SlideHeader>
 											<div>
-												<Image
-													src={`${
-														process.env
-															.NEXT_PUBLIC_BASE_IMAGE_URL +
-														da.images?.[0]
-													}`}
-													alt={da.name}
-													layout="fill"
-												/>
+												<LazyLoad>
+													<Image
+														src={`${
+															process.env
+																.NEXT_PUBLIC_BASE_IMAGE_URL +
+															da.images?.[0]
+														}`}
+														alt={da.name}
+														layout="fill"
+													/>
+												</LazyLoad>
 											</div>
 											<div className="top_search_info">
 												Bán{" "}

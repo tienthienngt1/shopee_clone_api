@@ -1,10 +1,11 @@
+import Item from "components/common/component/Item";
 import styled from "styled-components";
-export const WrapRecommend = styled.div`
+export const WrapDailyDiscover = styled.div`
 	margin: 1rem 0;
 	margin-bottom: 500px;
 `;
 
-export const RecommendHeader = styled.div`
+export const DailyDiscoverHeader = styled.div`
 	background-color: #fff;
 	padding: 1.5rem;
 	color: rgb(255, 0, 0, 0.7);
@@ -22,13 +23,12 @@ export const RecommendHeader = styled.div`
 		background: rgb(255, 0, 0, 0.7);
 	}
 `;
-export const RecommendMain = styled.div`
+export const DailyDiscoverMain = styled.div`
 	padding: 5px 2px;
 	display: flex;
 	flex-wrap: wrap;
-	align-items: flex-start;
 `;
-export const WrapRecommendMain = styled.div`
+export const WrapDailyDiscoverMain = styled.div`
 	width: 16.66%;
 	padding: 5px;
 `;

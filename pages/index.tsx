@@ -14,7 +14,7 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/autoplay";
 import "swiper/css/effect-fade";
-import Recommend from "components/home/component/Recommend";
+import DailyDiscover from "components/home/component/DailyDiscover";
 
 const Home: NextPage = () => {
 	return (
@@ -31,7 +31,7 @@ const Home: NextPage = () => {
 					<FlashSale />
 					<SingleBanner id={2} />
 					<TopSearch />
-					<Recommend />
+					<DailyDiscover />
 				</Container>
 			</MainLayout>
 		</>

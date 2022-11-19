@@ -13,6 +13,7 @@ export type Data = {
 	price: number;
 	stock: number;
 	flash_sale_stock: number;
+	promo_overlay_image: string;
 };
 export type Session = {
 	end_time: number;
@@ -54,6 +55,7 @@ const flashSaleState = createSlice({
 					price: item.price,
 					stock: item.stock,
 					flash_sale_stock: item.flash_sale_stock,
+					promo_overlay_image: item.promo_overlay_image,
 				}));
 			}
 		});

@@ -41,27 +41,25 @@ export function CategoryHome() {
 					{data?.map((da) => {
 						if (da.catid === 11082137) return;
 						return (
-							<>
-								<SwiperSlide key={da.catid}>
-									<SwiperSlideHeader>
-										<div>
-											<Image
-												src={
-													process.env
-														.NEXT_PUBLIC_BASE_IMAGE_URL +
-													da.image
-												}
-												alt={da.name}
-												width={90}
-												height={90}
-											/>
-										</div>
-									</SwiperSlideHeader>
-									<SwiperSlideFooter>
-										{da.display_name}
-									</SwiperSlideFooter>
-								</SwiperSlide>
-							</>
+							<SwiperSlide key={da.catid}>
+								<SwiperSlideHeader>
+									<div>
+										<Image
+											src={
+												process.env
+													.NEXT_PUBLIC_BASE_IMAGE_URL +
+												da.image
+											}
+											alt={da.name}
+											width={90}
+											height={90}
+										/>
+									</div>
+								</SwiperSlideHeader>
+								<SwiperSlideFooter>
+									{da.display_name}
+								</SwiperSlideFooter>
+							</SwiperSlide>
 						);
 					})}
 				</Slide>

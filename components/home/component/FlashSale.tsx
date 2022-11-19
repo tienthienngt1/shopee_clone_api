@@ -13,10 +13,11 @@ import flashSaleLogo from "public/flashSaleLogo.png";
 import { SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper";
 import { useThunkDispatch, RootState } from "redux/store";
-import { Data, setFlashSale } from "redux/slice/flashSale";
+import { Data, setFlashSale, Session } from "redux/slice/flashSale";
 import { ChevronRight } from "react-bootstrap-icons";
 import { useSelector } from "react-redux";
 import { Slide } from "components/common/component";
+import LazyLoad from "react-lazy-load";
 
 type ItemType = {
 	sale: Data;
@@ -31,11 +32,16 @@ const Item = (props: ItemType) => (
 		}
 	>
 		<div className="swiper_slide_header">
-			<Image
-				src={process.env.NEXT_PUBLIC_BASE_IMAGE_URL + props.sale.image}
-				alt={props.sale.name}
-				layout="fill"
-			/>
+			<LazyLoad>
+				<Image
+					src={
+						process.env.NEXT_PUBLIC_BASE_IMAGE_URL +
+						props.sale.image
+					}
+					alt={props.sale.name}
+					layout="fill"
+				/>
+			</LazyLoad>
 		</div>
 		<div className="swiper_slide_footer">
 			<div className="swiper_slide_footer_price">
@@ -56,33 +62,39 @@ const Item = (props: ItemType) => (
 	</WrapSwiperSlide>
 );
 
-function CountDown() {
+type CountDownType = {
+	session: Session;
+};
+function CountDown({ session }: CountDownType) {
 	const [h, seth] = useState<string[]>(["0", "0"]);
 	const [m, setm] = useState<string[]>(["0", "0"]);
 	const [s, sets] = useState<string[]>(["0", "0"]);
-	const padTo2Digits = useCallback((num: number) => {
-		return num.toString().padStart(2, "0");
-	}, []);
-	const convertMsToTime = useCallback(
-		(milliseconds: number) => {
-			let seconds = Math.floor(milliseconds / 1000);
-			let minutes = Math.floor(seconds / 60);
-			let hours = Math.floor(milliseconds / 1000 / 3600);
-			seconds = seconds % 60;
-			minutes = minutes % 60;
+	const convertMsToTime = useCallback((milliseconds: number) => {
+		const padTo2Digits = (num: number) => {
+			return num.toString().padStart(2, "0");
+		};
+		let seconds = Math.floor(milliseconds / 1000);
+		let minutes = Math.floor(seconds / 60);
+		let hours = Math.floor(milliseconds / 1000 / 3600);
+		seconds = seconds % 60;
+		minutes = minutes % 60;
 
-			return {
-				h: padTo2Digits(hours),
-				m: padTo2Digits(minutes),
-				s: padTo2Digits(seconds),
-			};
-		},
-		[padTo2Digits]
-	);
-	const TIME = new Date(2022, 10, 17, 20, 30, 0).getTime();
+		return {
+			h: padTo2Digits(hours),
+			m: padTo2Digits(minutes),
+			s: padTo2Digits(seconds),
+		};
+	}, []);
 	useEffect(() => {
-		setInterval(() => {
-			const time = TIME - new Date().getTime();
+		if (!session.end_time) return;
+		const time = session.end_time * 1000 - new Date().getTime();
+		if (time < 0) {
+			seth(["0", "0"]);
+			setm(["0", "0"]);
+			sets(["0", "0"]);
+			return;
+		}
+		const id = setInterval(() => {
 			const timeObj = convertMsToTime(time);
 			const hArr = timeObj.h.split("");
 			const mArr = timeObj.m.split("");
@@ -91,8 +103,8 @@ function CountDown() {
 			setm(mArr);
 			sets(sArr);
 		}, 1000);
-		return () => {};
-	}, []);
+		return () => clearInterval(id);
+	}, [session.end_time, convertMsToTime]);
 	const firstNumberArr = [5, 4, 3, 2, 1, 0];
 	const secondNumberArr = [9, 8, 7, 6, 5, 4, 3, 2, 1, 0];
 	return (
@@ -150,7 +162,9 @@ function CountDown() {
 }
 
 export function FlashSale() {
-	const flashSale = useSelector((state: RootState) => state.flashSale);
+	const { data, session } = useSelector(
+		(state: RootState) => state.flashSale
+	);
 	const dispatch = useThunkDispatch();
 	useEffect(() => {
 		dispatch(setFlashSale());
@@ -165,7 +179,7 @@ export function FlashSale() {
 						width={120}
 						height={25}
 					/>
-					<CountDown />
+					<CountDown session={session as Session} />
 				</div>
 				<div>
 					Xem Tất Cả <ChevronRight />
@@ -180,8 +194,8 @@ export function FlashSale() {
 					spaceBetween={10}
 					allowTouchMove={false}
 				>
-					{flashSale.data?.[0]
-						? flashSale.data.map((sale: Data) => (
+					{data?.[0]
+						? data.map((sale: Data) => (
 								<SwiperSlide key={sale.itemid}>
 									<Item sale={sale} />
 								</SwiperSlide>

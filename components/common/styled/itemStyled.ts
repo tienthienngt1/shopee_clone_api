@@ -1,7 +1,11 @@
 import styled from "styled-components";
+
 export const WrapItem = styled.div`
 	background-color: #fff;
 	cursor: pointer;
+	display: flex;
+	height: 100%;
+	flex-direction: column;
 	box-shadow: 0 0.0625rem 0.125rem 0 rgb(0 0 0 / 10%);
 	&:hover {
 		border-radius: 3px;
@@ -11,6 +15,7 @@ export const WrapItem = styled.div`
 `;
 
 export const ItemHeader = styled.div`
+	flex-shrink: 0;
 	width: 100%;
 	aspect-ratio: 1/1;
 	position: relative;
@@ -64,6 +69,10 @@ export const ItemHeader = styled.div`
 	}
 `;
 export const ItemFooter = styled.div`
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
 	padding: 5px;
 	.item_footer_name {
 		display: inline-block;
@@ -85,6 +94,9 @@ export const ItemFooter = styled.div`
 		}
 		& > div:last-child {
 			color: rgb(0, 0, 0, 0.54);
+			span {
+				text-transform: lowercase;
+			}
 		}
 	}
 `;
