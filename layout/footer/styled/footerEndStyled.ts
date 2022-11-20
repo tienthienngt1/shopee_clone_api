@@ -6,7 +6,10 @@ export const FooterEndHeader = styled.div`
 	margin: 3rem;
 	text-align: center;
 	color: rgb(0, 0, 0, 0.6);
-	span {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	div {
 		padding: 1rem;
 	}
 `;
@@ -21,9 +24,9 @@ export const FooterEndBody = styled.div`
 export const FooterEndBottom = styled.div`
 	text-align: center;
 	color: rgb(0, 0, 0, 0.6);
-	div {
+	& > div {
 		&:first-child {
-			padding-bottom: 1rem;
+			margin-bottom: 1rem;
 		}
 		padding: 5px 0;
 	}

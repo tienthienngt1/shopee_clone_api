@@ -4,6 +4,7 @@ import { setDailyDiscover } from "redux/slice/dailyDiscover";
 import { RootState, useThunkDispatch } from "redux/store";
 import { useSelector } from "react-redux";
 import {
+	DailyDiscoverBottom,
 	DailyDiscoverHeader,
 	DailyDiscoverMain,
 	WrapDailyDiscover,
@@ -28,6 +29,9 @@ const DailyDiscover = () => {
 						</WrapDailyDiscoverMain>
 					))}
 			</DailyDiscoverMain>
+			<DailyDiscoverBottom>
+				<div>Xem Thêm</div>
+			</DailyDiscoverBottom>
 		</WrapDailyDiscover>
 	);
 };

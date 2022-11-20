@@ -11,7 +11,8 @@ export function Seo(props: Props) {
 		<Head>
 			<meta
 				name="viewport"
-				content={`width=${WIDTH_MAX},shrink-to-fit=no`}
+				// content={`width=${WIDTH_MAX},shrink-to-fit=no`}
+				content={`width=${WIDTH_MAX},maximum-scale=1.0, minium-scale=1.0`}
 			/>
 			<title>{props.title}</title>
 			<meta name="title" content={props.title} />

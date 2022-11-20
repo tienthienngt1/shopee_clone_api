@@ -30,3 +30,19 @@ export const WrapDailyDiscoverMain = styled.div`
 	width: 16.66%;
 	padding: 5px;
 `;
+export const DailyDiscoverBottom = styled.div`
+	margin: 2rem 0;
+	display: flex;
+	justify-content: center;
+	& > div {
+		display: inline-block;
+		border: 1px solid rgb(0, 0, 0, 0.1);
+		color: rgb(0, 0, 0, 0.6);
+		padding: 1rem 14rem;
+		background: #fff;
+		&:hover {
+			background: rgb(0, 0, 0, 0.01);
+			cursor: pointer;
+		}
+	}
+`;

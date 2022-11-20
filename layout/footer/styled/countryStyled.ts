@@ -1,5 +1,6 @@
 import styled from "styled-components";
 export const WrapCountry = styled.div`
+	width: 100%;
 	padding: 5rem 0;
 	color: rgb(0, 0, 0, 0.7);
 	display: flex;

@@ -25,7 +25,9 @@ export function CategoryHome() {
 	}, [dispatch]);
 	return (
 		<WrapCategoryHomeStyled>
-			<TitleCategoryHomeStyled>DANH MỤC</TitleCategoryHomeStyled>
+			<TitleCategoryHomeStyled>
+				<p>DANH MỤC</p>
+			</TitleCategoryHomeStyled>
 			<ItemCategoryHomeStyled>
 				<Slide
 					id="cat_home"

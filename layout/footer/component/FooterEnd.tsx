@@ -13,9 +13,9 @@ const FooterEnd = (props: Props) => {
 	return (
 		<WrapFooterEnd>
 			<FooterEndHeader>
-				<span>CHÍNH SÁCH BẢO MẬT</span> |<span> QUY CHẾ HOẠT ĐỘNG</span>{" "}
-				|<span>CHÍNH SÁCH VẬN CHUYÊN</span> |
-				<span>CHÍNH SÁCH TRẢ HÀNG VÀ HOÀN TIỀN</span>
+				<div>CHÍNH SÁCH BẢO MẬT</div> |<div> QUY CHẾ HOẠT ĐỘNG</div> |
+				<div>CHÍNH SÁCH VẬN CHUYÊN</div> |
+				<div>CHÍNH SÁCH TRẢ HÀNG VÀ HOÀN TIỀN</div>
 			</FooterEndHeader>
 			<FooterEndBody>
 				<div>

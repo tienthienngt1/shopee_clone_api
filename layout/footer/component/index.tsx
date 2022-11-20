@@ -31,7 +31,9 @@ const Footer = () => {
 					<Country />
 				</Container>
 			</WrapFooter>
-			<FooterEnd />
+			<Container>
+				<FooterEnd />
+			</Container>
 		</>
 	);
 };
