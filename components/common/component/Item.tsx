@@ -1,6 +1,7 @@
+import { useState } from "react";
 import React from "react";
 import { Data } from "redux/slice/dailyDiscover";
-import { ItemFooter, ItemHeader, WrapItem } from "../styled/itemStyled";
+import { ItemFooter, ItemHeader, WrapItem, FindSameProduct } from "../styled/";
 import Image from "next/image";
 import LazyLoad from "react-lazy-load";
 
@@ -9,6 +10,7 @@ export type Props = {
 };
 
 const Item = ({ data }: Props) => {
+	const [isHover, setIsHover] = useState<boolean>(false);
 	return (
 		<WrapItem>
 			<ItemHeader>
@@ -52,6 +54,7 @@ const Item = ({ data }: Props) => {
 					</div>
 				</div>
 			</ItemFooter>
+			<FindSameProduct></FindSameProduct>
 		</WrapItem>
 	);
 };

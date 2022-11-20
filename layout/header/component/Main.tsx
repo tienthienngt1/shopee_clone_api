@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Search, Cart2 } from "react-bootstrap-icons";
 import {
 	WrapLogoStyled,
@@ -8,6 +9,9 @@ import {
 	WrapSearchCategoryStyled,
 } from "../styled";
 import { LogoSvg } from "components/common/component";
+import { RootState, useThunkDispatch } from "redux/store";
+import { setSearchPrefill } from "redux/slice/searchPrefill";
+import { useSelector } from "react-redux";
 
 const Logo = () => {
 	return (
@@ -18,25 +22,26 @@ const Logo = () => {
 };
 
 const SearchMain = () => {
+	const { placeholder, topSearch } = useSelector(
+		(state: RootState) => state.searchPrefill
+	);
+	const dispatch = useThunkDispatch();
+	useEffect(() => {
+		dispatch(setSearchPrefill());
+	}, [dispatch]);
 	return (
 		<WrapSearchStyled>
 			<WrapSearchInputStyled>
 				<div>
-					<input placeholder="Đăng kí và nhận voucher bạn mới đến 70k!" />
+					<input placeholder={placeholder} />
 				</div>
 				<div>
 					<Search />
 				</div>
 			</WrapSearchInputStyled>
 			<WrapSearchCategoryStyled>
-				<span>Áo Khoác</span>
-				<span>Dép</span>
-				<span>Túi Xách Nữ</span>
-				<span>Áo Croptop</span>
-				<span>Áo Khoác Nam</span>
-				<span>Váy</span>
-				<span>Ốp Iphone</span>
-				<span>Bánh Tráng Phơi Sương</span>
+				{topSearch &&
+					topSearch.map((s) => <span key={s.title}>{s.title}</span>)}
 			</WrapSearchCategoryStyled>
 		</WrapSearchStyled>
 	);

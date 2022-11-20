@@ -38,8 +38,6 @@ const footerLayoutState = createSlice({
 	reducers: {},
 	extraReducers: (builder) => {
 		builder.addCase(setFooterLayout.fulfilled, (state, action) => {
-			console.log(action.payload.data.pc);
-
 			if (action.payload.data?.pc) {
 				const dataList = action.payload.data.pc.map((p: any) => {
 					let text_link, qr, logo, social_media;

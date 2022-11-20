@@ -8,6 +8,7 @@ import flashSale from "./slice/flashSale";
 import topSearch from "./slice/topSearch";
 import dailyDiscover from "./slice/dailyDiscover";
 import footerLayout from "./slice/footerLayout";
+import searchPrefill from "./slice/searchPrefill";
 
 export const store = configureStore({
 	reducer: {
@@ -17,6 +18,7 @@ export const store = configureStore({
 		topSearch,
 		dailyDiscover,
 		footerLayout,
+		searchPrefill,
 	},
 });
 

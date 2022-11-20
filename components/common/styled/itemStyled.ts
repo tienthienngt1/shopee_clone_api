@@ -103,3 +103,4 @@ export const ItemFooter = styled.div`
 		}
 	}
 `;
+export const FindSameProduct = styled.div``;
