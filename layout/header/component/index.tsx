@@ -8,21 +8,25 @@ const ComponentFullStyled = styled.div`
 	background: ${BACKGROUND_GRADIENT};
 `;
 
-const WrapHeaderStyled = styled(Container)`
+const WrapHeaderStyled = styled.div`
+	width: 100%;
 	position: fixed;
 	top: 0;
 	left: 0;
 	right: 0;
+	z-index: 99;
 `;
 
 const Header = () => {
 	return (
-		<ComponentFullStyled>
-			<WrapHeaderStyled>
-				<Sub />
-				<Main />
-			</WrapHeaderStyled>
-		</ComponentFullStyled>
+		<WrapHeaderStyled>
+			<ComponentFullStyled>
+				<Container>
+					<Sub />
+					<Main />
+				</Container>
+			</ComponentFullStyled>
+		</WrapHeaderStyled>
 	);
 };
 

@@ -4,21 +4,26 @@ export const WrapDailyDiscover = styled.div`
 `;
 
 export const DailyDiscoverHeader = styled.div`
-	background-color: #fff;
-	padding: 1.5rem;
-	color: rgb(255, 0, 0, 0.7);
-	text-transform: uppercase;
-	text-align: center;
-	font-size: 1.3rem;
-	position: relative;
-	&::after {
-		content: "";
-		width: 100%;
-		height: 5px;
-		position: absolute;
-		bottom: 0;
-		left: 0;
-		background: rgb(255, 0, 0, 0.7);
+	position: sticky;
+	top: 9rem;
+	z-index: 99;
+	& > div {
+		background-color: #fff;
+		padding: 1.5rem;
+		color: rgb(255, 0, 0, 0.7);
+		text-transform: uppercase;
+		text-align: center;
+		font-size: 1.3rem;
+		position: relative;
+		&::after {
+			content: "";
+			width: 100%;
+			height: 5px;
+			position: absolute;
+			bottom: 0;
+			left: 0;
+			background: rgb(255, 0, 0, 0.7);
+		}
 	}
 `;
 export const DailyDiscoverMain = styled.div`
