@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { Search, Cart2 } from "react-bootstrap-icons";
 import {
 	WrapLogoStyled,
@@ -9,8 +8,7 @@ import {
 	WrapSearchCategoryStyled,
 } from "../styled";
 import { LogoSvg } from "components/common/component";
-import { RootState, useThunkDispatch } from "redux/store";
-import { setSearchPrefill } from "redux/slice/searchPrefill";
+import { RootState } from "redux/store";
 import { useSelector } from "react-redux";
 
 const Logo = () => {
@@ -25,10 +23,6 @@ const SearchMain = () => {
 	const { placeholder, topSearch } = useSelector(
 		(state: RootState) => state.searchPrefill
 	);
-	const dispatch = useThunkDispatch();
-	useEffect(() => {
-		dispatch(setSearchPrefill());
-	}, [dispatch]);
 	return (
 		<WrapSearchStyled>
 			<WrapSearchInputStyled>

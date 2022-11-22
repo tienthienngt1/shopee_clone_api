@@ -8,6 +8,8 @@ import {
 import { setDailyDiscover } from "redux/slice/dailyDiscover";
 import { setTopSearch } from "redux/slice/topSearch";
 import { setFlashSale } from "redux/slice/flashSale";
+import { setSearchPrefill } from "redux/slice/searchPrefill";
+import { setFooterLayout } from "redux/slice/footerLayout";
 
 const useLoad = () => {
 	const [error, setError] = useState<boolean>(false);
@@ -16,12 +18,14 @@ const useLoad = () => {
 	const dispatch = useThunkDispatch();
 	useEffect(() => {
 		try {
+			dispatch(setSearchPrefill());
 			dispatch(setCategoryTree());
 			dispatch(setDailyDiscover());
 			dispatch(setFlashSale());
 			dispatch(setCarouselBanner());
 			dispatch(setSubCarouselBanner());
 			dispatch(setTopSearch());
+			dispatch(setFooterLayout());
 			setLoading(false);
 			setResult(true);
 		} catch (error) {

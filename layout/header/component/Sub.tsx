@@ -11,13 +11,53 @@ import { WrapStyled, WrapSubStyled } from "../styled";
 const SubLeft = () => {
 	return (
 		<WrapStyled>
-			<span>Kênh người bán</span>|<span>Trở thành người bán shopee</span>|
-			<span>Tải ứng dụng xuống</span>| Kết nối
 			<span>
-				<Facebook />
+				<a
+					href="https://banhang.shopee.vn"
+					target="_blank"
+					rel="noreferrer"
+				>
+					Kênh người bán
+				</a>
+			</span>
+			|
+			<span>
+				<a
+					href="https://banhang.shopee.vn"
+					target="_blank"
+					rel="noreferrer"
+				>
+					Trở thành người bán shopee
+				</a>
+			</span>
+			|
+			<span>
+				<a
+					href="https://shopee.vn/web"
+					target="_blank"
+					rel="noreferrer"
+				>
+					Tải ứng dụng xuống
+				</a>
+			</span>
+			| Kết nối
+			<span>
+				<a
+					href="https://facebook.com/ShopeeVN"
+					target="_blank"
+					rel="noreferrer"
+				>
+					<Facebook />
+				</a>
 			</span>
 			<span>
-				<Instagram />
+				<a
+					href="https://instagram.com/Shopee_VN"
+					target="_blank"
+					rel="noreferrer"
+				>
+					<Instagram />
+				</a>
 			</span>
 		</WrapStyled>
 	);
