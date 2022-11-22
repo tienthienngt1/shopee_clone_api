@@ -11,4 +11,4 @@ function ApiError() {
 	return <WrapStyled>Api Error</WrapStyled>;
 }
 
-export default ApiError;
+export { ApiError };

@@ -8,9 +8,6 @@ import {
 import { SwiperSlide } from "swiper/react";
 import { Grid, Navigation } from "swiper";
 import Image from "next/image";
-import { useEffect } from "react";
-import { useThunkDispatch } from "redux/store";
-import { setCategoryTree } from "redux/slice/categoryTree";
 import { useSelector } from "react-redux";
 import { RootState } from "redux/store";
 import { Slide } from "components/common/component";
@@ -19,10 +16,6 @@ export function CategoryHome() {
 	const {
 		categoryTree: { data },
 	} = useSelector((state: RootState) => state);
-	const dispatch = useThunkDispatch();
-	useEffect(() => {
-		dispatch(setCategoryTree());
-	}, [dispatch]);
 	return (
 		<WrapCategoryHomeStyled>
 			<TitleCategoryHomeStyled>

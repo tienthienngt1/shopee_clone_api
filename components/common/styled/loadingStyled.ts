@@ -5,6 +5,7 @@ export const WrapLoadingStyled = styled.div`
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	padding: 5rem;
 	.balls {
 		width: 3.5em;
 		display: flex;

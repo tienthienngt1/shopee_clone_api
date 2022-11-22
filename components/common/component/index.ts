@@ -4,3 +4,4 @@ export * from "./Loading";
 export * from "./LogoSvg";
 export * from "./Seo";
 export * from "./Slide";
+export * from "./ApiError";

@@ -11,18 +11,13 @@ import { ChevronRight } from "react-bootstrap-icons";
 import { Slide } from "components/common/component";
 import { Navigation } from "swiper";
 import { SwiperSlide } from "swiper/react";
-import { useEffect } from "react";
-import { RootState, useThunkDispatch } from "redux/store";
-import { Data, setTopSearch } from "redux/slice/topSearch";
+import { RootState } from "redux/store";
+import { Data } from "redux/slice/topSearch";
 import { useSelector } from "react-redux";
 import LazyLoad from "react-lazy-load";
 
 const TopSearch = () => {
-	const dispatch = useThunkDispatch();
 	const { data } = useSelector((state: RootState) => state.topSearch);
-	useEffect(() => {
-		dispatch(setTopSearch());
-	}, [dispatch]);
 	return (
 		<WrapTopSearch>
 			<TopSearchHeader>

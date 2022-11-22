@@ -56,10 +56,6 @@ const homeBannerState = createSlice({
 					}));
 			});
 		});
-		builder.addCase(setCarouselBanner.rejected, (state) => {
-			state.carouselBanner = undefined;
-			state.subCarouselBanner = undefined;
-		});
 		builder.addCase(setSubCarouselBanner.fulfilled, (state, action) => {
 			action.payload.data.banners.map((ban: any) => {
 				state.categoryBanner = ban.banners.map((b: any) => ({
