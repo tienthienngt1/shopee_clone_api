@@ -13,7 +13,9 @@ const DailyDiscover = () => {
 	const { data } = useSelector((state: RootState) => state.dailyDiscover);
 	return (
 		<WrapDailyDiscover>
-			<DailyDiscoverHeader> gợi ý hôm nay</DailyDiscoverHeader>
+			<DailyDiscoverHeader>
+				<div>gợi ý hôm nay</div>
+			</DailyDiscoverHeader>
 			<DailyDiscoverMain>
 				{data &&
 					data.length > 0 &&
