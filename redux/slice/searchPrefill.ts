@@ -14,7 +14,6 @@ const searchPrefillState = createSlice({
 	reducers: {},
 	extraReducers: (builder) => {
 		builder.addCase(setSearchPrefill.fulfilled, (state, action) => {
-			console.log(action.payload);
 			if (action.payload.resSearch?.data?.items?.[0]?.hint)
 				state.placeholder =
 					action.payload.resSearch?.data?.items?.[0]?.hint;

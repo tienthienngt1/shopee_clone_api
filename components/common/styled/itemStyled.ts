@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 export const WrapItem = styled.div`
+	position: relative;
 	background-color: #fff;
 	cursor: pointer;
 	display: flex;
@@ -103,4 +104,14 @@ export const ItemFooter = styled.div`
 		}
 	}
 `;
-export const FindSameProduct = styled.div``;
+export const FindSameProduct = styled.div`
+	position: absolute;
+	bottom: 0;
+	z-index: 9999;
+	left: 0;
+	width: 100%;
+	text-align: center;
+	color: #fff;
+	background: #ee4d2d;
+	padding: 0.8rem;
+`;

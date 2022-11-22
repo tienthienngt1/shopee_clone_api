@@ -13,21 +13,23 @@ const CategoryBanner = () => {
 				categoryBanner.length > 0 &&
 				categoryBanner.map((res: any) => (
 					<div key={res?.id}>
-						<div>
-							<Image
-								src={
-									res?.banner_image_gif
-										? res.banner_image_gif
-										: res?.banner_image
-										? res.banner_image
-										: ""
-								}
-								alt={JSON.parse(res.title)?.vi}
-								width="40"
-								height="40"
-							/>
-						</div>
-						<div>{JSON.parse(res.title).vi}</div>
+						<a href={res.url} target="_blank" rel="noreferrer">
+							<div>
+								<Image
+									src={
+										res?.banner_image_gif
+											? res.banner_image_gif
+											: res?.banner_image
+											? res.banner_image
+											: ""
+									}
+									alt={JSON.parse(res.title)?.vi}
+									width="40"
+									height="40"
+								/>
+							</div>
+							<div>{JSON.parse(res.title).vi}</div>
+						</a>
 					</div>
 				))}
 		</WrapCategoryBannerStyled>

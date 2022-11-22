@@ -21,7 +21,6 @@ import { ApiError } from "components/common/component";
 
 const Home: NextPage = () => {
 	const [loading, result, error] = useLoad();
-	console.log(loading, result, error);
 	return (
 		<>
 			<Seo

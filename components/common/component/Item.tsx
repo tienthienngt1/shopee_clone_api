@@ -12,7 +12,10 @@ export type Props = {
 const Item = ({ data }: Props) => {
 	const [isHover, setIsHover] = useState<boolean>(false);
 	return (
-		<WrapItem>
+		<WrapItem
+			onMouseEnter={() => setIsHover(true)}
+			onMouseLeave={() => setIsHover(false)}
+		>
 			<ItemHeader>
 				<div className="item_image">
 					<LazyLoad>
@@ -54,7 +57,9 @@ const Item = ({ data }: Props) => {
 					</div>
 				</div>
 			</ItemFooter>
-			<FindSameProduct></FindSameProduct>
+			{isHover && (
+				<FindSameProduct>Tìm Sản Phẩm Tương Tự</FindSameProduct>
+			)}
 		</WrapItem>
 	);
 };

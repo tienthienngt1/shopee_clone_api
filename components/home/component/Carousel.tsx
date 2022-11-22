@@ -47,11 +47,17 @@ const Carousel = () => {
 										borderRadius: "4px",
 									}}
 								>
-									<Image
-										src={ban?.image_url}
-										alt={ban?.target_url}
-										layout="fill"
-									/>
+									<a
+										href={ban?.target_url}
+										target="_blank"
+										rel="noreferrer"
+									>
+										<Image
+											src={ban?.image_url}
+											alt={ban?.target_url}
+											layout="fill"
+										/>
+									</a>
 								</div>
 							</SwiperSlide>
 						))}
@@ -62,42 +68,64 @@ const Carousel = () => {
 				<div
 					style={{
 						position: "relative",
+						cursor: "pointer",
 					}}
 				>
-					<Image
-						src={
-							carouselBanner && carouselBanner?.length > 0
-								? carouselBanner[carouselBanner?.length - 1]
-										?.image_url
-								: emptyImage
-						}
-						alt={
+					<a
+						href={
 							carouselBanner &&
 							carouselBanner[carouselBanner?.length - 1]
 								?.target_url
 						}
-						layout="fill"
-					/>
+						target="_blank"
+						rel="noreferrer"
+					>
+						<Image
+							src={
+								carouselBanner && carouselBanner?.length > 0
+									? carouselBanner[carouselBanner?.length - 1]
+											?.image_url
+									: emptyImage
+							}
+							alt={
+								carouselBanner &&
+								carouselBanner[carouselBanner?.length - 1]
+									?.target_url
+							}
+							layout="fill"
+						/>
+					</a>
 				</div>
 				<div
 					style={{
 						position: "relative",
+						cursor: "pointer",
 					}}
 				>
-					<Image
-						src={
-							carouselBanner && carouselBanner?.length > 0
-								? carouselBanner[carouselBanner?.length - 2]
-										?.image_url
-								: emptyImage
-						}
-						alt={
+					<a
+						href={
 							carouselBanner &&
 							carouselBanner[carouselBanner?.length - 2]
 								?.target_url
 						}
-						layout="fill"
-					/>
+						target="_blank"
+						rel="noreferrer"
+					>
+						<Image
+							src={
+								carouselBanner && carouselBanner?.length > 0
+									? carouselBanner[carouselBanner?.length - 2]
+											?.image_url
+									: emptyImage
+							}
+							alt={
+								carouselBanner &&
+								carouselBanner[carouselBanner?.length - 2]
+									?.target_url
+							}
+							layout="fill"
+						/>
+					</a>
 				</div>
 			</div>
 		</WrapCarouselStyled>
