@@ -6,7 +6,7 @@ import { ApiError, Loading } from "components/desktop/common/component";
 import { useLoadLayout } from "../hooks/useLoadLayout";
 
 const Main = styled.div`
-	margin-top: 9rem;
+	margin-top: 10rem;
 `;
 
 const MainLayout = ({ children }: PropsWithChildren) => {

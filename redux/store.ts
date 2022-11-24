@@ -10,6 +10,7 @@ import dailyDiscover from "./slice/dailyDiscover";
 import footerLayout from "./slice/footerLayout";
 import searchPrefill from "./slice/searchPrefill";
 import bannerCat from "./slice/bannerCat";
+import shopeeMall from "./slice/shopeeMall";
 
 export const store = configureStore({
 	reducer: {
@@ -21,6 +22,7 @@ export const store = configureStore({
 		footerLayout,
 		searchPrefill,
 		bannerCat,
+		shopeeMall,
 	},
 });
 

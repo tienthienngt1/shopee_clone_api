@@ -4,7 +4,13 @@ import MainLayout from "layout/MainLayout";
 import { useRouter } from "next/router";
 import Error404 from "components/desktop/common/component/404";
 import BannerSlide from "components/desktop/category/component/BannerSlide";
-import { Loading } from "components/desktop/common/component";
+import { Container, Loading } from "components/desktop/common/component";
+import ShopeeMall from "components/desktop/category/component/ShopeeMall";
+
+import "swiper/css";
+import "swiper/css/grid";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
 
 const Category: NextPage = () => {
 	const router = useRouter();
@@ -18,7 +24,10 @@ const Category: NextPage = () => {
 	if (!router.query.category?.includes("cat")) return <Error404 />;
 	return (
 		<MainLayout>
-			<BannerSlide id={id} />
+			<Container>
+				<BannerSlide id={id} />
+				<ShopeeMall id={id} />
+			</Container>
 		</MainLayout>
 	);
 };

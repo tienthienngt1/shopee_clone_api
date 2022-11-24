@@ -19,7 +19,6 @@ const bannerCatState = createSlice({
 	reducers: {},
 	extraReducers: (builder) => {
 		builder.addCase(setBannerCat.fulfilled, (state, action) => {
-			console.log(action.payload.data?.space_banners?.[0].banners);
 			if (action.payload.data?.space_banners)
 				state.data = action.payload.data.space_banners[0].banners.map(
 					(b: any) => ({

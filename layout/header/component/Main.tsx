@@ -14,11 +14,11 @@ import Link from "next/link";
 
 const Logo = () => {
 	return (
-		<Link href="/">
-			<WrapLogoStyled>
+		<WrapLogoStyled>
+			<Link href="/">
 				<LogoSvg />
-			</WrapLogoStyled>
-		</Link>
+			</Link>
+		</WrapLogoStyled>
 	);
 };
 
