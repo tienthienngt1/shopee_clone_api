@@ -7,15 +7,18 @@ import {
 	WrapSearchInputStyled,
 	WrapSearchCategoryStyled,
 } from "../styled";
-import { LogoSvg } from "components/common/component";
+import { LogoSvg } from "components/desktop/common/component";
 import { RootState } from "redux/store";
 import { useSelector } from "react-redux";
+import Link from "next/link";
 
 const Logo = () => {
 	return (
-		<WrapLogoStyled>
-			<LogoSvg />
-		</WrapLogoStyled>
+		<Link href="/">
+			<WrapLogoStyled>
+				<LogoSvg />
+			</WrapLogoStyled>
+		</Link>
 	);
 };
 

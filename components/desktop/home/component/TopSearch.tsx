@@ -8,7 +8,7 @@ import {
 	SlideFooter,
 } from "../styled";
 import { ChevronRight } from "react-bootstrap-icons";
-import { Slide } from "components/common/component";
+import { Slide } from "components/desktop/common/component";
 import { Navigation } from "swiper";
 import { SwiperSlide } from "swiper/react";
 import { RootState } from "redux/store";

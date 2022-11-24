@@ -1,4 +1,4 @@
-import { Container } from "components/common/component";
+import { Container } from "components/desktop/common/component";
 import { WrapFullHomeBanner, WrapFullScreen } from "../styled";
 import Carousel from "./Carousel";
 import CategoryBanner from "./CategoryBanner";

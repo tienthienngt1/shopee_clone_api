@@ -1,6 +1,6 @@
 import type { NextPage } from "next";
 import MainLayout from "layout/MainLayout";
-import { Seo, Container, Loading } from "components/common/component";
+import { Seo, Container, Loading } from "components/desktop/common/component";
 import {
 	FullHomeBanner,
 	SingleBanner,
@@ -8,7 +8,7 @@ import {
 	FlashSale,
 	TopSearch,
 	DailyDiscover,
-} from "components/home/component";
+} from "components/desktop/home/component";
 
 import "swiper/css";
 import "swiper/css/grid";
@@ -17,7 +17,7 @@ import "swiper/css/pagination";
 import "swiper/css/autoplay";
 import "swiper/css/effect-fade";
 import useLoad from "hooks/useLoad";
-import { ApiError } from "components/common/component";
+import { ApiError } from "components/desktop/common/component";
 
 const Home: NextPage = () => {
 	const [loading, result, error] = useLoad();

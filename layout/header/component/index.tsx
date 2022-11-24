@@ -1,4 +1,4 @@
-import { Container } from "components/common/component";
+import { Container } from "components/desktop/common/component";
 import styled from "styled-components";
 import { BACKGROUND_GRADIENT } from "variable";
 import Sub from "./Sub";

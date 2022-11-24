@@ -1,6 +1,11 @@
-POST https://shopee.vn/api/v4/banner/batch_list
+POST https://shopee.vn/api/v4/banner/batch_list_by_spaces
 
 {
-    "types": [{"type":  
-"pc_home_squares"}]
+    "extra_data": "{}",
+			"spaces": [
+				{
+					"space_key": "PC-VN-CATEGORY_CAROUSEL_01",
+					"space_filter": [{ "key": "category_id", "value": "11035639" }],
+				},
+			],
 }

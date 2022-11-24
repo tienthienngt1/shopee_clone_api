@@ -2,26 +2,10 @@ import styled from "styled-components";
 type Props = {
 	status: boolean;
 };
-export const WrapCarouselStyled = styled.div<Props>`
-	display: flex;
-	gap: 0.5rem;
-	& > div:first-child {
-		width: 68%;
-		overflow: hidden;
-		cursor: pointer;
-	}
-	& > div:last-child {
-		display: flex;
-		flex-direction: column;
-		gap: 0.5rem;
-		width: 32%;
-		div {
-			border-radius: 4px;
-			overflow: hidden;
-			width: 100%;
-			height: 50%;
-		}
-	}
+export const WrapSlideBanner = styled.div<Props>`
+	width: 100%;
+	cursor: pointer;
+	overflow: hidden;
 	.swiper-button-prev::after,
 	.swiper-button-next::after {
 		display: ${(props) => (props.status ? "block" : "none")};

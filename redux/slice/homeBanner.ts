@@ -1,10 +1,12 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
+export type CarouselBanner =
+	| { image_hash: string; image_url: string; target_url: string }[]
+	| undefined;
+
 export type HomeBannerState = {
-	carouselBanner:
-		| { image_hash: string; image_url: string; target_url: string }[]
-		| undefined;
+	carouselBanner: CarouselBanner;
 	categoryBanner:
 		| {
 				id: number;

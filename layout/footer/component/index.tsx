@@ -1,4 +1,4 @@
-import { Container } from "components/common/component";
+import { Container } from "components/desktop/common/component";
 import { useEffect } from "react";
 import { useThunkDispatch } from "redux/store";
 import { setFooterLayout } from "redux/slice/footerLayout";

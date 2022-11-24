@@ -16,7 +16,7 @@ import { RootState } from "redux/store";
 import { Data, Session } from "redux/slice/flashSale";
 import { ChevronRight } from "react-bootstrap-icons";
 import { useSelector } from "react-redux";
-import { Slide } from "components/common/component";
+import { Slide } from "components/desktop/common/component";
 import LazyLoad from "react-lazy-load";
 
 type ItemType = {

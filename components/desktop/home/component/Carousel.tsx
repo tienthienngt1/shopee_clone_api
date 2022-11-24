@@ -1,16 +1,11 @@
 import { useState } from "react";
 import Image from "next/image";
 import { WrapCarouselStyled } from "../styled";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay, Pagination, Navigation } from "swiper";
+import SlideBanner from "components/desktop/common/component/SlideBanner";
 import { useSelector } from "react-redux";
 import { RootState } from "redux/store";
 import emptyImage from "public/emptyImage.png";
-
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
-import "swiper/css/autoplay";
+import type { CarouselBanner } from "redux/slice/homeBanner";
 
 const Carousel = () => {
 	const { carouselBanner } = useSelector(
@@ -19,7 +14,8 @@ const Carousel = () => {
 	const [hover, setHover] = useState(false);
 	return (
 		<WrapCarouselStyled status={hover}>
-			<div
+			<SlideBanner data={carouselBanner as any[]} />
+			{/* <div
 				onMouseEnter={() => setHover(true)}
 				onMouseLeave={() => setHover(false)}
 			>
@@ -63,7 +59,7 @@ const Carousel = () => {
 						))}
 					</Swiper>
 				)}
-			</div>
+			</div> */}
 			<div>
 				<div
 					style={{

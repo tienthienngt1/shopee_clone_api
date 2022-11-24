@@ -10,7 +10,7 @@ import { Grid, Navigation } from "swiper";
 import Image from "next/image";
 import { useSelector } from "react-redux";
 import { RootState } from "redux/store";
-import { Slide } from "components/common/component";
+import { Slide } from "components/desktop/common/component";
 import Link from "next/link";
 
 export function CategoryHome() {
@@ -38,25 +38,31 @@ export function CategoryHome() {
 						if (da.catid === 11082137) return;
 						return (
 							<SwiperSlide key={da.catid}>
-								<Link href={`/${da.target_url}`}>
-									<a>
-										<SwiperSlideHeader>
-											<div>
-												<Image
-													src={
-														process.env
-															.NEXT_PUBLIC_BASE_IMAGE_URL +
-														da.image
-													}
-													alt={da.name}
-													width={90}
-													height={90}
-												/>
-											</div>
-										</SwiperSlideHeader>
-										<SwiperSlideFooter>
-											{da.display_name}
-										</SwiperSlideFooter>
+								<Link href={`/${da.target_url}`} key={da.catid}>
+									<a
+										style={{
+											height: "100%",
+										}}
+									>
+										<div>
+											<SwiperSlideHeader>
+												<div>
+													<Image
+														src={
+															process.env
+																.NEXT_PUBLIC_BASE_IMAGE_URL +
+															da.image
+														}
+														alt={da.name}
+														width={90}
+														height={90}
+													/>
+												</div>
+											</SwiperSlideHeader>
+											<SwiperSlideFooter>
+												{da.display_name}
+											</SwiperSlideFooter>
+										</div>
 									</a>
 								</Link>
 							</SwiperSlide>

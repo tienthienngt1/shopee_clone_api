@@ -3,6 +3,7 @@ export const WrapLogoStyled = styled.div`
 	padding: 1rem 5rem 1rem 0;
 	width: 20%;
 	color: #fff;
+	cursor: pointer;
 `;
 export const WrapSearchStyled = styled.div`
 	width: 100%;

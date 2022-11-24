@@ -8,31 +8,39 @@ import {
 import { setDailyDiscover } from "redux/slice/dailyDiscover";
 import { setTopSearch } from "redux/slice/topSearch";
 import { setFlashSale } from "redux/slice/flashSale";
-import { setSearchPrefill } from "redux/slice/searchPrefill";
-import { setFooterLayout } from "redux/slice/footerLayout";
+import { checkDispatch } from "func";
+import { useSelector } from "react-redux";
+import { RootState } from "../redux/store";
 
 const useLoad = () => {
 	const [error, setError] = useState<boolean>(false);
 	const [result, setResult] = useState<boolean>(false);
 	const [loading, setLoading] = useState<boolean>(true);
+	const state = useSelector((state: RootState) => state);
 	const dispatch = useThunkDispatch();
 	useEffect(() => {
 		try {
-			dispatch(setSearchPrefill());
-			dispatch(setCategoryTree());
-			dispatch(setDailyDiscover());
-			dispatch(setFlashSale());
-			dispatch(setCarouselBanner());
-			dispatch(setSubCarouselBanner());
-			dispatch(setTopSearch());
-			dispatch(setFooterLayout());
+			checkDispatch(state.categoryTree.data, dispatch, setCategoryTree);
+			checkDispatch(state.dailyDiscover.data, dispatch, setDailyDiscover);
+			checkDispatch(state.flashSale.data, dispatch, setFlashSale);
+			checkDispatch(
+				state.homeBanner.carouselBanner,
+				dispatch,
+				setCarouselBanner
+			);
+			checkDispatch(
+				state.homeBanner.subCarouselBanner,
+				dispatch,
+				setSubCarouselBanner
+			);
+			checkDispatch(state.topSearch, dispatch, setTopSearch);
 			setLoading(false);
 			setResult(true);
 		} catch (error) {
 			setError(true);
 			setLoading(false);
 		}
-	}, [dispatch]);
+	}, []);
 	return [loading, result, error];
 };
 

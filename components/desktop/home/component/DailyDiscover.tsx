@@ -1,4 +1,4 @@
-import Item from "components/common/component/Item";
+import Item from "components/desktop/common/component/Item";
 import { RootState } from "redux/store";
 import { useSelector } from "react-redux";
 import {
