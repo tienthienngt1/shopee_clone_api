@@ -44,10 +44,7 @@ const ShopeeMall = ({ id }: Props) => {
 					{data?.map((da) => {
 						return (
 							<SwiperSlide key={da.shopid}>
-								<Link
-									href={`/${da.target_url}`}
-									key={da.shopid}
-								>
+								<Link href={`${da.target_url}`} key={da.shopid}>
 									<a
 										style={{
 											height: "100%",

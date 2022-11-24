@@ -16,7 +16,9 @@ const Logo = () => {
 	return (
 		<WrapLogoStyled>
 			<Link href="/">
-				<LogoSvg />
+				<a>
+					<LogoSvg />
+				</a>
 			</Link>
 		</WrapLogoStyled>
 	);
