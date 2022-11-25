@@ -12,6 +12,7 @@ import searchPrefill from "./slice/searchPrefill";
 import bannerCat from "./slice/bannerCat";
 import shopeeMall from "./slice/shopeeMall";
 import popularCollectionCat from "./slice/popularCollectionCat";
+import itemCat from "./slice/itemCat";
 
 export const store = configureStore({
 	reducer: {
@@ -25,6 +26,7 @@ export const store = configureStore({
 		bannerCat,
 		shopeeMall,
 		popularCollectionCat,
+		itemCat,
 	},
 });
 

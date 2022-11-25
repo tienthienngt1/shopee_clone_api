@@ -23,7 +23,6 @@ const popularCollectionCat = createSlice({
 	reducers: {},
 	extraReducers: (builder) => {
 		builder.addCase(setPopularCollectionCat.fulfilled, (state, action) => {
-			console.log(action.payload.data?.popular_collection_list);
 			if (action.payload.data?.popular_collection_list?.length > 0)
 				state.data = action.payload.data.popular_collection_list.map(
 					(c: any) => ({
@@ -39,6 +38,9 @@ const popularCollectionCat = createSlice({
 							})),
 					})
 				);
+			else {
+				state.data = [];
+			}
 		});
 	},
 });
@@ -49,8 +51,6 @@ export const setPopularCollectionCat = createAsyncThunk(
 		const res = await axios(
 			`api/v4/pages/get_popular_collection?catid=${id}`
 		);
-		console.log(res.data);
-
 		return res.data;
 	}
 );

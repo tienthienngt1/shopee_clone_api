@@ -41,9 +41,9 @@ const ShopeeMall = ({ id }: Props) => {
 					slidesPerView={6}
 					slidesPerGroup={6}
 				>
-					{data?.map((da) => {
+					{data?.map((da, i) => {
 						return (
-							<SwiperSlide key={da.shopid}>
+							<SwiperSlide key={da.shopid + i}>
 								<Link href={`${da.target_url}`} key={da.shopid}>
 									<a
 										style={{

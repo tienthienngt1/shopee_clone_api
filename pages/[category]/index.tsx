@@ -24,9 +24,8 @@ const Category: NextPage = () => {
 	if (!router.query.category?.includes("cat")) return <Error404 />;
 	return (
 		<>
-			{" "}
 			<Seo
-				title={query?.[0] as string}
+				title={`Shopee Việt Nam | ${query?.[0]}`}
 				description={`Shopee sàn thương mại mua bán online, ${query?.[0]}`}
 			/>
 			<MainLayout>
