@@ -2,6 +2,13 @@ import { useEffect } from "react";
 
 const MessFb = () => {
 	useEffect(() => {
+		const fbRoot = document.createElement("div");
+		fbRoot.id = "fb-root";
+		const fbChat = document.createElement("div");
+		fbChat.id = "fb-customer-chat";
+		fbChat.className = "fb-customerchat";
+		document.body.appendChild(fbRoot);
+		document.body.appendChild(fbChat);
 		var chatbox = document.getElementById("fb-customer-chat");
 		chatbox && chatbox.setAttribute("page_id", "111485028459651");
 		chatbox && chatbox.setAttribute("attribution", "biz_inbox");
@@ -27,12 +34,7 @@ const MessFb = () => {
 			fjs.parentNode.insertBefore(js, fjs);
 		})(document, "script", "facebook-jssdk");
 	}, []);
-	return (
-		<>
-			<div id="fb-root"></div>
-			<div id="fb-customer-chat" className="fb-customerchat"></div>
-		</>
-	);
+	return <></>;
 };
 
 export default MessFb;
