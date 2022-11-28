@@ -19,6 +19,8 @@
 		"react-dom": "18.2.0",
 		"react-lazy-load": "^4.0.1",
 		"react-lottie": "^1.2.3",
+		"react-messenger-chat-plugin": "^3.0.5",
+		"react-messenger-customer-chat": "^0.8.0",
 		"react-redux": "^8.0.5",
 		"redux-thunk": "^2.4.2",
 		"styled-components": "^5.3.6",

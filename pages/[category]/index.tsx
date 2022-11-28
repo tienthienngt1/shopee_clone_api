@@ -9,7 +9,7 @@ import ShopeeMall from "components/desktop/category/component/ShopeeMall";
 import ProductCat from "components/desktop/category/component/ProductCat";
 import ToTopButton from "components/commons/component/ToTopButton";
 import PopularCollection from "components/desktop/category/component/PopularCollection";
-
+import MessFb from "components/commons/component/MessFb";
 import "swiper/css";
 import "swiper/css/grid";
 import "swiper/css/navigation";
@@ -40,6 +40,7 @@ const Category: NextPage = () => {
 				</Container>
 			</MainLayout>
 			<ToTopButton />
+			<MessFb />
 		</>
 	);
 };
