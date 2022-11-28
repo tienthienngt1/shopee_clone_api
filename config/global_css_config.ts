@@ -14,7 +14,8 @@ body,
 	font-size: 13px;
     transition: all 0.2s;
 }
-body{
+html{
+    scroll-behavior: smooth;
 	background-color: #f5f5f5;
 }
 `;
