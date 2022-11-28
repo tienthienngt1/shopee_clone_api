@@ -3,10 +3,10 @@ import { useEffect } from "react";
 const MessFb = () => {
 	useEffect(() => {
 		const fbRoot = document.createElement("div");
-		fbRoot.id = "fb-root";
+		fbRoot.setAttribute("id", "fb-root");
 		const fbChat = document.createElement("div");
-		fbChat.id = "fb-customer-chat";
-		fbChat.className = "fb-customerchat";
+		fbChat.setAttribute("id", "fb-customer-chat");
+		fbChat.setAttribute("class", "fb-customerchat");
 		document.body.appendChild(fbRoot);
 		document.body.appendChild(fbChat);
 		var chatbox = document.getElementById("fb-customer-chat");
