@@ -15,16 +15,22 @@ export function SingleBanner({ id }: Props) {
 	if (id === 1) data = subCarouselBanner;
 	else data = subCategoryBanner;
 	return (
-		<WrapSingleBannerStyled>
+		<>
 			{data && data?.length > 0 && (
-				<a href={data?.[0].target_url} target="_blank" rel="noreferrer">
-					<Image
-						src={data?.[0]?.image_url}
-						alt={data?.[0]?.target_url}
-						layout="fill"
-					/>
-				</a>
+				<WrapSingleBannerStyled>
+					<a
+						href={data?.[0].target_url}
+						target="_blank"
+						rel="noreferrer"
+					>
+						<Image
+							src={data?.[0]?.image_url}
+							alt={data?.[0]?.target_url}
+							layout="fill"
+						/>
+					</a>
+				</WrapSingleBannerStyled>
 			)}
-		</WrapSingleBannerStyled>
+		</>
 	);
 }

@@ -1,21 +1,23 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
-export type CategoryTree = {
-	data: {
+export type Data = {
+	catid: number;
+	display_name: string;
+	image: string;
+	name: string;
+	target_url: string;
+	children: {
 		catid: number;
 		display_name: string;
 		image: string;
 		name: string;
-		target_url: string;
-		children: {
-			catid: number;
-			display_name: string;
-			image: string;
-			name: string;
-			parent_catid: number;
-		}[];
+		parent_catid: number;
 	}[];
+};
+
+export type CategoryTree = {
+	data: Data[];
 };
 
 const initialState: CategoryTree = { data: [] };

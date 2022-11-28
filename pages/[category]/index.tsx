@@ -11,6 +11,7 @@ import "swiper/css";
 import "swiper/css/grid";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
+import ProductCat from "components/desktop/category/component/ProductCat";
 
 const Category: NextPage = () => {
 	const router = useRouter();
@@ -33,6 +34,7 @@ const Category: NextPage = () => {
 					<BannerSlide id={query?.[1]} />
 					<ShopeeMall id={query?.[1]} />
 					<PopularCollection id={query?.[1]} />
+					<ProductCat id={query?.[1]} />
 				</Container>
 			</MainLayout>
 		</>

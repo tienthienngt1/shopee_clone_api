@@ -113,8 +113,7 @@ export const WrapCountDown = styled.div`
 			height: 15px;
 			text-align: center;
 			font-weight: bold;
-			/* color: rgb(255, 255, 255, 0.9); */
-			color: tomato;
+			color: rgb(255, 255, 255, 0.9);
 		}
 	}
 	.count_down {

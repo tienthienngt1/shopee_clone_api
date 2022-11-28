@@ -51,7 +51,7 @@ const homeBannerState = createSlice({
 						target_url: ban.target_url,
 					}));
 				if (res.space_key === "PC-VN-HOME_NUZ_CAROUSEL_01")
-					state.subCarouselBanner = res.banners.map((ban: any) => ({
+					state.subCarouselBanner = res.banners?.map((ban: any) => ({
 						image_hash: ban.image_hash,
 						image_url: ban.image_url,
 						target_url: ban.target_url,
