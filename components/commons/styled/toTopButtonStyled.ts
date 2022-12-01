@@ -1,7 +1,12 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 type Props = {
 	status: boolean;
 };
+const fade = keyframes`
+0%{opacity: 0};
+100%{opacity: 100}
+`;
+
 export const WrapToTopButton = styled.div<Props>`
 	display: ${(props) => (props.status ? "inline-block" : "none")};
 	padding: 1rem;
@@ -12,8 +17,17 @@ export const WrapToTopButton = styled.div<Props>`
 	}
 	background-color: #fff;
 	position: fixed;
-	right: 1rem;
+	right: 2rem;
 	bottom: 1rem;
 	z-index: 999999;
 	cursor: pointer;
+	animation: ${fade} 0.5s ease;
+	@keyframe (fade) {
+		0% {
+			opacity: 0;
+		}
+		100% {
+			opacity: 100;
+		}
+	}
 `;

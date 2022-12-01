@@ -1,6 +1,7 @@
+import Stars from "components/commons/component/Star";
 import { checkDispatch } from "func";
 import Link from "next/link";
-import { PropsWithChildren, useEffect, useState } from "react";
+import { Fragment, ReactNode, useEffect, useState } from "react";
 import {
 	CaretRightFill,
 	ChevronDown,
@@ -23,22 +24,29 @@ import {
 	WrapMoreView,
 } from "../styled";
 
-const MoreView = ({ children }: PropsWithChildren) => {
+type MoreViewType = {
+	children: ReactNode;
+	display?: boolean;
+};
+
+const MoreView = ({ children, display }: MoreViewType) => {
 	const [status, setStatus] = useState(false);
 	return (
 		<WrapMoreView status={status}>
 			{children}
-			<span onClick={() => setStatus(!status)}>
-				{!status ? (
-					<>
-						Xem thêm &nbsp; <ChevronDown />
-					</>
-				) : (
-					<>
-						Thu gọn &nbsp; <ChevronUp />
-					</>
-				)}
-			</span>
+			{display && (
+				<span onClick={() => setStatus(!status)}>
+					{!status ? (
+						<>
+							Xem thêm &nbsp; <ChevronDown />
+						</>
+					) : (
+						<>
+							Thu gọn &nbsp; <ChevronUp />
+						</>
+					)}
+				</span>
+			)}
 		</WrapMoreView>
 	);
 };
@@ -83,26 +91,56 @@ const LeftComponent = ({ id }: LeftComponentProps) => {
 				</MoreView>
 			</LeftComponentList>
 			<LeftComponentHeader>
-				<Funnel /> Bộ Lọc Tìm Kiếm
+				<Funnel /> BỘ LỌC TÌM KIẾM
 			</LeftComponentHeader>
 			<LeftComponentFilter>
-				<div className="filter_title">Theo Danh Mục</div>
+				{searchFilter.data?.length > 0 &&
+					searchFilter.data.map((d, i) => (
+						<Fragment key={Math.random() * 99999999 + i}>
+							<div className="filter_title">{d?.title}</div>
+							<div className="filter_body">
+								<MoreView display={i === 3 ? false : true}>
+									{d?.items?.map((item, i) => (
+										<Fragment key={item.id}>
+											<Link href="#">
+												<div>
+													<input
+														name={item.name + i}
+														type="checkbox"
+													/>
+													<label
+														htmlFor={item.name + i}
+													>
+														{item.name}
+													</label>
+												</div>
+											</Link>
+										</Fragment>
+									))}
+								</MoreView>
+							</div>
+						</Fragment>
+					))}
+				<div className="filter_title">Khoảng Giá</div>
 				<div className="filter_body">
-					<MoreView>
-						{searchFilter?.data?.facets?.map((f) => (
-							<Link href={`/${f.catid}`} key={f.catid}>
-								<div>
-									<input
-										name={f.catid.toString()}
-										type="checkbox"
-									/>
-									<label htmlFor={f.catid.toString()}>
-										{f.name}
-									</label>
-								</div>
-							</Link>
-						))}
-					</MoreView>
+					<div className="filter_price">
+						<div>
+							<input placeholder="&#8363; &nbsp;TỪ" /> -
+							<input placeholder="&#8363; &nbsp;ĐẾN" />
+						</div>
+						<div>Áp dụng</div>
+					</div>
+				</div>
+				<div className="filter_title">Đánh giá</div>
+				<div className="filter_body">
+					{[5, 4, 3, 2, 1].map((s) => (
+						<div
+							className="filter_star"
+							key={Math.random() * 99999999}
+						>
+							<Stars star={s} /> {s === 5 ? "" : "Trở lên"}
+						</div>
+					))}
 				</div>
 			</LeftComponentFilter>
 		</>

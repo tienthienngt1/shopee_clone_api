@@ -2,35 +2,20 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
 type Data = {
-	brands: {
-		title: "Thương Hiệu";
-		brandid: number;
+	title: string;
+	items: {
 		name: string;
-	}[];
-	facets: {
-		title: "Theo Danh Mục";
-		name: string;
-		catid: number;
-		count: number;
-	}[];
-	locations: {
-		title: "Nơi Bán";
-		name: string;
-		level: string;
-	}[];
-	shippings: {
-		title: "Đơn Vị Vận Chuyển";
-		positionid: number;
-		name: string;
+		id: number | string;
+		count?: number;
 	}[];
 };
 
 type SearchFilter = {
-	data: Data;
+	data: Data[];
 };
 
 const initialState: SearchFilter = {
-	data: { brands: [], facets: [], locations: [], shippings: [] },
+	data: [],
 };
 
 const searchFilterState = createSlice({
@@ -42,23 +27,38 @@ const searchFilterState = createSlice({
 			const data =
 				action.payload?.data?.filter_configuration
 					?.dynamic_filter_group_data;
-			if (data)
-				state.data = {
-					brands: data?.brands,
-					facets: data?.facets?.map((f: any) => ({
-						name: f.category.display_name,
-						catid: f.catid,
-						count: f.count,
-					})),
-					locations: data?.locations.map((l: any) => ({
-						name: l.name,
-						level: l.level,
-					})),
-					shippings: data?.shippings.map((s: any) => ({
-						positionid: s.positionid,
-						name: s.name,
-					})),
-				};
+			if (data) {
+				state.data = [
+					{
+						title: "Theo Danh Mục",
+						items: data?.facets?.map((f: any) => ({
+							name: f.category.display_name,
+							id: f.catid,
+							count: f.count,
+						})),
+					},
+					{
+						title: "Thương Hiệu",
+						items: data?.brands,
+					},
+					{
+						title: "Nơi Bán",
+						items: data?.locations.map((l: any) => ({
+							title: "Nơi Bán",
+							id: l.name,
+							name: l.name,
+						})),
+					},
+					{
+						title: "Đơn Vị Vận Chuyển",
+						items: data?.shippings.map((s: any) => ({
+							title: "Đơn Vi Vận Chuyển",
+							id: s.positionid,
+							name: s.name,
+						})),
+					},
+				];
+			}
 		});
 	},
 });

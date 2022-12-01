@@ -4,10 +4,10 @@ const MessFb = () => {
 	useEffect(() => {
 		const fbRoot = document.createElement("div");
 		fbRoot.setAttribute("id", "fb-root");
+		document.body.appendChild(fbRoot);
 		const fbChat = document.createElement("div");
 		fbChat.setAttribute("id", "fb-customer-chat");
 		fbChat.setAttribute("class", "fb-customerchat");
-		document.body.appendChild(fbRoot);
 		document.body.appendChild(fbChat);
 		var chatbox = document.getElementById("fb-customer-chat");
 		chatbox && chatbox.setAttribute("page_id", "111485028459651");

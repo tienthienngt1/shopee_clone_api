@@ -41,12 +41,40 @@ export const LeftComponentList = styled.div`
 `;
 export const LeftComponentFilter = styled.div`
 	padding: 1rem 0;
+	color: rgb(0, 0, 0, 0.7);
 	.filter_title {
-		padding: 0.5rem 0;
+		padding: 1rem 0;
 	}
 	.filter_body {
 		padding-bottom: 1rem;
 		border-bottom: 1px solid rgb(0, 0, 0, 0.1);
+		.filter_price {
+			display: flex;
+			align-items: center;
+			flex-direction: column;
+			& > div:first-child {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				input {
+					padding: 0.5rem;
+					margin: 0 0.5rem;
+					width: 40%;
+				}
+			}
+			& > div:last-child {
+				margin: 0.5rem 0;
+				width: 90%;
+				padding: 0.5rem;
+				color: #fff;
+				text-align: center;
+				background-color: #ee4d2d;
+				cursor: pointer;
+			}
+		}
+	}
+	.filter_star {
+		cursor: pointer;
 	}
 `;
 

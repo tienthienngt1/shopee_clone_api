@@ -15,7 +15,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 				</ThemeConfig>
 			</Provider>
 			<ToTopButton />
-			<MessFb />
+			{/* <MessFb /> */}
 		</>
 	);
 }
