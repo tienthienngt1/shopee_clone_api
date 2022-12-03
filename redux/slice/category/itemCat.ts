@@ -1,23 +1,17 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import type { Data } from "../home/dailyDiscover";
 
-type Data = {
-	itemid: number;
-	price_before_discount: number;
-	price: number;
-	price_min: number;
-	price_max: number;
-	raw_discount: number;
-	shop_rating: number;
-	sold: number;
-	shop_verified: boolean;
-	shop_location: string;
-	image: string;
-	name: string;
-};
+export interface DataCat extends Data {
+	price_before_discount?: number;
+	price_min?: number;
+	price_max?: number;
+	shopee_rating?: number;
+	shop_location?: string;
+}
 
 type ItemCatState = {
-	data: Data[];
+	data: DataCat[];
 };
 
 const initialState: ItemCatState = { data: [] };
@@ -37,9 +31,11 @@ const itemCatState = createSlice({
 						price_max: i.price_max,
 						price: i.price,
 						raw_discount: i.raw_discount,
-						shop_verified: i.shop_verified,
-						shop_rating: i.shop_rating,
-						sold: i.historical_sold ? i.historical_sold : i.sold,
+						shopee_verified: i.shop_verified,
+						shopee_rating: i.shop_rating,
+						historical_sold: i.historical_sold
+							? i.historical_sold
+							: i.sold,
 						shop_location: i.shop_location,
 						image: i.image,
 						name: i.name,

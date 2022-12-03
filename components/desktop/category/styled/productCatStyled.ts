@@ -8,7 +8,6 @@ export const ProductCatLeft = styled.div`
 `;
 export const ProductCatRight = styled.div`
 	width: 80%;
-	border: 1px solid red;
 `;
 
 export const LeftComponentHeader = styled.div`
@@ -79,6 +78,54 @@ export const LeftComponentFilter = styled.div`
 `;
 
 export const WrapRightComponent = styled.div``;
+export const WrapRightComponentHeader = styled.div`
+	padding: 1rem;
+	background-color: #ededed;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	color: rgb(0, 0, 0, 0.8);
+	button,
+	select,
+	option {
+		border: none;
+		border-radius: 3px;
+		cursor: pointer;
+		padding: 0.7rem 1rem;
+		color: rgb(0, 0, 0, 0.8);
+		background-color: #fff;
+		margin: 0 0.5rem;
+		font-size: 1.1rem;
+	}
+	.right_component_header {
+		&_filter {
+			span {
+				padding: 0 1rem;
+			}
+		}
+		&_pagination {
+			font-size: 1.2rem;
+			button {
+				margin: 0;
+				border-radius: none;
+				&:first-child {
+					border-right: 1px solid rgb(0, 0, 0, 0.1);
+				}
+				&:last-child {
+					border-left: 1px solid rgb(0, 0, 0, 0.1);
+				}
+			}
+		}
+	}
+`;
+export const WrapRightComponentBody = styled.div`
+	display: flex;
+	flex-wrap: wrap;
+	& > div {
+		width: 20%;
+		padding: 0.3rem;
+	}
+`;
 
 type MoreView = {
 	status: boolean;

@@ -43,7 +43,7 @@ const SlideBanner = <T extends any[]>({ data }: Props<T>) => {
 									<div
 										style={{
 											width: "100%",
-											height: "19rem",
+											height: "25rem",
 											overflow: "hidden",
 											borderRadius: "4px",
 											position: "relative",

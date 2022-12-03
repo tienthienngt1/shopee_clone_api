@@ -5,6 +5,7 @@ import { Fragment, ReactNode, useEffect, useState } from "react";
 import {
 	CaretRightFill,
 	ChevronDown,
+	ChevronRight,
 	ChevronUp,
 	Funnel,
 	ListUl,
@@ -13,6 +14,7 @@ import { useSelector } from "react-redux";
 import { Data, setCategoryTree } from "redux/slice/home/categoryTree";
 import { setSearchFilter } from "redux/slice/category/searchFilterCat";
 import { RootState, useThunkDispatch } from "redux/store";
+import { ChevronLeft } from "react-bootstrap-icons";
 import {
 	ProductCatRight,
 	ProductCatLeft,
@@ -22,7 +24,10 @@ import {
 	LeftComponentList,
 	LeftComponentFilter,
 	WrapMoreView,
+	WrapRightComponentHeader,
+	WrapRightComponentBody,
 } from "../styled";
+import Item from "components/desktop/common/component/Item";
 
 type MoreViewType = {
 	children: ReactNode;
@@ -143,7 +148,8 @@ const LeftComponent = ({ id }: LeftComponentProps) => {
 							className="filter_star"
 							key={Math.random() * 99999999}
 						>
-							<Stars star={s} /> {s === 5 ? "" : "Trở lên"}
+							<Stars font="1rem" star={s} />{" "}
+							{s === 5 ? "" : "Trở lên"}
 						</div>
 					))}
 				</div>
@@ -153,7 +159,46 @@ const LeftComponent = ({ id }: LeftComponentProps) => {
 };
 
 const RightComponent = () => {
-	return <WrapRightComponent></WrapRightComponent>;
+	const {
+		itemCat: { data },
+	} = useSelector((state: RootState) => state);
+	console.log(data);
+
+	return (
+		<WrapRightComponent>
+			<WrapRightComponentHeader>
+				<div className="right_component_header_filter">
+					<span>Sắp xếp theo</span>
+					<button>Mới nhất</button>
+					<button>Phổ biến</button>
+					<button>Bán chạy</button>
+					<select>
+						<option hidden>Giá</option>
+						<option defaultValue={1}>Giá: Thấp đến Cao</option>
+						<option defaultValue={2}>Giá: Cao đến Thấp</option>
+					</select>
+				</div>
+				<div className="right_component_header_pagination">
+					1/9{" "}
+					<button>
+						<ChevronLeft />
+					</button>
+					<button>
+						<ChevronRight />
+					</button>
+				</div>
+			</WrapRightComponentHeader>
+			<WrapRightComponentBody>
+				{data &&
+					data.length > 0 &&
+					data.map((d) => (
+						<div key={d.itemid}>
+							<Item data={d} isDisplayHover={false} />
+						</div>
+					))}
+			</WrapRightComponentBody>
+		</WrapRightComponent>
+	);
 };
 
 type Props = { id: string | undefined };

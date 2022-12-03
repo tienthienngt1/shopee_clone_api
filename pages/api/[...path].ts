@@ -1,10 +1,10 @@
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from "next";
 import { proxy } from "config/http_proxy_config";
 
 export const config = {
 	api: {
 		bodyParser: false,
+		externalResolver: true,
 	},
 };
 

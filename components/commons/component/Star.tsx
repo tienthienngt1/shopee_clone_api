@@ -22,12 +22,13 @@ const percent = (star: number) => {
 
 type Props = {
 	star: number;
+	font: string;
 };
 
-const Stars = ({ star }: Props) => {
+const Stars = ({ star, font }: Props) => {
 	let percentArr = percent(star);
 	return (
-		<WrapStar>
+		<WrapStar font={font}>
 			{percentArr &&
 				percentArr.map((p, i) => (
 					<Fragment key={p + i + Math.random() * 999999999999}>

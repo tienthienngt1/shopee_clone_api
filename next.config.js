@@ -5,6 +5,9 @@ const nextConfig = {
 	images: {
 		domains: ["cf.shopee.vn"],
 	},
+	experimental: {
+		forceSwcTransforms: true,
+	},
 };
 
 module.exports = nextConfig;

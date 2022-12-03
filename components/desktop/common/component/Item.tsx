@@ -1,18 +1,30 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import React from "react";
-import { Data } from "redux/slice/home/dailyDiscover";
 import { ItemFooter, ItemHeader, WrapItem, FindSameProduct } from "../styled/";
 import Image from "next/image";
 import LazyLoad from "react-lazy-load";
+import { DataCat } from "redux/slice/category/itemCat";
+import Stars from "components/commons/component/Star";
 
-export type Props = {
-	data: Data;
+type Props = {
+	data: DataCat;
+	isDisplayHover?: boolean;
 };
 
-const Item = ({ data }: Props) => {
+const Item = ({ data, isDisplayHover = true }: Props) => {
 	const [isHover, setIsHover] = useState<boolean>(false);
+	const convertToVND = useCallback((num: number) => {
+		return (num / 100000)
+			.toLocaleString("en-US", {
+				style: "currency",
+				currency: "VND",
+			})
+			.replace(/[,]/g, ".");
+	}, []);
+
 	return (
 		<WrapItem
+			isDisplayHover={isDisplayHover}
 			onMouseEnter={() => setIsHover(true)}
 			onMouseLeave={() => setIsHover(false)}
 		>
@@ -38,26 +50,53 @@ const Item = ({ data }: Props) => {
 			<ItemFooter>
 				<div className="item_footer_name">{data.name}</div>
 				<div className="item_footer_info">
-					<div>
-						{(data.price / 100000)
-							.toLocaleString("en-US", {
-								style: "currency",
-								currency: "VND",
-							})
-							.replace(/[,]/g, ".")}
-					</div>
-					<div>
-						Đã bán{" "}
-						<span>
-							{Intl.NumberFormat("en-US", {
-								notation: "compact",
-								maximumFractionDigits: 1,
-							}).format(data.historical_sold)}
-						</span>
-					</div>
+					{data.price_max && data.price_min ? (
+						data.price_max - data?.price_min > 0 ? (
+							<div>
+								{" "}
+								<span>{convertToVND(data.price_max)}</span>
+								&nbsp;-&nbsp;
+								<span>{convertToVND(data.price_min)}</span>
+							</div>
+						) : (
+							<div>{convertToVND(data.price)}</div>
+						)
+					) : (
+						<>
+							<div>{convertToVND(data.price)}</div>
+							<div>
+								Đã bán{" "}
+								<span>
+									{Intl.NumberFormat("en-US", {
+										notation: "compact",
+										maximumFractionDigits: 1,
+									}).format(data.historical_sold)}
+								</span>
+							</div>
+						</>
+					)}
 				</div>
+				{data?.shopee_rating && (
+					<div className="item_footer_rating">
+						<Stars font="0.7rem" star={data.shopee_rating} />
+						<div>
+							Đã bán:{" "}
+							<span>
+								{Intl.NumberFormat("en-US", {
+									notation: "compact",
+									maximumFractionDigits: 1,
+								}).format(data.historical_sold)}
+							</span>
+						</div>
+					</div>
+				)}
+				{data?.shop_location && (
+					<div className="item_footer_location">
+						{data.shop_location}
+					</div>
+				)}
 			</ItemFooter>
-			{isHover && (
+			{isDisplayHover && isHover && (
 				<FindSameProduct>Tìm Sản Phẩm Tương Tự</FindSameProduct>
 			)}
 		</WrapItem>

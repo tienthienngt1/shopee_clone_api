@@ -1,6 +1,10 @@
 import styled from "styled-components";
 
-export const WrapItem = styled.div`
+type ItemProps = {
+	isDisplayHover: boolean;
+};
+
+export const WrapItem = styled.div<ItemProps>`
 	position: relative;
 	background-color: #fff;
 	cursor: pointer;
@@ -11,7 +15,8 @@ export const WrapItem = styled.div`
 	&:hover {
 		border-radius: 3px;
 		transform: translateY(-2px);
-		border: 1px solid rgb(242, 82, 32);
+		border: ${(props) =>
+			props.isDisplayHover ? "1px solid rgb(242, 82, 32)" : "none"};
 	}
 `;
 
@@ -96,14 +101,39 @@ export const ItemFooter = styled.div`
 		justify-content: space-between;
 		padding-top: 1rem;
 		& > div:first-child {
-			color: #ee4d2d;
-			font-size: 1.4rem;
+			&,
+			span {
+				color: #ee4d2d;
+				font-size: 1.4rem;
+			}
 		}
-		& > div:last-child {
+		& > div:nth-child(2) {
 			color: rgb(0, 0, 0, 0.54);
 			span {
 				text-transform: lowercase;
 			}
+		}
+	}
+	.item_footer_location {
+		padding: 0.5rem 0;
+		color: rgb(0, 0, 0, 0.7);
+	}
+	.item_footer_rating {
+		font-size: 0.5rem;
+		display: flex;
+		align-items: center;
+		color: rgb(0, 0, 0, 0.7);
+		& > div:last-child {
+			margin-left: 0.5rem;
+		}
+	}
+	.item_footer_price_maxmin {
+		display: flex;
+		color: #ee4d2d;
+		padding-top: 1rem;
+		& > div {
+			padding: 0 0.5rem;
+			font-size: 1.4rem;
 		}
 	}
 `;
