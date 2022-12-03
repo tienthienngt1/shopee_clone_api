@@ -20,7 +20,6 @@ export const ItemHeader = styled.div`
 	width: 100%;
 	aspect-ratio: 1/1;
 	position: relative;
-	padding: 5px;
 	.item_is_official {
 		background-color: rgb(242, 82, 32);
 		display: inline;
@@ -67,7 +66,11 @@ export const ItemHeader = styled.div`
 		height: 100%;
 	}
 	.item_image {
-		.Lazyload {
+		width: 100%;
+		height: 100%;
+		& > div {
+			width: 100%;
+			height: 100%;
 			position: relative;
 		}
 	}

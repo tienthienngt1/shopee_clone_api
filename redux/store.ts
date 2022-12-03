@@ -2,34 +2,36 @@ import { configureStore } from "@reduxjs/toolkit";
 import { AnyAction } from "redux";
 import { ThunkDispatch } from "redux-thunk";
 import { useDispatch } from "react-redux";
-import homeBanner from "./slice/homeBanner";
-import categoryTree from "./slice/categoryTree";
-import flashSale from "./slice/flashSale";
-import topSearch from "./slice/topSearch";
-import dailyDiscover from "./slice/dailyDiscover";
-import footerLayout from "./slice/footerLayout";
-import searchPrefill from "./slice/searchPrefill";
-import bannerCat from "./slice/bannerCat";
-import shopeeMall from "./slice/shopeeMall";
-import popularCollectionCat from "./slice/popularCollectionCat";
-import itemCat from "./slice/itemCat";
-import searchFilter from "./slice/searchFilterCat";
+import { persistedReducer } from "./rootReducer";
+import {
+	FLUSH,
+	REHYDRATE,
+	PAUSE,
+	PERSIST,
+	PURGE,
+	REGISTER,
+} from "redux-persist";
 
 export const store = configureStore({
-	reducer: {
-		homeBanner,
-		categoryTree,
-		flashSale,
-		topSearch,
-		dailyDiscover,
-		footerLayout,
-		searchPrefill,
-		bannerCat,
-		shopeeMall,
-		popularCollectionCat,
-		itemCat,
-		searchFilter,
-	},
+	reducer: persistedReducer,
+	devTools: process.env.NODE_ENV !== "production",
+	middleware: (getDefaultMiddleware) =>
+		getDefaultMiddleware({
+			serializableCheck: {
+				ignoredActions: [
+					FLUSH,
+					REHYDRATE,
+					PAUSE,
+					PERSIST,
+					PURGE,
+					REGISTER,
+				],
+				// warnafter: 128,
+			},
+			// immutableCheck: {
+			// 	warnAfter: 128,
+			// },
+		}),
 });
 
 export type RootState = ReturnType<typeof store.getState>;

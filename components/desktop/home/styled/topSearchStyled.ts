@@ -29,6 +29,15 @@ export const WrapSlide = styled.div``;
 export const SlideHeader = styled.div`
 	position: relative;
 	aspect-ratio: 1/1;
+	.is-visible {
+		width: 100%;
+		height: 100%;
+		& > div {
+			position: relative;
+			width: 100%;
+			height: 100%;
+		}
+	}
 	.top_search {
 		&_symbol {
 			position: absolute;

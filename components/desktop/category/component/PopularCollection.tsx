@@ -9,9 +9,9 @@ import {
 import Image from "next/image";
 import { Grid, Navigation } from "swiper";
 import { SwiperSlide } from "swiper/react";
-import { setItemCat } from "redux/slice/itemCat";
+import { setItemCat } from "redux/slice/category/itemCat";
 import { Slide } from "components/desktop/common/component";
-import { setPopularCollectionCat } from "redux/slice/popularCollectionCat";
+import { setPopularCollectionCat } from "redux/slice/category/popularCollectionCat";
 
 type Props = {
 	id: string | undefined;

@@ -10,8 +10,8 @@ import {
 	ListUl,
 } from "react-bootstrap-icons";
 import { useSelector } from "react-redux";
-import { Data, setCategoryTree } from "redux/slice/categoryTree";
-import { setSearchFilter } from "redux/slice/searchFilterCat";
+import { Data, setCategoryTree } from "redux/slice/home/categoryTree";
+import { setSearchFilter } from "redux/slice/category/searchFilterCat";
 import { RootState, useThunkDispatch } from "redux/store";
 import {
 	ProductCatRight,
@@ -64,6 +64,8 @@ const LeftComponent = ({ id }: LeftComponentProps) => {
 	categoryTree.data.length > 0 &&
 		categoryTree.data.filter((d) => d.catid.toString() === id);
 	useEffect(() => {
+		console.log("useEffect");
+
 		checkDispatch(categoryTree.data, dispatch, setCategoryTree);
 		id && dispatch(setSearchFilter(id));
 		if (categoryTree.data.length > 0 && id) {
@@ -72,7 +74,7 @@ const LeftComponent = ({ id }: LeftComponentProps) => {
 			);
 			setCat(catFilter[0]);
 		}
-	}, [dispatch, id]);
+	}, [dispatch, id, categoryTree.data]);
 	return (
 		<>
 			<LeftComponentHeader>
@@ -84,7 +86,10 @@ const LeftComponent = ({ id }: LeftComponentProps) => {
 				</div>
 				<MoreView>
 					{cat?.children?.map((c, k) => (
-						<Link href={`/${c.catid}`} key={c.catid}>
+						<Link
+							href={`/${c.catid + k + Math.random() * 999999}`}
+							key={c.catid + Math.random() * 1000000}
+						>
 							<div>{c.display_name}</div>
 						</Link>
 					))}

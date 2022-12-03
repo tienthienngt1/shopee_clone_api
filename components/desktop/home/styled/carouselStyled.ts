@@ -1,8 +1,6 @@
 import styled from "styled-components";
-type Props = {
-	status: boolean;
-};
-export const WrapCarouselStyled = styled.div<Props>`
+
+export const WrapCarouselStyled = styled.div`
 	display: flex;
 	gap: 0.5rem;
 	& > div:first-child {

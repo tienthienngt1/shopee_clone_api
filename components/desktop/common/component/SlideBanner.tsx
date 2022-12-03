@@ -35,27 +35,28 @@ const SlideBanner = <T extends any[]>({ data }: Props<T>) => {
 					>
 						{data.map((ban: any) => (
 							<SwiperSlide key={ban?.image_hash}>
-								<div
-									style={{
-										width: "100%",
-										height: "19rem",
-										position: "relative",
-										overflow: "hidden",
-										borderRadius: "4px",
-									}}
+								<a
+									href={ban?.target_url}
+									target="_blank"
+									rel="noreferrer"
 								>
-									<a
-										href={ban?.target_url}
-										target="_blank"
-										rel="noreferrer"
+									<div
+										style={{
+											width: "100%",
+											height: "19rem",
+											overflow: "hidden",
+											borderRadius: "4px",
+											position: "relative",
+										}}
 									>
 										<Image
 											src={ban?.image_url}
 											alt={ban?.target_url}
 											layout="fill"
+											priority
 										/>
-									</a>
-								</div>
+									</div>
+								</a>
 							</SwiperSlide>
 						))}
 					</Swiper>

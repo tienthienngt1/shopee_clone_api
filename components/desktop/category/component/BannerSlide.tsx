@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
-import { setBannerCat } from "redux/slice/bannerCat";
+import { setBannerCat } from "redux/slice/category/bannerCat";
 import { RootState, useThunkDispatch } from "redux/store";
 import SlideBanner from "components/desktop/common/component/SlideBanner";
 import { WrapBannerSlide } from "../styled";

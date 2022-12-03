@@ -12,7 +12,7 @@ import { Slide } from "components/desktop/common/component";
 import { Navigation } from "swiper";
 import { SwiperSlide } from "swiper/react";
 import { RootState } from "redux/store";
-import { Data } from "redux/slice/topSearch";
+import { Data } from "redux/slice/home/topSearch";
 import { useSelector } from "react-redux";
 import LazyLoad from "react-lazy-load";
 
@@ -39,8 +39,8 @@ const TopSearch = () => {
 								<SwiperSlide key={da.count + da.name}>
 									<WrapSlide>
 										<SlideHeader>
-											<div>
-												<LazyLoad>
+											<LazyLoad>
+												<div>
 													<Image
 														src={`${
 															process.env
@@ -50,8 +50,8 @@ const TopSearch = () => {
 														alt={da.name}
 														layout="fill"
 													/>
-												</LazyLoad>
-											</div>
+												</div>
+											</LazyLoad>
 											<div className="top_search_info">
 												Bán{" "}
 												<span>

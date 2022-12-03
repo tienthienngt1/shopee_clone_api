@@ -13,7 +13,7 @@ import flashSaleLogo from "public/flashSaleLogo.png";
 import { SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper";
 import { RootState } from "redux/store";
-import { Data, Session } from "redux/slice/flashSale";
+import { Data, Session } from "redux/slice/home/flashSale";
 import { ChevronRight } from "react-bootstrap-icons";
 import { useSelector } from "react-redux";
 import { Slide } from "components/desktop/common/component";

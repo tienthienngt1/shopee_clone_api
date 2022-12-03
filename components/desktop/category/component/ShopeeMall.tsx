@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { ShopeeMallBody, ShopeeMallHeader, WrapShopeeMall } from "../styled";
 import { RootState, useThunkDispatch } from "redux/store";
-import { setShopeeMall } from "redux/slice/shopeeMall";
+import { setShopeeMall } from "redux/slice/category/shopeeMall";
 import { ChevronRight } from "react-bootstrap-icons";
 import { SwiperSlide } from "swiper/react";
 import { Grid, Navigation } from "swiper";

@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
-import { setCategoryTree } from "redux/slice/categoryTree";
+import { setCategoryTree } from "redux/slice/home/categoryTree";
 import { useThunkDispatch } from "redux/store";
 import {
 	setCarouselBanner,
 	setSubCarouselBanner,
-} from "redux/slice/homeBanner";
-import { setDailyDiscover } from "redux/slice/dailyDiscover";
-import { setTopSearch } from "redux/slice/topSearch";
-import { setFlashSale } from "redux/slice/flashSale";
+} from "redux/slice/home/homeBanner";
+import { setDailyDiscover } from "redux/slice/home/dailyDiscover";
+import { setTopSearch } from "redux/slice/home/topSearch";
+import { setFlashSale } from "redux/slice/home/flashSale";
 import { checkDispatch } from "func";
 import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
@@ -37,6 +37,7 @@ const useLoad = () => {
 			setLoading(false);
 			setResult(true);
 		} catch (error) {
+			console.log(error);
 			setError(true);
 			setLoading(false);
 		}

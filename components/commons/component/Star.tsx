@@ -30,7 +30,7 @@ const Stars = ({ star }: Props) => {
 		<WrapStar>
 			{percentArr &&
 				percentArr.map((p, i) => (
-					<Fragment key={p + i}>
+					<Fragment key={p + i + Math.random() * 999999999999}>
 						{p === 2 ? (
 							<StarFill />
 						) : p === 1 ? (

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { setFooterLayout } from "redux/slice/footerLayout";
-import { setSearchPrefill } from "redux/slice/searchPrefill";
+import { setSearchPrefill } from "redux/slice/home/searchPrefill";
 import { useThunkDispatch } from "redux/store";
 export const useLoadLayout = () => {
 	const [loading, setLoading] = useState<boolean>(true);
@@ -14,6 +14,8 @@ export const useLoadLayout = () => {
 			setLoading(false);
 			setResult(true);
 		} catch (error) {
+			console.log(error);
+
 			setLoading(false);
 			setError(true);
 		}

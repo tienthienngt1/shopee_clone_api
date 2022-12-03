@@ -1,6 +1,6 @@
 import { useState } from "react";
 import React from "react";
-import { Data } from "redux/slice/dailyDiscover";
+import { Data } from "redux/slice/home/dailyDiscover";
 import { ItemFooter, ItemHeader, WrapItem, FindSameProduct } from "../styled/";
 import Image from "next/image";
 import LazyLoad from "react-lazy-load";
@@ -29,7 +29,7 @@ const Item = ({ data }: Props) => {
 						/>
 					</LazyLoad>
 				</div>
-				<div className="item_sub_image"></div>
+				{/* <div className="item_sub_image"></div> */}
 				<div className="item_discount">{data.raw_discount}%</div>
 				{data.shopee_verified && (
 					<div className="item_is_official">Yêu thích</div>

@@ -14,7 +14,7 @@ const CategoryBanner = () => {
 				categoryBanner.map((res: any) => (
 					<div key={res?.id}>
 						<a href={res.url} target="_blank" rel="noreferrer">
-							<div>
+							<div style={{ position: "relative" }}>
 								<Image
 									src={
 										res?.banner_image_gif

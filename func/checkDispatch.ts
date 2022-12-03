@@ -13,7 +13,7 @@ export const checkDispatch = (
 	dispatch: TypedDispatch,
 	setFunc: AsyncThunk<any, void, any>
 ) => {
-	if (value.length > 0) return 0;
+	if (value?.length > 0) return 0;
 	dispatch(setFunc());
 	return 1;
 };

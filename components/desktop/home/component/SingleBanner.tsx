@@ -23,11 +23,19 @@ export function SingleBanner({ id }: Props) {
 						target="_blank"
 						rel="noreferrer"
 					>
-						<Image
-							src={data?.[0]?.image_url}
-							alt={data?.[0]?.target_url}
-							layout="fill"
-						/>
+						<div
+							style={{
+								position: "relative",
+								width: "100%",
+								height: "100%",
+							}}
+						>
+							<Image
+								src={data?.[0]?.image_url}
+								alt={data?.[0]?.target_url}
+								layout="fill"
+							/>
+						</div>
 					</a>
 				</WrapSingleBannerStyled>
 			)}

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import type { NextPage } from "next";
 import MainLayout from "layout/MainLayout";
 import { useRouter } from "next/router";
@@ -25,10 +25,11 @@ const Category: NextPage = () => {
 	}, [router.query]);
 	if (loading) return <Loading />;
 	if (!router.query.category?.includes("cat")) return <Error404 />;
+	console.log("ok");
 	return (
 		<>
 			<Seo
-				title={`Shopee Việt Nam | ${query?.[0]}`}
+				title={`Mua sắm online sản phẩm | ${query?.[0]} giá tốt | Shopee Việt Nam`}
 				description={`Shopee sàn thương mại mua bán online, ${query?.[0]}`}
 			/>
 			<MainLayout>
@@ -40,7 +41,7 @@ const Category: NextPage = () => {
 				</Container>
 			</MainLayout>
 			<ToTopButton />
-			<MessFb />
+			{/* <MessFb /> */}
 		</>
 	);
 };
