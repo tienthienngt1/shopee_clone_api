@@ -12,17 +12,22 @@ export interface DataCat extends Data {
 
 type ItemCatState = {
 	data: DataCat[];
+	status: string;
 };
 
-const initialState: ItemCatState = { data: [] };
+const initialState: ItemCatState = { data: [], status: "fulfilled" };
 
 const itemCatState = createSlice({
 	name: "itemCat",
 	initialState,
-	reducers: {},
+	reducers: {
+		setLoadingItemCat: (state) => {
+			state.status = "loading";
+		},
+	},
 	extraReducers: (builder) => {
 		builder.addCase(setItemCat.fulfilled, (state, action) => {
-			if (action.payload?.data?.sections?.[0]?.data?.item)
+			if (action.payload?.data?.sections?.[0]?.data?.item) {
 				state.data = action.payload.data.sections[0].data.item.map(
 					(i: any) => ({
 						itemid: i.itemid,
@@ -41,7 +46,8 @@ const itemCatState = createSlice({
 						name: i.name,
 					})
 				);
-			else {
+				state.status = "fulfilled";
+			} else {
 				state.data = [];
 			}
 		});
@@ -52,10 +58,13 @@ export const setItemCat = createAsyncThunk(
 	"itemcat/setItemCat",
 	async (id: string) => {
 		const res = await axios(
-			`api/v4/recommend/recommend?bundle=category_landing_page&cat_level=1&catid=${id}&limit=60&offset=0`
+			`api/v4/recommend/recommend?bundle=category_landing_page&cat_level=1&catid=${id}&limit=60&offset=0`,
+			{ headers: { "af-ac-enc-dat": "null" } }
 		);
 		return res.data;
 	}
 );
+
+export const { setLoadingItemCat } = itemCatState.actions;
 
 export default itemCatState.reducer;

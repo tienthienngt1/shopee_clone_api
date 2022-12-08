@@ -12,6 +12,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "redux/store";
 import { Slide } from "components/desktop/common/component";
 import Link from "next/link";
+import { convertIdToUrl } from "../../../../func/convertIdToUrl";
 
 export function CategoryHome() {
 	const {
@@ -38,7 +39,13 @@ export function CategoryHome() {
 						if (da.catid === 11082137) return;
 						return (
 							<SwiperSlide key={da.catid}>
-								<Link href={`/${da.target_url}`} key={da.catid}>
+								<Link
+									href={convertIdToUrl(
+										da.display_name,
+										da.catid
+									)}
+									key={da.catid}
+								>
 									<a
 										style={{
 											height: "100%",

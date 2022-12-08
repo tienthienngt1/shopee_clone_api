@@ -47,7 +47,6 @@ export const setDailyDiscover = createAsyncThunk(
 			const res = await axios(
 				"api/v4/recommend/recommend?bundle=daily_discover_main&item_card=3&limit=60&offset=0"
 			);
-			console.log(res);
 			return res.data;
 		} catch (error) {
 			console.log(error);

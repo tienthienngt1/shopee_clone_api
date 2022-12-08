@@ -26,11 +26,13 @@ export const LeftComponentHeader = styled.div`
 `;
 export const LeftComponentList = styled.div`
 	padding: 1rem 0;
+	.active {
+		color: rgb(255, 0, 0, 0.8);
+	}
 	& > div:first-child {
 		font-size: 1.2rem;
 		display: flex;
 		align-items: center;
-		color: rgb(255, 0, 0, 0.8);
 		cursor: pointer;
 		padding: 0.5rem 0;
 		&:hover {

@@ -25,7 +25,6 @@ const PopularCollection = ({ id }: Props) => {
 	useEffect(() => {
 		if (id) {
 			dispatch(setPopularCollectionCat(id));
-			dispatch(setItemCat(id));
 		}
 	}, [dispatch, id]);
 	return (

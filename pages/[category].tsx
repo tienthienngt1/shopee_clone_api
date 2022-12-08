@@ -14,22 +14,37 @@ import "swiper/css";
 import "swiper/css/grid";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
+import { useThunkDispatch } from "redux/store";
+import { setItemCat, setLoadingItemCat } from "redux/slice/category/itemCat";
 
 const Category: NextPage = () => {
-	const router = useRouter();
+	const dispatch = useThunkDispatch();
+	const {
+		query: { category },
+	} = useRouter();
 	const [loading, setLoading] = useState<boolean>(true);
-	const query = router.query.category?.toString()?.split(".");
+	const [query, setQuery] = useState<string[]>([]);
 	useEffect(() => {
-		if (!router.query.category) return;
+		if (!category) return;
+		// split category for get id category
+		const query = category?.toString()?.split(".");
+		if (query?.[2]) {
+			dispatch(setLoadingItemCat());
+			dispatch(setItemCat(query[2]));
+		} else {
+			dispatch(setItemCat(query[1]));
+		}
+		setQuery(query);
 		setLoading(false);
-	}, [router.query]);
+	}, [dispatch, category]);
 	if (loading) return <Loading />;
-	if (!router.query.category?.includes("cat")) return <Error404 />;
-	console.log("ok");
+	if (!category?.includes("cat")) return <Error404 />;
 	return (
 		<>
 			<Seo
-				title={`Mua sắm online sản phẩm | ${query?.[0]} giá tốt | Shopee Việt Nam`}
+				title={`Mua sắm online sản phẩm | ${query?.[0]
+					?.replaceAll("-", " ")
+					.replace("cat", "")} giá tốt | Shopee Việt Nam`}
 				description={`Shopee sàn thương mại mua bán online, ${query?.[0]}`}
 			/>
 			<MainLayout>
@@ -37,7 +52,7 @@ const Category: NextPage = () => {
 					<BannerSlide id={query?.[1]} />
 					<ShopeeMall id={query?.[1]} />
 					<PopularCollection id={query?.[1]} />
-					<ProductCat id={query?.[1]} />
+					<ProductCat idCat={query?.[1]} idItem={query?.[2]} />
 				</Container>
 			</MainLayout>
 			<ToTopButton />

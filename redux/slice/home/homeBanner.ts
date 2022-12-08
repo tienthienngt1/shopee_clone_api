@@ -37,7 +37,7 @@ const homeBannerState = createSlice({
 	reducers: {},
 	extraReducers: (builder) => {
 		builder.addCase(setCarouselBanner.fulfilled, (state, action) => {
-			action.payload.data.space_banners.map((res: any) => {
+			action.payload.data?.space_banners?.map((res: any) => {
 				if (res.space_key === "PC-VN-HOME_CAROUSEL_01")
 					state.carouselBanner = res.banners.map((ban: any) => ({
 						image_hash: ban.image_hash,
@@ -59,7 +59,7 @@ const homeBannerState = createSlice({
 			});
 		});
 		builder.addCase(setSubCarouselBanner.fulfilled, (state, action) => {
-			action.payload.data.banners.map((ban: any) => {
+			action.payload.data?.banners?.map((ban: any) => {
 				state.categoryBanner = ban.banners.map((b: any) => ({
 					id: b.id,
 					banner_image: b.banner_image,

@@ -28,6 +28,9 @@ import {
 	WrapRightComponentBody,
 } from "../styled";
 import Item from "components/desktop/common/component/Item";
+import { convertIdToUrl } from "func/convertIdToUrl";
+import { useRouter } from "next/router";
+import { Loading } from "components/desktop/common/component";
 
 type MoreViewType = {
 	children: ReactNode;
@@ -57,45 +60,68 @@ const MoreView = ({ children, display }: MoreViewType) => {
 };
 
 type LeftComponentProps = {
-	id: string | undefined;
+	idCat: string | undefined;
+	idItem: string | undefined;
 };
 
-const LeftComponent = ({ id }: LeftComponentProps) => {
+const LeftComponent = ({ idCat, idItem }: LeftComponentProps) => {
 	const [cat, setCat] = useState<Data>();
 	const dispatch = useThunkDispatch();
 	const { categoryTree, searchFilter } = useSelector(
 		(state: RootState) => state
 	);
 	categoryTree.data.length > 0 &&
-		categoryTree.data.filter((d) => d.catid.toString() === id);
+		categoryTree.data.filter((d) => d.catid.toString() === idCat);
 	useEffect(() => {
-		console.log("useEffect");
-
+		if (!idCat) return;
 		checkDispatch(categoryTree.data, dispatch, setCategoryTree);
-		id && dispatch(setSearchFilter(id));
-		if (categoryTree.data.length > 0 && id) {
+		idCat && dispatch(setSearchFilter(idCat));
+		if (categoryTree.data.length > 0 && idCat) {
 			const catFilter = categoryTree.data.filter(
-				(d) => d.catid.toString() === id
+				(d) => d.catid.toString() === idCat
 			);
 			setCat(catFilter[0]);
 		}
-	}, [dispatch, id, categoryTree.data]);
+	}, [dispatch, idCat]);
+	console.log(idItem);
+
 	return (
 		<>
 			<LeftComponentHeader>
 				<ListUl /> Tất Cả Danh Mục
 			</LeftComponentHeader>
 			<LeftComponentList>
-				<div>
-					<CaretRightFill /> &nbsp; {cat && cat.display_name}
-				</div>
+				<Link
+					href={convertIdToUrl(cat?.display_name, cat?.catid)}
+					scroll={false}
+				>
+					{!idItem ? (
+						<div className="active">
+							<CaretRightFill /> &nbsp;
+							{cat && cat.display_name}
+						</div>
+					) : (
+						<div>{cat && cat.display_name}</div>
+					)}
+				</Link>
 				<MoreView>
-					{cat?.children?.map((c, k) => (
+					{cat?.children?.map((c) => (
 						<Link
-							href={`/${c.catid + k + Math.random() * 999999}`}
+							href={convertIdToUrl(
+								c.display_name,
+								c.parent_catid,
+								c.catid
+							)}
+							scroll={false}
 							key={c.catid + Math.random() * 1000000}
 						>
-							<div>{c.display_name}</div>
+							{idItem && Number(idItem) === c.catid ? (
+								<div className="active">
+									<CaretRightFill /> &nbsp;{c.display_name}
+								</div>
+							) : (
+								<div>{c.display_name}</div>
+							)}
 						</Link>
 					))}
 				</MoreView>
@@ -160,10 +186,8 @@ const LeftComponent = ({ id }: LeftComponentProps) => {
 
 const RightComponent = () => {
 	const {
-		itemCat: { data },
+		itemCat: { data, status },
 	} = useSelector((state: RootState) => state);
-	console.log(data);
-
 	return (
 		<WrapRightComponent>
 			<WrapRightComponentHeader>
@@ -188,27 +212,31 @@ const RightComponent = () => {
 					</button>
 				</div>
 			</WrapRightComponentHeader>
-			<WrapRightComponentBody>
-				{data &&
-					data.length > 0 &&
-					data.map((d) => (
-						<div key={d.itemid}>
-							<Item data={d} isDisplayHover={false} />
-						</div>
-					))}
-			</WrapRightComponentBody>
+			{status === "loading" ? (
+				<Loading />
+			) : (
+				<WrapRightComponentBody>
+					{data &&
+						data.length > 0 &&
+						data.map((d, i) => (
+							<div key={d.itemid + i}>
+								<Item data={d} isDisplayHover={false} />
+							</div>
+						))}
+				</WrapRightComponentBody>
+			)}
 		</WrapRightComponent>
 	);
 };
 
-type Props = { id: string | undefined };
+type Props = { idCat: string | undefined; idItem: string | undefined };
 
-const ProductCat = ({ id }: Props) => {
+const ProductCat = (props: Props) => {
 	return (
 		<>
 			<WrapProductCat>
 				<ProductCatLeft>
-					<LeftComponent id={id} />
+					<LeftComponent {...props} />
 				</ProductCatLeft>
 				<ProductCatRight>
 					<RightComponent />

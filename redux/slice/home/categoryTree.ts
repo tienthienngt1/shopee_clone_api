@@ -6,7 +6,6 @@ export type Data = {
 	display_name: string;
 	image: string;
 	name: string;
-	target_url: string;
 	children: {
 		catid: number;
 		display_name: string;
@@ -33,9 +32,6 @@ const categoryTreeState = createSlice({
 				name: ac.name,
 				display_name: ac.display_name,
 				image: ac.image,
-				target_url: `${ac.display_name
-					.replaceAll(" &", "")
-					.replaceAll(" ", "-")}-cat.${ac.catid}`,
 				children: ac.children.map((child: any) => ({
 					catid: child.catid,
 					name: child.name,

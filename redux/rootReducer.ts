@@ -50,6 +50,6 @@ const reducers = combineReducers({
 const persistConfig = {
 	key: "root",
 	storage,
-	blacklist: ["flashSale"],
+	blacklist: ["flashSale", "itemCat"],
 };
 export const persistedReducer = persistReducer(persistConfig, reducers);
