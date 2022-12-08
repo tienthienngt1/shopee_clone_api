@@ -28,8 +28,8 @@ const Category: NextPage = () => {
 		if (!category) return;
 		// split category for get id category
 		const query = category?.toString()?.split(".");
+		dispatch(setLoadingItemCat());
 		if (query?.[2]) {
-			dispatch(setLoadingItemCat());
 			dispatch(setItemCat(query[2]));
 		} else {
 			dispatch(setItemCat(query[1]));
