@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination, Navigation } from "swiper";
-import Image from "next/image";
+import NextImage from "next/image";
 import { WrapSlideBanner } from "../styled";
 import "swiper/css";
 import "swiper/css/navigation";
@@ -49,7 +49,7 @@ const SlideBanner = <T extends any[]>({ data }: Props<T>) => {
 											position: "relative",
 										}}
 									>
-										<Image
+										<NextImage
 											src={ban?.image_url}
 											alt={ban?.target_url}
 											layout="fill"

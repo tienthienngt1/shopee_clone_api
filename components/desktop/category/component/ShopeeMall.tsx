@@ -8,7 +8,7 @@ import { Grid, Navigation } from "swiper";
 import { Slide } from "components/desktop/common/component";
 import { useSelector } from "react-redux";
 import Link from "next/link";
-import Image from "next/image";
+import NextImage from "next/image";
 
 type Props = {
 	id: string | undefined;
@@ -51,7 +51,7 @@ const ShopeeMall = ({ id }: Props) => {
 										}}
 									>
 										<div>
-											<Image
+											<NextImage
 												src={
 													process.env
 														.NEXT_PUBLIC_BASE_IMAGE_URL +
@@ -60,6 +60,7 @@ const ShopeeMall = ({ id }: Props) => {
 												alt={da.shop_name}
 												width={130}
 												height={130}
+												priority
 											/>
 										</div>
 									</a>

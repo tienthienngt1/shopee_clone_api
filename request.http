@@ -10,5 +10,7 @@ POST https://shopee.vn/api/v4/banner/batch_list_by_spaces
 			],
 }
 
-###
-GET https://shopee-black.vercel.app/api/v4/recommend/recommend?bundle=daily_discover_main&item_card=3&limit=60&offset=0
+
+### 
+GET http://localhost:3000/api/v4/search/search_items?by=pop&categoryids=100578%2C341412&limit=60&match_id=11036132&newest=0&order=desc&page_type=search&scenario=PAGE_CATEGORY&version=2
+af-ac-enc-dat: null

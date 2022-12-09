@@ -7,7 +7,7 @@ import {
 } from "../styled";
 import { SwiperSlide } from "swiper/react";
 import { Grid, Navigation } from "swiper";
-import Image from "next/image";
+import NextImage from "next/image";
 import { useSelector } from "react-redux";
 import { RootState } from "redux/store";
 import { Slide } from "components/desktop/common/component";
@@ -15,9 +15,7 @@ import Link from "next/link";
 import { convertIdToUrl } from "../../../../func/convertIdToUrl";
 
 export function CategoryHome() {
-	const {
-		categoryTree: { data },
-	} = useSelector((state: RootState) => state);
+	const { data } = useSelector((state: RootState) => state.categoryTree);
 	return (
 		<WrapCategoryHomeStyled>
 			<TitleCategoryHomeStyled>
@@ -54,7 +52,7 @@ export function CategoryHome() {
 										<div>
 											<SwiperSlideHeader>
 												<div>
-													<Image
+													<NextImage
 														src={
 															process.env
 																.NEXT_PUBLIC_BASE_IMAGE_URL +
@@ -63,6 +61,7 @@ export function CategoryHome() {
 														alt={da.name}
 														width={90}
 														height={90}
+														priority
 													/>
 												</div>
 											</SwiperSlideHeader>

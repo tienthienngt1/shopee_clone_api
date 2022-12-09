@@ -16,11 +16,11 @@ function MyApp({ Component, pageProps }: AppProps) {
 					<ThemeConfig>
 						<Component {...pageProps} />
 						<GlobalStyle />
+						<ToTopButton />
 					</ThemeConfig>
 				</PersistGate>
 			</Provider>
-			<ToTopButton />
-			{/* <MessFb /> */}
+			{process.env.NODE_ENV === "production" ? <MessFb /> : ""}
 		</>
 	);
 }

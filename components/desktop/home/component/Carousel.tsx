@@ -1,4 +1,4 @@
-import Image from "next/image";
+import NextImage from "next/image";
 import { WrapCarouselStyled } from "../styled";
 import SlideBanner from "components/desktop/common/component/SlideBanner";
 import { useSelector } from "react-redux";
@@ -30,7 +30,7 @@ const Carousel = () => {
 								height: "100%",
 							}}
 						>
-							<Image
+							<NextImage
 								src={
 									carouselBanner && carouselBanner?.length > 0
 										? carouselBanner[
@@ -44,6 +44,7 @@ const Carousel = () => {
 										?.target_url
 								}
 								layout="fill"
+								priority
 							/>
 						</div>
 					</a>
@@ -65,7 +66,7 @@ const Carousel = () => {
 								height: "100%",
 							}}
 						>
-							<Image
+							<NextImage
 								src={
 									carouselBanner && carouselBanner?.length > 0
 										? carouselBanner[
@@ -79,6 +80,7 @@ const Carousel = () => {
 										?.target_url
 								}
 								layout="fill"
+								priority
 							/>
 						</div>
 					</a>

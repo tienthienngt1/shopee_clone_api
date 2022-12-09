@@ -73,8 +73,30 @@ export const LeftComponentFilter = styled.div`
 				cursor: pointer;
 			}
 		}
+		.checkbox_label {
+			display: flex;
+			& > div:first-child {
+				width: 15px;
+				height: 15px;
+				font-size: 8px;
+				display: grid;
+				place-items: center;
+				margin-right: 10px;
+				color: red;
+				border: 1px solid rgb(0, 0, 0, 0.2);
+			}
+		}
 	}
 	.filter_star {
+		cursor: pointer;
+	}
+	.filter_clear_all_button {
+		margin: 2rem auto;
+		width: 90%;
+		padding: 0.5rem;
+		color: #fff;
+		text-align: center;
+		background-color: #ee4d2d;
 		cursor: pointer;
 	}
 `;
@@ -136,7 +158,6 @@ export const WrapMoreView = styled.div<MoreView>`
 	& > div {
 		font-size: 1.1rem;
 		padding: 0.5rem 0;
-		transition: display 0.4s;
 		display: ${(props) => (!props.status ? "none" : "block")};
 		cursor: pointer;
 		&:nth-child(-n + 4) {
@@ -144,9 +165,6 @@ export const WrapMoreView = styled.div<MoreView>`
 		}
 		&:hover {
 			opacity: 0.8;
-		}
-		label {
-			padding: 0 0.5rem;
 		}
 	}
 	span {

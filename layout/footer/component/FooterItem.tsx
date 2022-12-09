@@ -1,4 +1,4 @@
-import Image from "next/image";
+import NextImage from "next/image";
 import { Data, DataArr } from "redux/slice/footerLayout";
 import { FooterItemDownload } from "../styled/footerItemStyled";
 import {
@@ -35,13 +35,14 @@ const FooterList = ({ data }: FooterListType) => {
 				{data.logo.map((l) => (
 					<div key={l.image}>
 						<div>
-							<Image
+							<NextImage
 								src={
 									process.env.NEXT_PUBLIC_BASE_IMAGE_URL +
 									l.image
 								}
 								alt={l.url}
 								layout="fill"
+								priority
 							/>
 						</div>
 					</div>
@@ -56,7 +57,7 @@ const FooterList = ({ data }: FooterListType) => {
 						<li key={so.image}>
 							<a href={so.url} target="_blank" rel="noreferrer">
 								<div>
-									<Image
+									<NextImage
 										src={
 											process.env
 												.NEXT_PUBLIC_BASE_IMAGE_URL +
@@ -64,6 +65,7 @@ const FooterList = ({ data }: FooterListType) => {
 										}
 										alt={so.url}
 										layout="fill"
+										priority
 									/>
 								</div>
 								<div>{so.text}</div>
@@ -77,13 +79,14 @@ const FooterList = ({ data }: FooterListType) => {
 		return (
 			<FooterItemDownload>
 				<div>
-					<Image
+					<NextImage
 						src={
 							process.env.NEXT_PUBLIC_BASE_IMAGE_URL +
 							data.qr.qr_image
 						}
 						alt={data.qr.qr_url}
 						layout="fill"
+						priority
 					/>
 				</div>
 				<div>
@@ -96,7 +99,7 @@ const FooterList = ({ data }: FooterListType) => {
 						>
 							<div>
 								<div>
-									<Image
+									<NextImage
 										src={
 											process.env
 												.NEXT_PUBLIC_BASE_IMAGE_URL +
@@ -104,6 +107,7 @@ const FooterList = ({ data }: FooterListType) => {
 										}
 										alt={ex.url}
 										layout="fill"
+										priority
 									/>
 								</div>
 							</div>

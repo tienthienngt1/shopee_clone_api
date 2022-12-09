@@ -26,11 +26,11 @@ export const store = configureStore({
 					PURGE,
 					REGISTER,
 				],
-				// warnafter: 128,
+				warnafter: 128,
 			},
-			// immutableCheck: {
-			// 	warnAfter: 128,
-			// },
+			immutableCheck: {
+				warnAfter: 128,
+			},
 		}),
 });
 

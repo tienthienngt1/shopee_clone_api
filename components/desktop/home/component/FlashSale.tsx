@@ -1,5 +1,5 @@
 import { useEffect, useCallback, useState } from "react";
-import Image from "next/image";
+import NextImage from "next/image";
 import {
 	WrapFlashSaleStyled,
 	FlashSaleHeaderStyled,
@@ -33,7 +33,7 @@ const Item = (props: ItemType) => (
 	>
 		<LazyLoad>
 			<div className="swiper_slide_header">
-				<Image
+				<NextImage
 					src={
 						process.env.NEXT_PUBLIC_BASE_IMAGE_URL +
 						props.sale.image
@@ -170,11 +170,12 @@ export function FlashSale() {
 		<WrapFlashSaleStyled>
 			<FlashSaleHeaderStyled>
 				<div>
-					<Image
+					<NextImage
 						src={flashSaleLogo}
 						alt="flash_sale_log"
 						width={120}
 						height={25}
+						priority
 					/>
 					<CountDown session={session as Session} />
 				</div>

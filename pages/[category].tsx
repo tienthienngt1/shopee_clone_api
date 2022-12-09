@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import type { NextPage } from "next";
 import MainLayout from "layout/MainLayout";
 import { useRouter } from "next/router";
@@ -23,20 +23,19 @@ const Category: NextPage = () => {
 		query: { category },
 	} = useRouter();
 	const [loading, setLoading] = useState<boolean>(true);
-	const [query, setQuery] = useState<string[]>([]);
+	const router = useRouter();
+	const query = useMemo(() => category?.toString()?.split("."), [category]);
+
 	useEffect(() => {
-		if (!category) return;
-		// split category for get id category
-		const query = category?.toString()?.split(".");
+		console.log(router.asPath.split("."));
+	}, [router.asPath]);
+
+	useEffect(() => {
+		if (!router.asPath) return;
 		dispatch(setLoadingItemCat());
-		if (query?.[2]) {
-			dispatch(setItemCat(query[2]));
-		} else {
-			dispatch(setItemCat(query[1]));
-		}
-		setQuery(query);
+		dispatch(setItemCat(router.asPath));
 		setLoading(false);
-	}, [dispatch, category]);
+	}, [dispatch, router.asPath]);
 	if (loading) return <Loading />;
 	if (!category?.includes("cat")) return <Error404 />;
 	return (
@@ -52,7 +51,11 @@ const Category: NextPage = () => {
 					<BannerSlide id={query?.[1]} />
 					<ShopeeMall id={query?.[1]} />
 					<PopularCollection id={query?.[1]} />
-					<ProductCat idCat={query?.[1]} idItem={query?.[2]} />
+					<ProductCat
+						router={router}
+						idCat={query?.[1]}
+						idItem={query?.[2]}
+					/>
 				</Container>
 			</MainLayout>
 			<ToTopButton />

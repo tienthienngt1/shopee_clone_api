@@ -13,7 +13,7 @@ export default async function handler(
 	req: NextApiRequest,
 	res: NextApiResponse<any>
 ) {
-	if (req.url?.includes("recommend")) {
+	if (req.url?.includes("recommend") || req.url?.includes("search")) {
 		const resExtra = await axios.get(
 			`${process.env.BASE_API_URL + req.url}`,
 			{ headers: { "af-ac-enc-dat": "null" } }

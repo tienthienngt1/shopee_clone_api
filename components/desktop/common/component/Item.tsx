@@ -1,10 +1,11 @@
 import { useState, useCallback } from "react";
 import React from "react";
 import { ItemFooter, ItemHeader, WrapItem, FindSameProduct } from "../styled/";
-import Image from "next/image";
+import NextImage from "next/image";
 import LazyLoad from "react-lazy-load";
 import { DataCat } from "redux/slice/category/itemCat";
 import Stars from "components/commons/component/Star";
+import { convertNumberToK, convertNumberToVND } from "func";
 
 type Props = {
 	data: DataCat;
@@ -13,15 +14,6 @@ type Props = {
 
 const Item = ({ data, isDisplayHover = true }: Props) => {
 	const [isHover, setIsHover] = useState<boolean>(false);
-	const convertToVND = useCallback((num: number) => {
-		return (num / 100000)
-			.toLocaleString("en-US", {
-				style: "currency",
-				currency: "VND",
-			})
-			.replace(/[,]/g, ".");
-	}, []);
-
 	return (
 		<WrapItem
 			isDisplayHover={isDisplayHover}
@@ -31,13 +23,14 @@ const Item = ({ data, isDisplayHover = true }: Props) => {
 			<ItemHeader>
 				<div className="item_image">
 					<LazyLoad>
-						<Image
+						<NextImage
 							src={
 								process.env.NEXT_PUBLIC_BASE_IMAGE_URL +
 								data.image
 							}
 							alt={data.name}
 							layout="fill"
+							priority={true}
 						/>
 					</LazyLoad>
 				</div>
@@ -54,23 +47,24 @@ const Item = ({ data, isDisplayHover = true }: Props) => {
 						data.price_max - data?.price_min > 0 ? (
 							<div>
 								{" "}
-								<span>{convertToVND(data.price_max)}</span>
+								<span>
+									{convertNumberToVND(data.price_max)}
+								</span>
 								&nbsp;-&nbsp;
-								<span>{convertToVND(data.price_min)}</span>
+								<span>
+									{convertNumberToVND(data.price_min)}
+								</span>
 							</div>
 						) : (
-							<div>{convertToVND(data.price)}</div>
+							<div>{convertNumberToVND(data.price)}</div>
 						)
 					) : (
 						<>
-							<div>{convertToVND(data.price)}</div>
+							<div>{convertNumberToVND(data.price)}</div>
 							<div>
 								Đã bán{" "}
 								<span>
-									{Intl.NumberFormat("en-US", {
-										notation: "compact",
-										maximumFractionDigits: 1,
-									}).format(data.historical_sold)}
+									{convertNumberToK(data.historical_sold)}
 								</span>
 							</div>
 						</>
@@ -82,10 +76,7 @@ const Item = ({ data, isDisplayHover = true }: Props) => {
 						<div>
 							Đã bán:{" "}
 							<span>
-								{Intl.NumberFormat("en-US", {
-									notation: "compact",
-									maximumFractionDigits: 1,
-								}).format(data.historical_sold)}
+								{convertNumberToK(data.historical_sold)}
 							</span>
 						</div>
 					</div>

@@ -13,9 +13,10 @@ export interface DataCat extends Data {
 type ItemCatState = {
 	data: DataCat[];
 	status: string;
+	total: number;
 };
 
-const initialState: ItemCatState = { data: [], status: "fulfilled" };
+const initialState: ItemCatState = { data: [], status: "fulfilled", total: 0 };
 
 const itemCatState = createSlice({
 	name: "itemCat",
@@ -28,6 +29,7 @@ const itemCatState = createSlice({
 	extraReducers: (builder) => {
 		builder.addCase(setItemCat.fulfilled, (state, action) => {
 			if (action.payload?.data?.sections?.[0]?.data?.item) {
+				state.total = action.payload?.data?.sections?.[0]?.total;
 				state.data = action.payload.data.sections[0].data.item.map(
 					(i: any) => ({
 						itemid: i.itemid,
@@ -46,10 +48,25 @@ const itemCatState = createSlice({
 						name: i.name,
 					})
 				);
-				state.status = "fulfilled";
-			} else {
-				state.data = [];
 			}
+			if (action.payload?.items) {
+				state.total = action.payload?.total_count;
+				state.data = action.payload.items.map((i: any) => ({
+					itemid: i.itemid,
+					price_before_discount: i.item_basic.price_before_discount,
+					price_min: i.item_basic.price_min,
+					price_max: i.item_basic.price_max,
+					price: i.item_basic.price,
+					raw_discount: i.item_basic.raw_discount,
+					shopee_verified: i.item_basic.shopee_verified,
+					shopee_rating: i.item_basic.shopee_rating,
+					historical_sold: i.item_basic.historical_sold,
+					shop_location: i.item_basic.shop_location,
+					image: i.item_basic.image,
+					name: i.item_basic.name,
+				}));
+			}
+			state.status = "fulfilled";
 		});
 	},
 });
@@ -57,11 +74,21 @@ const itemCatState = createSlice({
 export const setItemCat = createAsyncThunk(
 	"itemcat/setItemCat",
 	async (id: string) => {
-		const res = await axios(
-			`api/v4/recommend/recommend?bundle=category_landing_page&cat_level=1&catid=${id}&limit=60&offset=0`,
-			{ headers: { "af-ac-enc-dat": "null" } }
-		);
-		return res.data;
+		let res;
+		const query = id.split(".");
+		const catid = query?.[query.length - 1];
+		if (!catid.includes("?")) {
+			res = await axios(
+				`api/v4/recommend/recommend?bundle=category_landing_page&cat_level=1&catid=${catid}&limit=60&offset=0`,
+				{ headers: { "af-ac-enc-dat": "null" } }
+			);
+		} else {
+			const params = catid.split("?");
+			res = await axios(
+				`api/v4/search/search_items?limit=60&match_id=${params[0]}&page_type=search&scenario=PAGE_CATEGORY&version=2&${params[1]}`
+			);
+		}
+		return res?.data;
 	}
 );
 

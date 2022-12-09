@@ -1,4 +1,4 @@
-import Image from "next/image";
+import NextImage from "next/image";
 import {
 	WrapTopSearch,
 	WrapSlide,
@@ -35,13 +35,13 @@ const TopSearch = () => {
 					spaceBetween={20}
 				>
 					{data && data?.length > 0
-						? data?.map((da: Data) => (
-								<SwiperSlide key={da.count + da.name}>
+						? data?.map((da: Data, i) => (
+								<SwiperSlide key={da.count + da.name + i}>
 									<WrapSlide>
 										<SlideHeader>
 											<LazyLoad>
 												<div>
-													<Image
+													<NextImage
 														src={`${
 															process.env
 																.NEXT_PUBLIC_BASE_IMAGE_URL +
@@ -49,6 +49,7 @@ const TopSearch = () => {
 														}`}
 														alt={da.name}
 														layout="fill"
+														priority
 													/>
 												</div>
 											</LazyLoad>

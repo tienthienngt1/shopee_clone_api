@@ -1,9 +1,10 @@
 import Stars from "components/commons/component/Star";
-import { checkDispatch } from "func";
+import { checkDispatch, convertNumberToK } from "func";
 import Link from "next/link";
-import { Fragment, ReactNode, useEffect, useState } from "react";
+import { Fragment, ReactNode, useEffect, useState, useMemo } from "react";
 import {
 	CaretRightFill,
+	Check,
 	ChevronDown,
 	ChevronRight,
 	ChevronUp,
@@ -29,8 +30,8 @@ import {
 } from "../styled";
 import Item from "components/desktop/common/component/Item";
 import { convertIdToUrl } from "func/convertIdToUrl";
-import { useRouter } from "next/router";
 import { Loading } from "components/desktop/common/component";
+import { NextRouter } from "next/router";
 
 type MoreViewType = {
 	children: ReactNode;
@@ -59,32 +60,69 @@ const MoreView = ({ children, display }: MoreViewType) => {
 	);
 };
 
-type LeftComponentProps = {
-	idCat: string | undefined;
-	idItem: string | undefined;
-};
-
-const LeftComponent = ({ idCat, idItem }: LeftComponentProps) => {
+const LeftComponent = ({ router }: ProductCatProps) => {
 	const [cat, setCat] = useState<Data>();
 	const dispatch = useThunkDispatch();
-	const { categoryTree, searchFilter } = useSelector(
-		(state: RootState) => state
+	const categoryTree = useSelector((state: RootState) => state.categoryTree);
+	const searchFilter = useSelector((state: RootState) => state.searchFilter);
+	// get id Cat to filter for category
+	const idCat = useMemo(
+		() => router.query.category?.toString()?.split(".")?.[1],
+		[router.query.category]
 	);
+	// get id Cat to filter for category
+	const idItem = useMemo(
+		() => router.query.category?.toString()?.split(".")?.[2],
+		[router.query.category]
+	);
+	// filter category by icCat from category tree
 	categoryTree.data.length > 0 &&
 		categoryTree.data.filter((d) => d.catid.toString() === idCat);
+
 	useEffect(() => {
 		if (!idCat) return;
+		//check if don't have category tree, we will get it
 		checkDispatch(categoryTree.data, dispatch, setCategoryTree);
-		idCat && dispatch(setSearchFilter(idCat));
+		// check if have idItem, we will get search filter by idItem without get by idcat
+		dispatch(setSearchFilter(idItem ? idItem : idCat));
+		// filter menu of category
 		if (categoryTree.data.length > 0 && idCat) {
 			const catFilter = categoryTree.data.filter(
 				(d) => d.catid.toString() === idCat
 			);
 			setCat(catFilter[0]);
 		}
-	}, [dispatch, idCat]);
-	console.log(idItem);
+	}, [dispatch, idCat, idItem]);
 
+	//handle search params
+	const handleSearchParams = (id: number | string) => {
+		router.push(
+			{
+				pathname: router.pathname,
+				query: {
+					...router.query,
+					categoryids: router.query?.categoryids
+						? router.query?.categoryids.toString() + "," + id
+						: id,
+					by: "pop",
+					newest: 0,
+					order: "desc",
+				},
+			},
+			undefined,
+			{ scroll: false }
+		);
+	};
+
+	//handle button clear all filter
+	const handleClearAll = () => {
+		router.push({
+			pathname: router.pathname,
+			query: {
+				category: router.query.category,
+			},
+		});
+	};
 	return (
 		<>
 			<LeftComponentHeader>
@@ -133,25 +171,40 @@ const LeftComponent = ({ idCat, idItem }: LeftComponentProps) => {
 				{searchFilter.data?.length > 0 &&
 					searchFilter.data.map((d, i) => (
 						<Fragment key={Math.random() * 99999999 + i}>
-							<div className="filter_title">{d?.title}</div>
+							<div className="filter_title">{d?.title} </div>
 							<div className="filter_body">
 								<MoreView display={i === 3 ? false : true}>
-									{d?.items?.map((item, i) => (
-										<Fragment key={item.id}>
-											<Link href="#">
+									{d?.items?.map((item) => (
+										<div key={Math.random() * 99999999999}>
+											<div
+												className="checkbox_label"
+												onClick={() =>
+													handleSearchParams(item.id)
+												}
+											>
 												<div>
-													<input
-														name={item.name + i}
-														type="checkbox"
-													/>
-													<label
-														htmlFor={item.name + i}
-													>
-														{item.name}
-													</label>
+													{router.query?.categoryids
+														?.toString()
+														.split(",")
+														.map((r: any) => (
+															<>
+																{Number(r) ===
+																	item.id && (
+																	<Check />
+																)}
+															</>
+														))}
 												</div>
-											</Link>
-										</Fragment>
+												<div>
+													{item.name}{" "}
+													{item.count &&
+														`(${convertNumberToK(
+															item.count,
+															1
+														)}+)`}
+												</div>
+											</div>
+										</div>
 									))}
 								</MoreView>
 							</div>
@@ -179,15 +232,21 @@ const LeftComponent = ({ idCat, idItem }: LeftComponentProps) => {
 						</div>
 					))}
 				</div>
+				<div
+					className="filter_clear_all_button"
+					onClick={handleClearAll}
+				>
+					Xoá Tất Cả
+				</div>
 			</LeftComponentFilter>
 		</>
 	);
 };
 
 const RightComponent = () => {
-	const {
-		itemCat: { data, status },
-	} = useSelector((state: RootState) => state);
+	const { data, status, total } = useSelector(
+		(state: RootState) => state.itemCat
+	);
 	return (
 		<WrapRightComponent>
 			<WrapRightComponentHeader>
@@ -203,7 +262,7 @@ const RightComponent = () => {
 					</select>
 				</div>
 				<div className="right_component_header_pagination">
-					1/9{" "}
+					1/{total / 50 - 1}{" "}
 					<button>
 						<ChevronLeft />
 					</button>
@@ -229,9 +288,13 @@ const RightComponent = () => {
 	);
 };
 
-type Props = { idCat: string | undefined; idItem: string | undefined };
+type ProductCatProps = {
+	idCat: string | undefined;
+	idItem: string | undefined;
+	router: NextRouter;
+};
 
-const ProductCat = (props: Props) => {
+const ProductCat = (props: ProductCatProps) => {
 	return (
 		<>
 			<WrapProductCat>

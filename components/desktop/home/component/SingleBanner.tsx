@@ -1,5 +1,5 @@
 import { WrapSingleBannerStyled } from "../styled";
-import Image from "next/image";
+import NextImage from "next/image";
 import { useSelector } from "react-redux";
 import { RootState } from "redux/store";
 
@@ -30,10 +30,11 @@ export function SingleBanner({ id }: Props) {
 								height: "100%",
 							}}
 						>
-							<Image
+							<NextImage
 								src={data?.[0]?.image_url}
 								alt={data?.[0]?.target_url}
 								layout="fill"
+								priority
 							/>
 						</div>
 					</a>

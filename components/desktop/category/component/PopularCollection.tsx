@@ -6,10 +6,9 @@ import {
 	PopularCollectionHeader,
 	WrapPopularCollection,
 } from "../styled";
-import Image from "next/image";
+import NextImage from "next/image";
 import { Grid, Navigation } from "swiper";
 import { SwiperSlide } from "swiper/react";
-import { setItemCat } from "redux/slice/category/itemCat";
 import { Slide } from "components/desktop/common/component";
 import { setPopularCollectionCat } from "redux/slice/category/popularCollectionCat";
 
@@ -52,7 +51,7 @@ const PopularCollection = ({ id }: Props) => {
 									<SwiperSlide key={c.image}>
 										<div>
 											<div>
-												<Image
+												<NextImage
 													src={
 														process.env
 															.NEXT_PUBLIC_BASE_IMAGE_URL +
@@ -60,6 +59,7 @@ const PopularCollection = ({ id }: Props) => {
 													}
 													alt={c.title}
 													layout="fill"
+													priority
 												/>
 											</div>
 											<div>

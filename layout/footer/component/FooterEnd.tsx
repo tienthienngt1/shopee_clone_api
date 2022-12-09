@@ -5,7 +5,7 @@ import {
 	FooterEndBody,
 	WrapFooterEnd,
 } from "../styled";
-import Image from "next/image";
+import NextImage from "next/image";
 
 type Props = {};
 
@@ -19,27 +19,30 @@ const FooterEnd = (props: Props) => {
 			</FooterEndHeader>
 			<FooterEndBody>
 				<div>
-					<Image
+					<NextImage
 						src="/bct.png"
 						alt="ceritficate"
 						width={130}
 						height={45}
+						priority
 					/>
 				</div>
 				<div>
-					<Image
+					<NextImage
 						src="/bct.png"
 						alt="ceritficate"
 						width={130}
 						height={45}
+						priority
 					/>
 				</div>
 				<div>
-					<Image
+					<NextImage
 						src="/cicle.png"
 						alt="ceritficate"
 						width={50}
 						height={50}
+						priority
 					/>
 				</div>
 			</FooterEndBody>
