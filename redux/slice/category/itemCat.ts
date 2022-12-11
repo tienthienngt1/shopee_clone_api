@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import { toast } from "react-toastify";
 import type { Data } from "../home/dailyDiscover";
 
 export interface DataCat extends Data {
@@ -28,6 +29,10 @@ const itemCatState = createSlice({
 	},
 	extraReducers: (builder) => {
 		builder.addCase(setItemCat.fulfilled, (state, action) => {
+			if (action.payload?.error)
+				toast.error(`Erorr tracking, code: ${action.payload.error}`, {
+					position: toast.POSITION.BOTTOM_RIGHT,
+				});
 			if (action.payload?.data?.sections?.[0]?.data?.item) {
 				state.total = action.payload?.data?.sections?.[0]?.total;
 				state.data = action.payload.data.sections[0].data.item.map(
@@ -77,15 +82,20 @@ export const setItemCat = createAsyncThunk(
 		let res;
 		const query = id.split(".");
 		const catid = query?.[query.length - 1];
-		if (!catid.includes("?")) {
+		if (!id.includes("?") && query.length <= 3) {
 			res = await axios(
 				`api/v4/recommend/recommend?bundle=category_landing_page&cat_level=1&catid=${catid}&limit=60&offset=0`,
 				{ headers: { "af-ac-enc-dat": "null" } }
 			);
 		} else {
-			const params = catid.split("?");
+			const paramsArr = id.split("?");
+			const params = paramsArr[0].split(".");
 			res = await axios(
-				`api/v4/search/search_items?limit=60&match_id=${params[0]}&page_type=search&scenario=PAGE_CATEGORY&version=2&${params[1]}`
+				`api/v4/search/search_items?limit=60&match_id=${
+					params[params.length - 1]
+				}&page_type=search&scenario=PAGE_CATEGORY&version=2&${
+					paramsArr[1]
+				}`
 			);
 		}
 		return res?.data;

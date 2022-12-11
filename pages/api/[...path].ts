@@ -14,28 +14,16 @@ export default async function handler(
 	res: NextApiResponse<any>
 ) {
 	if (req.url?.includes("recommend") || req.url?.includes("search")) {
-		const resExtra = await axios.get(
-			`${process.env.BASE_API_URL + req.url}`,
-			{ headers: { "af-ac-enc-dat": "null" } }
-		);
-		return res.json({ ...resExtra.data });
+		try {
+			const resExtra = await axios.get(
+				`${process.env.BASE_API_URL + req.url}`,
+				{ headers: { "af-ac-enc-dat": "null" } }
+			);
+			return res.json({ ...resExtra.data });
+		} catch (error) {
+			return res.json({ error: "Error Server!" });
+		}
 	}
-	// if (req.url && process.env.BASE_API_URL) {
-	// 	let resShopee;
-	// 	if (req.method === "get") {
-	// 		resShopee = await axios.get(
-	// 			`${process.env.BASE_API_URL + req.url}`,
-	// 			{ headers: { "af-ac-enc-dat": "null" } }
-	// 		);
-	// 	} else if (req.method === "post") {
-	// 		resShopee = await axios.post(
-	// 			`${process.env.BASE_API_URL + req.url}`,
-	// 			{ ...req.body }
-	// 		);
-	// 	}
-	// 	return res.json({ ...resShopee?.data });
-	// }
-	// return res.json({ data: null, error: 1 });
 	return new Promise((resolve) => {
 		proxy.web(req, res, {
 			target: process.env.BASE_API_URL,

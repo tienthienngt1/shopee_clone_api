@@ -3,6 +3,7 @@ import axios from "axios";
 
 type Data = {
 	title: string;
+	queryWord: string;
 	items: {
 		name: string;
 		id: number | string;
@@ -31,6 +32,7 @@ const searchFilterState = createSlice({
 				state.data = [
 					{
 						title: "Theo Danh Mục",
+						queryWord: "categoryids",
 						items: data?.facets?.map((f: any) => ({
 							name: f.category.display_name,
 							id: f.catid,
@@ -39,10 +41,15 @@ const searchFilterState = createSlice({
 					},
 					{
 						title: "Thương Hiệu",
-						items: data?.brands,
+						queryWord: "brandids",
+						items: data?.brands.map((b: any) => ({
+							id: b.brandid,
+							name: b.name,
+						})),
 					},
 					{
 						title: "Nơi Bán",
+						queryWord: "locations",
 						items: data?.locations.map((l: any) => ({
 							title: "Nơi Bán",
 							id: l.name,
@@ -51,6 +58,7 @@ const searchFilterState = createSlice({
 					},
 					{
 						title: "Đơn Vị Vận Chuyển",
+						queryWord: "shippings",
 						items: data?.shippings.map((s: any) => ({
 							title: "Đơn Vi Vận Chuyển",
 							id: s.positionid,

@@ -34,7 +34,9 @@ const SlideBanner = <T extends any[]>({ data }: Props<T>) => {
 						loop
 					>
 						{data.map((ban: any) => (
-							<SwiperSlide key={ban?.image_hash}>
+							<SwiperSlide
+								key={ban?.image_hash + Math.random() * 99999}
+							>
 								<a
 									href={ban?.target_url}
 									target="_blank"

@@ -126,6 +126,13 @@ export const WrapRightComponentHeader = styled.div`
 			span {
 				padding: 0 1rem;
 			}
+			.active {
+				background: #ee4d2d;
+				color: #fff;
+			}
+			option {
+				padding: 1rem;
+			}
 		}
 		&_pagination {
 			font-size: 1.2rem;

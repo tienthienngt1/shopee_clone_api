@@ -70,7 +70,7 @@ const LeftComponent = ({ router }: ProductCatProps) => {
 		() => router.query.category?.toString()?.split(".")?.[1],
 		[router.query.category]
 	);
-	// get id Cat to filter for category
+	// get id Cat item to filter for category
 	const idItem = useMemo(
 		() => router.query.category?.toString()?.split(".")?.[2],
 		[router.query.category]
@@ -95,19 +95,52 @@ const LeftComponent = ({ router }: ProductCatProps) => {
 	}, [dispatch, idCat, idItem]);
 
 	//handle search params
-	const handleSearchParams = (id: number | string) => {
+	const handleSearchParams = (id: number | string, queryWord: string) => {
+		const targetQuery = router.query[queryWord]?.toString();
+		//params primary
+		const primaryQuery = {
+			...router.query,
+			by: "pop",
+			newest: "0",
+			order: "desc",
+		};
+		let queryWordValue;
+		//check click 2 times and handle
+		// hash locations query to match api
+		if (queryWord === "locations") {
+			if (targetQuery) {
+				let queryWordValueArr = targetQuery.split(",");
+				const indexOfId = queryWordValueArr.indexOf(
+					encodeURIComponent(id.toString())
+				);
+				if (indexOfId > -1) queryWordValueArr.splice(indexOfId, 1);
+				else queryWordValueArr.push(encodeURIComponent(id.toString()));
+				queryWordValue = queryWordValueArr.toString();
+			} else {
+				queryWordValue = encodeURIComponent(id);
+			}
+		} else {
+			if (targetQuery) {
+				const targetQueryArr = targetQuery.split(",");
+				const indexOfId = targetQuery.indexOf(id.toString());
+				if (indexOfId > -1) targetQueryArr.splice(indexOfId, 1);
+				else targetQueryArr.push(id.toString());
+				queryWordValue = targetQueryArr.toString();
+			} else {
+				queryWordValue = id;
+			}
+		}
+		const extraQuery = { [queryWord]: queryWordValue };
+		const query = { ...primaryQuery, ...extraQuery };
+		Object.keys(query).forEach(
+			//@ts-ignore
+			(k) => query[k] === "" && delete query[k]
+		);
+
 		router.push(
 			{
 				pathname: router.pathname,
-				query: {
-					...router.query,
-					categoryids: router.query?.categoryids
-						? router.query?.categoryids.toString() + "," + id
-						: id,
-					by: "pop",
-					newest: 0,
-					order: "desc",
-				},
+				query: JSON.parse(JSON.stringify(query)),
 			},
 			undefined,
 			{ scroll: false }
@@ -123,6 +156,22 @@ const LeftComponent = ({ router }: ProductCatProps) => {
 			},
 		});
 	};
+
+	//handle display checked icon
+	const checkedWordIntoArr = (queryWord: string, id: string | number) => {
+		let queryWordValue;
+		if (queryWord === "locations") {
+			queryWordValue = decodeURIComponent(
+				router.query[queryWord]?.toString() || ""
+			);
+		} else {
+			queryWordValue = router.query[queryWord]?.toString();
+		}
+		const result = queryWordValue?.indexOf(id.toString());
+		if (result !== undefined && result >= 0) return true;
+		return false;
+	};
+
 	return (
 		<>
 			<LeftComponentHeader>
@@ -179,21 +228,17 @@ const LeftComponent = ({ router }: ProductCatProps) => {
 											<div
 												className="checkbox_label"
 												onClick={() =>
-													handleSearchParams(item.id)
+													handleSearchParams(
+														item.id,
+														d.queryWord
+													)
 												}
 											>
 												<div>
-													{router.query?.categoryids
-														?.toString()
-														.split(",")
-														.map((r: any) => (
-															<>
-																{Number(r) ===
-																	item.id && (
-																	<Check />
-																)}
-															</>
-														))}
+													{checkedWordIntoArr(
+														d.queryWord,
+														item.id
+													) && <Check />}
 												</div>
 												<div>
 													{item.name}{" "}
@@ -243,26 +288,62 @@ const LeftComponent = ({ router }: ProductCatProps) => {
 	);
 };
 
-const RightComponent = () => {
+const RightComponent = ({ router }: ProductCatProps) => {
 	const { data, status, total } = useSelector(
 		(state: RootState) => state.itemCat
 	);
+	const filterListArr = [
+		{ title: "Phổ biến", id: "pop" },
+		{ title: "Mới nhất", id: "ctime" },
+		{ title: "Bán chạy", id: "sales" },
+	];
+	const handleClickFilter = (id: string, queryWord: string) => {
+		router.push(
+			{
+				pathname: router.pathname,
+				query: {
+					...router.query,
+					by: "price",
+					[queryWord]: id,
+					newest: "0",
+				},
+			},
+			undefined,
+			{ scroll: false }
+		);
+	};
 	return (
 		<WrapRightComponent>
 			<WrapRightComponentHeader>
 				<div className="right_component_header_filter">
 					<span>Sắp xếp theo</span>
-					<button>Mới nhất</button>
-					<button>Phổ biến</button>
-					<button>Bán chạy</button>
-					<select>
+					{filterListArr.map((f) => (
+						<button
+							key={f.id + Math.random() * 9999999}
+							className={
+								router.query?.by === f.id ||
+								(!router.query.by && f.id === "pop")
+									? "active"
+									: undefined
+							}
+							onClick={() => handleClickFilter(f.id, "by")}
+						>
+							{f.title}
+						</button>
+					))}
+					<select
+						value={router.query.order}
+						onChange={(e) =>
+							handleClickFilter(e.target.value, "order")
+						}
+					>
 						<option hidden>Giá</option>
-						<option defaultValue={1}>Giá: Thấp đến Cao</option>
-						<option defaultValue={2}>Giá: Cao đến Thấp</option>
+						<option value="asc">Giá: Thấp đến Cao</option>
+						<option value="desc">Giá: Cao đến Thấp</option>
 					</select>
 				</div>
 				<div className="right_component_header_pagination">
-					1/{total / 50 - 1}{" "}
+					1/{Math.floor(total / 50 - 1)}{" "}
 					<button>
 						<ChevronLeft />
 					</button>
@@ -302,7 +383,7 @@ const ProductCat = (props: ProductCatProps) => {
 					<LeftComponent {...props} />
 				</ProductCatLeft>
 				<ProductCatRight>
-					<RightComponent />
+					<RightComponent {...props} />
 				</ProductCatRight>
 			</WrapProductCat>
 		</>

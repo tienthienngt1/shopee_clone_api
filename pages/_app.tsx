@@ -6,6 +6,8 @@ import ToTopButton from "components/commons/component/ToTopButton";
 import MessFb from "components/commons/component/MessFb";
 import { PersistGate } from "redux-persist/integration/react";
 import { persistStore } from "redux-persist";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function MyApp({ Component, pageProps }: AppProps) {
 	let persistor = persistStore(store);
@@ -21,6 +23,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 				</PersistGate>
 			</Provider>
 			{process.env.NODE_ENV === "production" ? <MessFb /> : ""}
+			<ToastContainer />
 		</>
 	);
 }

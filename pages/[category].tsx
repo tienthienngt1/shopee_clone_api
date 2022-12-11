@@ -9,7 +9,6 @@ import ShopeeMall from "components/desktop/category/component/ShopeeMall";
 import ProductCat from "components/desktop/category/component/ProductCat";
 import ToTopButton from "components/commons/component/ToTopButton";
 import PopularCollection from "components/desktop/category/component/PopularCollection";
-import MessFb from "components/commons/component/MessFb";
 import "swiper/css";
 import "swiper/css/grid";
 import "swiper/css/navigation";
@@ -25,13 +24,7 @@ const Category: NextPage = () => {
 	const [loading, setLoading] = useState<boolean>(true);
 	const router = useRouter();
 	const query = useMemo(() => category?.toString()?.split("."), [category]);
-
 	useEffect(() => {
-		console.log(router.asPath.split("."));
-	}, [router.asPath]);
-
-	useEffect(() => {
-		if (!router.asPath) return;
 		dispatch(setLoadingItemCat());
 		dispatch(setItemCat(router.asPath));
 		setLoading(false);
@@ -59,7 +52,6 @@ const Category: NextPage = () => {
 				</Container>
 			</MainLayout>
 			<ToTopButton />
-			{/* <MessFb /> */}
 		</>
 	);
 };
