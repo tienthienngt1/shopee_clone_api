@@ -44,11 +44,7 @@ const Category: NextPage = () => {
 					<BannerSlide id={query?.[1]} />
 					<ShopeeMall id={query?.[1]} />
 					<PopularCollection id={query?.[1]} />
-					<ProductCat
-						router={router}
-						idCat={query?.[1]}
-						idItem={query?.[2]}
-					/>
+					<ProductCat router={router} />
 				</Container>
 			</MainLayout>
 			<ToTopButton />

@@ -12,7 +12,7 @@ export interface DataCat extends Data {
 }
 
 type ItemCatState = {
-	data: DataCat[];
+	data: DataCat[] | null;
 	status: string;
 	total: number;
 };
@@ -33,30 +33,32 @@ const itemCatState = createSlice({
 				toast.error(`Erorr tracking, code: ${action.payload.error}`, {
 					position: toast.POSITION.BOTTOM_RIGHT,
 				});
-			if (action.payload?.data?.sections?.[0]?.data?.item) {
+			const itemSections =
+				action.payload?.data?.sections?.[0]?.data?.item;
+			const items = action.payload?.items;
+			if (itemSections) {
 				state.total = action.payload?.data?.sections?.[0]?.total;
-				state.data = action.payload.data.sections[0].data.item.map(
-					(i: any) => ({
-						itemid: i.itemid,
-						price_before_discount: i.price_before_discount,
-						price_min: i.price_min,
-						price_max: i.price_max,
-						price: i.price,
-						raw_discount: i.raw_discount,
-						shopee_verified: i.shop_verified,
-						shopee_rating: i.shop_rating,
-						historical_sold: i.historical_sold
-							? i.historical_sold
-							: i.sold,
-						shop_location: i.shop_location,
-						image: i.image,
-						name: i.name,
-					})
-				);
+				state.data = itemSections.map((i: any) => ({
+					itemid: i.itemid,
+					price_before_discount: i.price_before_discount,
+					price_min: i.price_min,
+					price_max: i.price_max,
+					price: i.price,
+					raw_discount: i.raw_discount,
+					shopee_verified: i.shop_verified,
+					shopee_rating: i.shop_rating,
+					historical_sold: i.historical_sold
+						? i.historical_sold
+						: i.sold,
+					shop_location: i.shop_location,
+					image: i.image,
+					name: i.name,
+				}));
 			}
-			if (action.payload?.items) {
+			if (itemSections === null || items === null) state.data = null;
+			if (items) {
 				state.total = action.payload?.total_count;
-				state.data = action.payload.items.map((i: any) => ({
+				state.data = items.map((i: any) => ({
 					itemid: i.itemid,
 					price_before_discount: i.item_basic.price_before_discount,
 					price_min: i.item_basic.price_min,
@@ -64,7 +66,9 @@ const itemCatState = createSlice({
 					price: i.item_basic.price,
 					raw_discount: i.item_basic.raw_discount,
 					shopee_verified: i.item_basic.shopee_verified,
-					shopee_rating: i.item_basic.shopee_rating,
+					shopee_rating:
+						i.item_basic.shopee_rating ||
+						i.item_basic?.item_rating?.rating_star,
 					historical_sold: i.item_basic.historical_sold,
 					shop_location: i.item_basic.shop_location,
 					image: i.item_basic.image,

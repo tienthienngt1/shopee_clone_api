@@ -88,7 +88,13 @@ export const LeftComponentFilter = styled.div`
 		}
 	}
 	.filter_star {
+		display: inline-block;
+		padding: 0px 10px;
 		cursor: pointer;
+		&.active {
+			background: rgb(0, 0, 0, 0.1);
+			border-radius: 20px;
+		}
 	}
 	.filter_clear_all_button {
 		margin: 2rem auto;

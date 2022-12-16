@@ -87,6 +87,7 @@ export const ItemFooter = styled.div`
 	justify-content: space-between;
 	padding: 5px;
 	.item_footer_name {
+		flex: 1;
 		display: inline-block;
 		word-wrap: break-word;
 		white-space: normal;
@@ -104,7 +105,8 @@ export const ItemFooter = styled.div`
 			&,
 			span {
 				color: #ee4d2d;
-				font-size: 1.4rem;
+				font-size: 1.2rem;
+				letter-spacing: -0.5px;
 			}
 		}
 		& > div:nth-child(2) {

@@ -12,7 +12,7 @@ body,
 	margin: 0;
 	box-sizing: border-box;
 	font-size: 13px;
-    transition: all 0.2s;
+    transition: transform 0.2s;
 }
 html{
     scroll-behavior: smooth;

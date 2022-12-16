@@ -25,7 +25,7 @@ type Props = {
 	font: string;
 };
 
-const Stars = ({ star, font }: Props) => {
+const Stars = ({ star, font, ...rest }: Props) => {
 	let percentArr = percent(star);
 	return (
 		<WrapStar font={font}>

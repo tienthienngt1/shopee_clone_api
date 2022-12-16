@@ -1,7 +1,15 @@
 import Stars from "components/commons/component/Star";
-import { checkDispatch, convertNumberToK } from "func";
+import { checkDispatch, convertNumberToK, routerPush } from "func";
 import Link from "next/link";
-import { Fragment, ReactNode, useEffect, useState, useMemo } from "react";
+import {
+	Fragment,
+	ReactNode,
+	useEffect,
+	useState,
+	useMemo,
+	useRef,
+	useId,
+} from "react";
 import {
 	CaretRightFill,
 	Check,
@@ -32,6 +40,7 @@ import Item from "components/desktop/common/component/Item";
 import { convertIdToUrl } from "func/convertIdToUrl";
 import { Loading } from "components/desktop/common/component";
 import { NextRouter } from "next/router";
+import SearchNotFound from "./SearchNotFound";
 
 type MoreViewType = {
 	children: ReactNode;
@@ -61,6 +70,8 @@ const MoreView = ({ children, display }: MoreViewType) => {
 };
 
 const LeftComponent = ({ router }: ProductCatProps) => {
+	const priceMinRef = useRef(null);
+	const priceMaxRef = useRef(null);
 	const [cat, setCat] = useState<Data>();
 	const dispatch = useThunkDispatch();
 	const categoryTree = useSelector((state: RootState) => state.categoryTree);
@@ -136,25 +147,35 @@ const LeftComponent = ({ router }: ProductCatProps) => {
 			//@ts-ignore
 			(k) => query[k] === "" && delete query[k]
 		);
-
-		router.push(
-			{
-				pathname: router.pathname,
-				query: JSON.parse(JSON.stringify(query)),
-			},
-			undefined,
-			{ scroll: false }
-		);
+		routerPush(router, JSON.parse(JSON.stringify(query)), false);
 	};
 
 	//handle button clear all filter
 	const handleClearAll = () => {
-		router.push({
-			pathname: router.pathname,
-			query: {
-				category: router.query.category,
+		routerPush(router, { category: router.query.category }, false);
+	};
+
+	//handle filter by price range
+	const handleFilterPriceRange = () => {
+		//@ts-ignore
+		const priceMinValue = priceMinRef.current?.value;
+		//@ts-ignore
+		const priceMaxValue = priceMaxRef.current?.value;
+		if (!priceMaxValue || !priceMinRef) return;
+		routerPush(
+			router,
+			{
+				...router.query,
+				price_min: priceMinValue,
+				price_max: priceMaxValue,
 			},
-		});
+			false
+		);
+	};
+
+	//handle filter by rating
+	const handleFilerRating = (id: number) => {
+		routerPush(router, { ...router.query, rating_filter: id }, false);
 	};
 
 	//handle display checked icon
@@ -171,7 +192,6 @@ const LeftComponent = ({ router }: ProductCatProps) => {
 		if (result !== undefined && result >= 0) return true;
 		return false;
 	};
-
 	return (
 		<>
 			<LeftComponentHeader>
@@ -259,21 +279,37 @@ const LeftComponent = ({ router }: ProductCatProps) => {
 				<div className="filter_body">
 					<div className="filter_price">
 						<div>
-							<input placeholder="&#8363; &nbsp;TỪ" /> -
-							<input placeholder="&#8363; &nbsp;ĐẾN" />
+							<input
+								ref={priceMinRef}
+								required
+								placeholder="&#8363; &nbsp;TỪ"
+							/>{" "}
+							-
+							<input
+								required
+								ref={priceMaxRef}
+								placeholder="&#8363; &nbsp;ĐẾN"
+							/>
 						</div>
-						<div>Áp dụng</div>
+						<div onClick={() => handleFilterPriceRange()}>
+							Áp dụng
+						</div>
 					</div>
 				</div>
 				<div className="filter_title">Đánh giá</div>
 				<div className="filter_body">
 					{[5, 4, 3, 2, 1].map((s) => (
-						<div
-							className="filter_star"
-							key={Math.random() * 99999999}
-						>
-							<Stars font="1rem" star={s} />{" "}
-							{s === 5 ? "" : "Trở lên"}
+						<div key={Math.random() * 99999999}>
+							<div
+								className={`filter_star ${
+									router.query?.rating_filter ===
+										s.toString() && "active"
+								}`}
+								onClick={() => handleFilerRating(s)}
+							>
+								<Stars font="1rem" star={s} />{" "}
+								{s === 5 ? "" : "Trở lên"}
+							</div>
 						</div>
 					))}
 				</div>
@@ -355,23 +391,27 @@ const RightComponent = ({ router }: ProductCatProps) => {
 			{status === "loading" ? (
 				<Loading />
 			) : (
-				<WrapRightComponentBody>
-					{data &&
-						data.length > 0 &&
-						data.map((d, i) => (
-							<div key={d.itemid + i}>
-								<Item data={d} isDisplayHover={false} />
-							</div>
-						))}
-				</WrapRightComponentBody>
+				<>
+					{data === null ? (
+						<SearchNotFound />
+					) : (
+						<WrapRightComponentBody>
+							{data &&
+								data.length > 0 &&
+								data.map((d, i) => (
+									<div key={d.itemid + i}>
+										<Item data={d} isDisplayHover={false} />
+									</div>
+								))}
+						</WrapRightComponentBody>
+					)}
+				</>
 			)}
 		</WrapRightComponent>
 	);
 };
 
 type ProductCatProps = {
-	idCat: string | undefined;
-	idItem: string | undefined;
 	router: NextRouter;
 };
 

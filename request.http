@@ -10,6 +10,3 @@ POST https://shopee.vn/api/v4/banner/batch_list_by_spaces
 			],
 }
 
-
-### 
-GET http://localhost:3000/api/v4/search/search_items?limit=60&match_id=/S%E1%BB%A9c-Kh%E1%BB%8Fe-cat.11036345&page_type=search&scenario=PAGE_CATEGORY&version=2&by=pop&newest=0&order=desc&categoryids=100006&locations=TP.%2520H%25E1%25BB%2593%2520Ch%25C3%25AD%2520Minh

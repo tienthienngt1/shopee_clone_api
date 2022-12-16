@@ -48,11 +48,11 @@ const Item = ({ data, isDisplayHover = true }: Props) => {
 							<div>
 								{" "}
 								<span>
-									{convertNumberToVND(data.price_max)}
+									{convertNumberToVND(data.price_min)}
 								</span>
 								&nbsp;-&nbsp;
 								<span>
-									{convertNumberToVND(data.price_min)}
+									{convertNumberToVND(data.price_max)}
 								</span>
 							</div>
 						) : (
