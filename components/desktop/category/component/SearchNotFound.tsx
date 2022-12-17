@@ -2,6 +2,7 @@ import Lottie from "react-lottie";
 import styled from "styled-components";
 import * as animationData from "lotties/searchNotFound.json";
 import { useRouter } from "next/router";
+import { routerPush } from "func";
 
 const WrapSearchNotFound = styled.div`
 	width: 100%;
@@ -28,12 +29,7 @@ const WrapSearchNotFound = styled.div`
 const SearchNotFound = () => {
 	const router = useRouter();
 	const handleClearFilter = () => {
-		router.push({
-			pathname: router.pathname,
-			query: {
-				category: router.query.category,
-			},
-		});
+		routerPush(router, { category: router.query.category }, false);
 	};
 	return (
 		<WrapSearchNotFound>

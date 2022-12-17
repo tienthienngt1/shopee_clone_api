@@ -86,20 +86,29 @@ export const setItemCat = createAsyncThunk(
 		let res;
 		const query = id.split(".");
 		const catid = query?.[query.length - 1];
-		if (!id.includes("?") && query.length <= 3) {
+		const page = catid.split("?")?.[1];
+		if ((!id.includes("?") && query.length <= 3) || page.length <= 7) {
 			res = await axios(
-				`api/v4/recommend/recommend?bundle=category_landing_page&cat_level=1&catid=${catid}&limit=60&offset=0`,
+				`api/v4/recommend/recommend?bundle=category_landing_page&cat_level=1&catid=${
+					!catid.includes("?") ? catid : catid.split("?")?.[0]
+				}&limit=60&offset=${
+					!page ? 0 : (Number(page.split("=")?.[1]) - 1) * 60
+				}`,
 				{ headers: { "af-ac-enc-dat": "null" } }
 			);
 		} else {
 			const paramsArr = id.split("?");
 			const params = paramsArr[0].split(".");
+			const page = paramsArr[1]
+				.split("&")
+				?.filter((p) => p.includes("page"));
+			const newest = page?.[0].split("=")?.[1];
 			res = await axios(
 				`api/v4/search/search_items?limit=60&match_id=${
 					params[params.length - 1]
-				}&page_type=search&scenario=PAGE_CATEGORY&version=2&${
-					paramsArr[1]
-				}`
+				}&page_type=search&scenario=PAGE_CATEGORY&version=2&newest=${
+					newest ? Number(newest) * 60 : 0
+				}&${paramsArr[1]}`
 			);
 		}
 		return res?.data;

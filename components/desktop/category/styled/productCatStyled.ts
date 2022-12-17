@@ -107,7 +107,25 @@ export const LeftComponentFilter = styled.div`
 	}
 `;
 
-export const WrapRightComponent = styled.div``;
+export const WrapRightComponent = styled.div`
+	.pagination_page {
+		display: flex;
+		border: 1px solid red;
+		justify-content: center;
+		padding: 1rem;
+		& > div {
+			cursor: pointer;
+			margin: 0 1rem;
+			color: rgb(0, 0, 0, 0.5);
+			padding: 0.5rem 1rem;
+			font-size: 18px;
+			&.active {
+				background: #ee4d2d;
+				color: #fff;
+			}
+		}
+	}
+`;
 export const WrapRightComponentHeader = styled.div`
 	padding: 1rem;
 	background-color: #ededed;
@@ -151,6 +169,9 @@ export const WrapRightComponentHeader = styled.div`
 				&:last-child {
 					border-left: 1px solid rgb(0, 0, 0, 0.1);
 				}
+			}
+			button.disable {
+				opacity: 0.5;
 			}
 		}
 	}

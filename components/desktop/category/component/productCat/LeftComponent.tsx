@@ -1,73 +1,24 @@
-import Stars from "components/commons/component/Star";
-import { checkDispatch, convertNumberToK, routerPush } from "func";
-import Link from "next/link";
-import {
-	Fragment,
-	ReactNode,
-	useEffect,
-	useState,
-	useMemo,
-	useRef,
-	useId,
-} from "react";
-import {
-	CaretRightFill,
-	Check,
-	ChevronDown,
-	ChevronRight,
-	ChevronUp,
-	Funnel,
-	ListUl,
-} from "react-bootstrap-icons";
-import { useSelector } from "react-redux";
-import { Data, setCategoryTree } from "redux/slice/home/categoryTree";
-import { setSearchFilter } from "redux/slice/category/searchFilterCat";
+import { useRef, useState, useMemo, useEffect, Fragment } from "react";
 import { RootState, useThunkDispatch } from "redux/store";
-import { ChevronLeft } from "react-bootstrap-icons";
+import { Data, setCategoryTree } from "redux/slice/home/categoryTree";
+import { useSelector } from "react-redux";
+import { ProductCatProps } from ".";
 import {
-	ProductCatRight,
-	ProductCatLeft,
-	WrapProductCat,
-	LeftComponentHeader,
-	WrapRightComponent,
-	LeftComponentList,
+	checkDispatch,
+	convertIdToUrl,
+	convertNumberToK,
+	routerPush,
+} from "func";
+import { setSearchFilter } from "redux/slice/category/searchFilterCat";
+import {
 	LeftComponentFilter,
-	WrapMoreView,
-	WrapRightComponentHeader,
-	WrapRightComponentBody,
-} from "../styled";
-import Item from "components/desktop/common/component/Item";
-import { convertIdToUrl } from "func/convertIdToUrl";
-import { Loading } from "components/desktop/common/component";
-import { NextRouter } from "next/router";
-import SearchNotFound from "./SearchNotFound";
-
-type MoreViewType = {
-	children: ReactNode;
-	display?: boolean;
-};
-
-const MoreView = ({ children, display }: MoreViewType) => {
-	const [status, setStatus] = useState(false);
-	return (
-		<WrapMoreView status={status}>
-			{children}
-			{display && (
-				<span onClick={() => setStatus(!status)}>
-					{!status ? (
-						<>
-							Xem thêm &nbsp; <ChevronDown />
-						</>
-					) : (
-						<>
-							Thu gọn &nbsp; <ChevronUp />
-						</>
-					)}
-				</span>
-			)}
-		</WrapMoreView>
-	);
-};
+	LeftComponentHeader,
+	LeftComponentList,
+} from "../../styled";
+import { CaretRightFill, Check, Funnel, ListUl } from "react-bootstrap-icons";
+import Link from "next/link";
+import MoreView from "./MoreView";
+import Stars from "components/commons/component/Star";
 
 const LeftComponent = ({ router }: ProductCatProps) => {
 	const priceMinRef = useRef(null);
@@ -112,7 +63,6 @@ const LeftComponent = ({ router }: ProductCatProps) => {
 		const primaryQuery = {
 			...router.query,
 			by: "pop",
-			newest: "0",
 			order: "desc",
 		};
 		let queryWordValue;
@@ -324,110 +274,4 @@ const LeftComponent = ({ router }: ProductCatProps) => {
 	);
 };
 
-const RightComponent = ({ router }: ProductCatProps) => {
-	const { data, status, total } = useSelector(
-		(state: RootState) => state.itemCat
-	);
-	const filterListArr = [
-		{ title: "Phổ biến", id: "pop" },
-		{ title: "Mới nhất", id: "ctime" },
-		{ title: "Bán chạy", id: "sales" },
-	];
-	const handleClickFilter = (id: string, queryWord: string) => {
-		router.push(
-			{
-				pathname: router.pathname,
-				query: {
-					...router.query,
-					by: "price",
-					[queryWord]: id,
-					newest: "0",
-				},
-			},
-			undefined,
-			{ scroll: false }
-		);
-	};
-	return (
-		<WrapRightComponent>
-			<WrapRightComponentHeader>
-				<div className="right_component_header_filter">
-					<span>Sắp xếp theo</span>
-					{filterListArr.map((f) => (
-						<button
-							key={f.id + Math.random() * 9999999}
-							className={
-								router.query?.by === f.id ||
-								(!router.query.by && f.id === "pop")
-									? "active"
-									: undefined
-							}
-							onClick={() => handleClickFilter(f.id, "by")}
-						>
-							{f.title}
-						</button>
-					))}
-					<select
-						value={router.query.order}
-						onChange={(e) =>
-							handleClickFilter(e.target.value, "order")
-						}
-					>
-						<option hidden>Giá</option>
-						<option value="asc">Giá: Thấp đến Cao</option>
-						<option value="desc">Giá: Cao đến Thấp</option>
-					</select>
-				</div>
-				<div className="right_component_header_pagination">
-					1/{Math.floor(total / 50 - 1)}{" "}
-					<button>
-						<ChevronLeft />
-					</button>
-					<button>
-						<ChevronRight />
-					</button>
-				</div>
-			</WrapRightComponentHeader>
-			{status === "loading" ? (
-				<Loading />
-			) : (
-				<>
-					{data === null ? (
-						<SearchNotFound />
-					) : (
-						<WrapRightComponentBody>
-							{data &&
-								data.length > 0 &&
-								data.map((d, i) => (
-									<div key={d.itemid + i}>
-										<Item data={d} isDisplayHover={false} />
-									</div>
-								))}
-						</WrapRightComponentBody>
-					)}
-				</>
-			)}
-		</WrapRightComponent>
-	);
-};
-
-type ProductCatProps = {
-	router: NextRouter;
-};
-
-const ProductCat = (props: ProductCatProps) => {
-	return (
-		<>
-			<WrapProductCat>
-				<ProductCatLeft>
-					<LeftComponent {...props} />
-				</ProductCatLeft>
-				<ProductCatRight>
-					<RightComponent {...props} />
-				</ProductCatRight>
-			</WrapProductCat>
-		</>
-	);
-};
-
-export default ProductCat;
+export default LeftComponent;

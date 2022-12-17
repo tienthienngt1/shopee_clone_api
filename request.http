@@ -9,4 +9,3 @@ POST https://shopee.vn/api/v4/banner/batch_list_by_spaces
 				},
 			],
 }
-

@@ -6,7 +6,7 @@ import Error404 from "components/desktop/common/component/404";
 import BannerSlide from "components/desktop/category/component/BannerSlide";
 import { Container, Loading, Seo } from "components/desktop/common/component";
 import ShopeeMall from "components/desktop/category/component/ShopeeMall";
-import ProductCat from "components/desktop/category/component/ProductCat";
+import ProductCat from "components/desktop/category/component/productCat";
 import ToTopButton from "components/commons/component/ToTopButton";
 import PopularCollection from "components/desktop/category/component/PopularCollection";
 import "swiper/css";
