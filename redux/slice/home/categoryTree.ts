@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import { hostname } from "func";
 
 export type Data = {
 	catid: number;
@@ -47,7 +48,7 @@ const categoryTreeState = createSlice({
 export const setCategoryTree = createAsyncThunk(
 	"categoryTree/setCategoryTree",
 	async () => {
-		const res = await axios("api/v4/pages/get_category_tree");
+		const res = await axios(`${hostname()}/api/v4/pages/get_category_tree`);
 		return res.data?.data?.category_list;
 	}
 );

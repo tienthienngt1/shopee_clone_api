@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import { hostname } from "func";
 
 export type Data = {
 	itemid: number;
@@ -9,6 +10,7 @@ export type Data = {
 	image: string;
 	name: string;
 	price: number;
+	shopid: number;
 };
 
 type DailyDiscoverState = {
@@ -34,6 +36,7 @@ const dailyDiscoverState = createSlice({
 							image: i.image,
 							name: i.name,
 							price: i.price,
+							shopid: i.shopid,
 						})
 					);
 		});
@@ -45,7 +48,7 @@ export const setDailyDiscover = createAsyncThunk(
 	async () => {
 		try {
 			const res = await axios(
-				"api/v4/recommend/recommend?bundle=daily_discover_main&item_card=3&limit=60&offset=0"
+				`${hostname()}/api/v4/recommend/recommend?bundle=daily_discover_main&item_card=3&limit=60&offset=0`
 			);
 			return res.data;
 		} catch (error) {

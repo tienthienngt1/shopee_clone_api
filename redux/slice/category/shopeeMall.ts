@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import { hostname } from "func";
 
 type Data = {
 	image: string;
@@ -37,7 +38,7 @@ export const setShopeeMall = createAsyncThunk(
 	"shopeeMall/setShopeeMall",
 	async (id: string) => {
 		const res = await axios(
-			`/api/v4/official_shop/get_shops?category_id=${id}&limit=24&offset=0`
+			`${hostname()}/api/v4/official_shop/get_shops?category_id=${id}&limit=24&offset=0`
 		);
 		return res.data;
 	}

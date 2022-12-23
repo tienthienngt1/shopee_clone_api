@@ -22,54 +22,61 @@ const ShopeeMall = ({ id }: Props) => {
 	}, [id, dispatch]);
 	return (
 		<WrapShopeeMall>
-			<ShopeeMallHeader>
-				<div>SHOPEE MALL</div>
-				<div>
-					Xem Tất Cả &nbsp;
-					<ChevronRight />
-				</div>
-			</ShopeeMallHeader>
-			<ShopeeMallBody>
-				<Slide
-					id="cat_home"
-					allowTouchMove={false}
-					modules={[Grid, Navigation]}
-					grid={{
-						rows: 2,
-						fill: "row",
-					}}
-					slidesPerView={6}
-					slidesPerGroup={6}
-				>
-					{data?.map((da, i) => {
-						return (
-							<SwiperSlide key={da.shopid + i}>
-								<Link href={`${da.target_url}`} key={da.shopid}>
-									<a
-										style={{
-											height: "100%",
-										}}
-									>
-										<div>
-											<NextImage
-												src={
-													process.env
-														.NEXT_PUBLIC_BASE_IMAGE_URL +
-													da.image
-												}
-												alt={da.shop_name}
-												width={130}
-												height={130}
-												priority
-											/>
-										</div>
-									</a>
-								</Link>
-							</SwiperSlide>
-						);
-					})}
-				</Slide>
-			</ShopeeMallBody>
+			{data.length > 1 && (
+				<>
+					<ShopeeMallHeader>
+						<div>SHOPEE MALL</div>
+						<div>
+							Xem Tất Cả &nbsp;
+							<ChevronRight />
+						</div>
+					</ShopeeMallHeader>
+					<ShopeeMallBody>
+						<Slide
+							id="cat_home"
+							allowTouchMove={false}
+							modules={[Grid, Navigation]}
+							grid={{
+								rows: 2,
+								fill: "row",
+							}}
+							slidesPerView={6}
+							slidesPerGroup={6}
+						>
+							{data?.map((da, i) => {
+								return (
+									<SwiperSlide key={da.shopid + i}>
+										<Link
+											href={`${da.target_url}`}
+											key={da.shopid}
+										>
+											<a
+												style={{
+													height: "100%",
+												}}
+											>
+												<div>
+													<NextImage
+														src={
+															process.env
+																.NEXT_PUBLIC_BASE_IMAGE_URL +
+															da.image
+														}
+														alt={da.shop_name}
+														width={130}
+														height={130}
+														priority
+													/>
+												</div>
+											</a>
+										</Link>
+									</SwiperSlide>
+								);
+							})}
+						</Slide>
+					</ShopeeMallBody>
+				</>
+			)}
 		</WrapShopeeMall>
 	);
 };

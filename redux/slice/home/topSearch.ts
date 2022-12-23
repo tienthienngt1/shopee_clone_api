@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import { hostname } from "func";
 
 export type Data = {
 	images: string[];
@@ -35,7 +36,7 @@ export const setTopSearch = createAsyncThunk(
 	"topSearch/setTopSearch",
 	async () => {
 		const res = await axios(
-			"/api/v4/recommend/recommend?bundle=top_products_homepage&limit=20"
+			`${hostname()}/api/v4/recommend/recommend?bundle=top_products_homepage&limit=20`
 		);
 		return res.data;
 	}

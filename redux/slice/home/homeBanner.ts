@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import { hostname } from "func";
 
 export type CarouselBanner =
 	| { image_hash: string; image_url: string; target_url: string }[]
@@ -75,13 +76,16 @@ const homeBannerState = createSlice({
 export const setCarouselBanner = createAsyncThunk(
 	"homeBanner/setCarouselBanner",
 	async () => {
-		const res = await axios.post("/api/v4/banner/batch_list_by_spaces", {
-			spaces: [
-				{ space_key: "PC-VN-HOME_CAROUSEL_01" },
-				{ space_key: "PC-VN-HOME_SKINNY_01" },
-				{ space_key: "PC-VN-HOME_NUZ_CAROUSEL_01" },
-			],
-		});
+		const res = await axios.post(
+			`${hostname()}/api/v4/banner/batch_list_by_spaces`,
+			{
+				spaces: [
+					{ space_key: "PC-VN-HOME_CAROUSEL_01" },
+					{ space_key: "PC-VN-HOME_SKINNY_01" },
+					{ space_key: "PC-VN-HOME_NUZ_CAROUSEL_01" },
+				],
+			}
+		);
 		return res.data;
 	}
 );
@@ -89,7 +93,7 @@ export const setCarouselBanner = createAsyncThunk(
 export const setSubCarouselBanner = createAsyncThunk(
 	"homeBanner/setSubCarouselBanner",
 	async () => {
-		const res = await axios.post("/api/v4/banner/batch_list", {
+		const res = await axios.post(`${hostname()}/api/v4/banner/batch_list`, {
 			types: [{ type: "pc_home_squares" }],
 		});
 		return res.data;

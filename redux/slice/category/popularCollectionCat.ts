@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import { hostname } from "func";
 
 type Data = {
 	catid: number;
@@ -49,7 +50,7 @@ export const setPopularCollectionCat = createAsyncThunk(
 	"popularCollection",
 	async (id: string) => {
 		const res = await axios(
-			`api/v4/pages/get_popular_collection?catid=${id}`
+			`${hostname()}/api/v4/pages/get_popular_collection?catid=${id}`
 		);
 		return res.data;
 	}

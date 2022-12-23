@@ -2,8 +2,10 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { toast } from "react-toastify";
 import type { Data } from "../home/dailyDiscover";
+import { hostname } from "func";
 
 export interface DataCat extends Data {
+	shopid: number;
 	price_before_discount?: number;
 	price_min?: number;
 	price_max?: number;
@@ -53,6 +55,7 @@ const itemCatState = createSlice({
 					shop_location: i.shop_location,
 					image: i.image,
 					name: i.name,
+					shopid: i.shopid,
 				}));
 			}
 			if (itemSections === null || items === null) state.data = null;
@@ -73,6 +76,7 @@ const itemCatState = createSlice({
 					shop_location: i.item_basic.shop_location,
 					image: i.item_basic.image,
 					name: i.item_basic.name,
+					shopid: i.shopid,
 				}));
 			}
 			state.status = "fulfilled";
@@ -89,7 +93,7 @@ export const setItemCat = createAsyncThunk(
 		const page = catid.split("?")?.[1];
 		if ((!id.includes("?") && query.length <= 3) || page.length <= 7) {
 			res = await axios(
-				`api/v4/recommend/recommend?bundle=category_landing_page&cat_level=1&catid=${
+				`${hostname()}/api/v4/recommend/recommend?bundle=category_landing_page&cat_level=1&catid=${
 					!catid.includes("?") ? catid : catid.split("?")?.[0]
 				}&limit=60&offset=${
 					!page ? 0 : (Number(page.split("=")?.[1]) - 1) * 60
@@ -104,7 +108,7 @@ export const setItemCat = createAsyncThunk(
 				?.filter((p) => p.includes("page"));
 			const newest = page?.[0].split("=")?.[1];
 			res = await axios(
-				`api/v4/search/search_items?limit=60&match_id=${
+				`${hostname()}/api/v4/search/search_items?limit=60&match_id=${
 					params[params.length - 1]
 				}&page_type=search&scenario=PAGE_CATEGORY&version=2&newest=${
 					newest ? Number(newest) * 60 : 0

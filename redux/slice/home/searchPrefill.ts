@@ -1,11 +1,11 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import { hostname } from "func/hostname";
 
 type SearchPreFillState = {
 	placeholder?: string;
 	topSearch?: { url: string; title: string }[];
 };
-
 const initialState: SearchPreFillState = {};
 
 const searchPrefillState = createSlice({
@@ -29,11 +29,14 @@ const searchPrefillState = createSlice({
 });
 
 export const setSearchPrefill = createAsyncThunk("searchPrefill", async () => {
-	const resSearch = await axios("api/v4/search/search_prefills", {
-		headers: { "x-api-source": "pc" },
-	});
+	const resSearch = await axios(
+		`${hostname()}/api/v4/search/search_prefills`,
+		{
+			headers: { "x-api-source": "pc" },
+		}
+	);
 	const resTrending = await axios(
-		"api/v4/search/trending_search?bundle=popsearch&limit=8&offset=0",
+		`${hostname()}/api/v4/search/trending_search?bundle=popsearch&limit=8&offset=0`,
 		{ headers: { "x-api-source": "pc" } }
 	);
 	return {

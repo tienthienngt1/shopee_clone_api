@@ -8,13 +8,21 @@ import { PersistGate } from "redux-persist/integration/react";
 import { persistStore } from "redux-persist";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Head from "next/head";
+import { WIDTH_MAX } from "variable";
 
 function MyApp({ Component, pageProps }: AppProps) {
-	let persistor = persistStore(store);
+	persistStore(store);
 	return (
 		<>
+			<Head>
+				<meta
+					name="viewport"
+					content={`width=${WIDTH_MAX},shrink-to-fit=no`}
+				/>
+			</Head>
 			<Provider store={store}>
-				<PersistGate persistor={persistor}>
+				<PersistGate persistor={persistStore(store)}>
 					<ThemeConfig>
 						<Component {...pageProps} />
 						<GlobalStyle />

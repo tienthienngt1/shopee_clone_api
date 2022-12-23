@@ -4,7 +4,10 @@ export const convertIdToUrl = (
 	idChild?: number | undefined
 ) => {
 	if (!name) return "";
-	return `/${name.replaceAll(" &", "").replaceAll(" ", "-")}-cat.${
+	return `${name
+		.replaceAll(" &", "")
+		.replaceAll(" ", "-")
+		.replaceAll(",", "")}-cat.${
 		idChild ? idParent + "." + idChild : idParent
 	}`;
 };

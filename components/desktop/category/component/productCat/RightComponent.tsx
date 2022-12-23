@@ -139,9 +139,8 @@ const RightComponent = ({ router }: ProductCatProps) => {
 									data.map((d, i) => (
 										<div
 											key={
-												Math.random() *
-													9999 *
-													d.itemid +
+												Math.random() * 9999999 +
+												d.itemid +
 												i
 											}
 										>
@@ -157,7 +156,9 @@ const RightComponent = ({ router }: ProductCatProps) => {
 									<ChevronLeft />
 								</div>
 								{pageArr.map((i) => (
-									<Fragment key={Math.random() * 999999 * i}>
+									<Fragment
+										key={Math.random() * 99999900 + i}
+									>
 										{
 											<div
 												className={

@@ -1,9 +1,14 @@
 import { NextRouter } from "next/router";
 
-export const routerPush = (router: NextRouter, query: any, scroll: boolean) => {
+export const routerPush = (
+	router: NextRouter,
+	query: any,
+	scroll: boolean,
+	pathname?: string
+) => {
 	router.push(
 		{
-			pathname: router.pathname,
+			pathname: pathname ? pathname : router.pathname,
 			query,
 		},
 		undefined,

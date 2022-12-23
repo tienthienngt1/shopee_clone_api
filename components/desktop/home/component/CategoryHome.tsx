@@ -12,7 +12,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "redux/store";
 import { Slide } from "components/desktop/common/component";
 import Link from "next/link";
-import { convertIdToUrl } from "../../../../func/convertIdToUrl";
+import { convertIdToUrl } from "func/convertIdToUrl";
 
 export function CategoryHome() {
 	const { data } = useSelector((state: RootState) => state.categoryTree);

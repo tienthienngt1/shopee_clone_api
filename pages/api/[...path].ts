@@ -13,7 +13,11 @@ export default async function handler(
 	req: NextApiRequest,
 	res: NextApiResponse<any>
 ) {
-	if (req.url?.includes("recommend") || req.url?.includes("search")) {
+	if (
+		req.url?.includes("recommend") ||
+		req.url?.includes("search") ||
+		req.url?.includes("item")
+	) {
 		try {
 			const resExtra = await axios.get(
 				`${process.env.BASE_API_URL + req.url}`,

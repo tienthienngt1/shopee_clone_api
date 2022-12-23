@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import { hostname } from "func";
 
 export type Data = {
 	title: string;
@@ -67,12 +68,14 @@ const footerLayoutState = createSlice({
 export const setFooterLayout = createAsyncThunk(
 	"footerLayout/setFooterLayout",
 	async () => {
-		const config = {
-			headers: {
-				"x-api-source": "pc",
-			},
-		};
-		const res = await axios.get("api/v4/pages/get_footer_layout", config);
+		const res = await axios.get(
+			`${hostname()}api/v4/pages/get_footer_layout`,
+			{
+				headers: {
+					"x-api-source": "pc",
+				},
+			}
+		);
 		return res.data;
 	}
 );

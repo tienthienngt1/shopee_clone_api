@@ -13,6 +13,9 @@ import itemCat from "./slice/category/itemCat";
 import searchFilter from "./slice/category/searchFilterCat";
 import { persistReducer } from "redux-persist";
 import createWebStorage from "redux-persist/lib/storage/createWebStorage";
+import productDetail from "./slice/product/productDetail";
+import productFromShop from "./slice/product/productFromShop";
+import productMayLike from "./slice/product/productMayLike";
 
 const createNoopStorage = () => {
 	return {
@@ -45,11 +48,20 @@ const reducers = combineReducers({
 	popularCollectionCat,
 	itemCat,
 	searchFilter,
+	productDetail,
+	productFromShop,
+	productMayLike,
 });
 
 const persistConfig = {
 	key: "root",
 	storage,
-	blacklist: ["flashSale", "itemCat"],
+	blacklist: [
+		"flashSale",
+		"itemCat",
+		"productDetail",
+		"productFromShop",
+		"productMayLike",
+	],
 };
 export const persistedReducer = persistReducer(persistConfig, reducers);

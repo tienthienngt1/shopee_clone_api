@@ -5,7 +5,9 @@ import NextImage from "next/image";
 import LazyLoad from "react-lazy-load";
 import { DataCat } from "redux/slice/category/itemCat";
 import Stars from "components/commons/component/Star";
-import { convertNumberToK, convertNumberToVND } from "func";
+import { convertIdToUrl, convertNumberToK, convertNumberToVND } from "func";
+import { useRouter } from "next/router";
+import { routerPush } from "func/routerPush";
 
 type Props = {
 	data: DataCat;
@@ -13,12 +15,22 @@ type Props = {
 };
 
 const Item = ({ data, isDisplayHover = true }: Props) => {
+	const router = useRouter();
 	const [isHover, setIsHover] = useState<boolean>(false);
+	const handleClick = () => {
+		routerPush(
+			router,
+			{ product: convertIdToUrl(data.name, data.shopid, data.itemid) },
+			true,
+			"product/[product]"
+		);
+	};
 	return (
 		<WrapItem
 			isDisplayHover={isDisplayHover}
 			onMouseEnter={() => setIsHover(true)}
 			onMouseLeave={() => setIsHover(false)}
+			onClick={handleClick}
 		>
 			<ItemHeader>
 				<div className="item_image">

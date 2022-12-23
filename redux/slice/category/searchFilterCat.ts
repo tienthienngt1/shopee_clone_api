@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import { hostname } from "func";
 
 type Data = {
 	title: string;
@@ -75,7 +76,7 @@ export const setSearchFilter = createAsyncThunk(
 	"searchFilter/setSearchFilter",
 	async (id: string) => {
 		const res = await axios(
-			`api/v4/search/search_filter_config?match_id=${id}&page_type=search&scenario=PAGE_CATEGORY`
+			`${hostname()}/api/v4/search/search_filter_config?match_id=${id}&page_type=search&scenario=PAGE_CATEGORY`
 		);
 		return res.data;
 	}

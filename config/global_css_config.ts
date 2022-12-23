@@ -18,4 +18,17 @@ html{
     scroll-behavior: smooth;
 	background-color: #f5f5f5;
 }
+.shopee_clone_divider{
+    width: 100%;
+    padding: 2rem;
+    position: relative;
+    &:before{
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 0;
+        width: 100%;
+        border-top:1px solid rgb(0,0,0,0.1)
+    }
+}
 `;

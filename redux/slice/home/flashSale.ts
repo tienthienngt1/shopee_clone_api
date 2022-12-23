@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import { hostname } from "func";
 
 export type Data = {
 	itemid: number;
@@ -66,7 +67,7 @@ export const setFlashSale = createAsyncThunk(
 	"flashSale/setFlashSale",
 	async () => {
 		const res = await axios(
-			"api/v4/flash_sale/flash_sale_get_items?limit=16&need_personalize=true&offset=0&sort_soldout=true&with_dp_items=true"
+			`${hostname()}/api/v4/flash_sale/flash_sale_get_items?limit=16&need_personalize=true&offset=0&sort_soldout=true&with_dp_items=true`
 		);
 		return res.data;
 	}

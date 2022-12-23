@@ -144,45 +144,50 @@ const LeftComponent = ({ router }: ProductCatProps) => {
 	};
 	return (
 		<>
-			<LeftComponentHeader>
-				<ListUl /> Tất Cả Danh Mục
-			</LeftComponentHeader>
-			<LeftComponentList>
-				<Link
-					href={convertIdToUrl(cat?.display_name, cat?.catid)}
-					scroll={false}
-				>
-					{!idItem ? (
-						<div className="active">
-							<CaretRightFill /> &nbsp;
-							{cat && cat.display_name}
-						</div>
-					) : (
-						<div>{cat && cat.display_name}</div>
-					)}
-				</Link>
-				<MoreView>
-					{cat?.children?.map((c) => (
+			{cat && (
+				<>
+					<LeftComponentHeader>
+						<ListUl /> Tất Cả Danh Mục
+					</LeftComponentHeader>
+					<LeftComponentList>
 						<Link
-							href={convertIdToUrl(
-								c.display_name,
-								c.parent_catid,
-								c.catid
-							)}
+							href={convertIdToUrl(cat?.display_name, cat?.catid)}
 							scroll={false}
-							key={c.catid + Math.random() * 1000000}
 						>
-							{idItem && Number(idItem) === c.catid ? (
+							{!idItem ? (
 								<div className="active">
-									<CaretRightFill /> &nbsp;{c.display_name}
+									<CaretRightFill /> &nbsp;
+									{cat && cat.display_name}
 								</div>
 							) : (
-								<div>{c.display_name}</div>
+								<div>{cat && cat.display_name}</div>
 							)}
 						</Link>
-					))}
-				</MoreView>
-			</LeftComponentList>
+						<MoreView>
+							{cat?.children?.map((c) => (
+								<Link
+									href={convertIdToUrl(
+										c.display_name,
+										c.parent_catid,
+										c.catid
+									)}
+									scroll={false}
+									key={c.catid + Math.random() * 1000000}
+								>
+									{idItem && Number(idItem) === c.catid ? (
+										<div className="active">
+											<CaretRightFill /> &nbsp;
+											{c.display_name}
+										</div>
+									) : (
+										<div>{c.display_name}</div>
+									)}
+								</Link>
+							))}
+						</MoreView>
+					</LeftComponentList>
+				</>
+			)}
 			<LeftComponentHeader>
 				<Funnel /> BỘ LỌC TÌM KIẾM
 			</LeftComponentHeader>
@@ -190,39 +195,52 @@ const LeftComponent = ({ router }: ProductCatProps) => {
 				{searchFilter.data?.length > 0 &&
 					searchFilter.data.map((d, i) => (
 						<Fragment key={Math.random() * 99999999 + i}>
-							<div className="filter_title">{d?.title} </div>
-							<div className="filter_body">
-								<MoreView display={i === 3 ? false : true}>
-									{d?.items?.map((item) => (
-										<div key={Math.random() * 99999999999}>
-											<div
-												className="checkbox_label"
-												onClick={() =>
-													handleSearchParams(
-														item.id,
-														d.queryWord
-													)
-												}
-											>
-												<div>
-													{checkedWordIntoArr(
-														d.queryWord,
-														item.id
-													) && <Check />}
+							{d.items?.length > 1 && (
+								<>
+									<div className="filter_title">
+										{d?.title}{" "}
+									</div>
+									<div className="filter_body">
+										<MoreView
+											display={i === 3 ? false : true}
+										>
+											{d?.items?.map((item) => (
+												<div
+													key={
+														Math.random() *
+														99999999999
+													}
+												>
+													<div
+														className="checkbox_label"
+														onClick={() =>
+															handleSearchParams(
+																item.id,
+																d.queryWord
+															)
+														}
+													>
+														<div>
+															{checkedWordIntoArr(
+																d.queryWord,
+																item.id
+															) && <Check />}
+														</div>
+														<div>
+															{item.name}{" "}
+															{item.count &&
+																`(${convertNumberToK(
+																	item.count,
+																	1
+																)}+)`}
+														</div>
+													</div>
 												</div>
-												<div>
-													{item.name}{" "}
-													{item.count &&
-														`(${convertNumberToK(
-															item.count,
-															1
-														)}+)`}
-												</div>
-											</div>
-										</div>
-									))}
-								</MoreView>
-							</div>
+											))}
+										</MoreView>
+									</div>
+								</>
+							)}
 						</Fragment>
 					))}
 				<div className="filter_title">Khoảng Giá</div>

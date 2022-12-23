@@ -110,7 +110,6 @@ export const LeftComponentFilter = styled.div`
 export const WrapRightComponent = styled.div`
 	.pagination_page {
 		display: flex;
-		border: 1px solid red;
 		justify-content: center;
 		padding: 1rem;
 		& > div {
