@@ -133,6 +133,8 @@ export const setProductDetail = createAsyncThunk(
 			}&shopid=${asPathArr[asPathArr.length - 2]}`,
 			{ headers: { "af-ac-enc-dat": "null" } }
 		);
+		console.log(res.data);
+
 		return res.data;
 	}
 );

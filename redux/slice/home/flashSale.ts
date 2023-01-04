@@ -23,11 +23,11 @@ export type Session = {
 	status: number;
 };
 type FlashSaleState = {
-	session: Session | {};
+	session?: Session;
 	data: Data[];
 };
 
-const initialState: FlashSaleState = { session: {}, data: [] };
+const initialState: FlashSaleState = { session: undefined, data: [] };
 
 const flashSaleState = createSlice({
 	name: "flashSale",

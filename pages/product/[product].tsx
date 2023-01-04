@@ -1,18 +1,16 @@
 import { useEffect } from "react";
-import { Container, Seo } from "components/desktop/common/component";
-import Breadcrumbs from "components/desktop/product/component/Breadcrumbs";
-import MainLayout from "layout/MainLayout";
-import React from "react";
-import { RootState, useThunkDispatch } from "redux/store";
-import { setProductDetail } from "redux/slice/product/productDetail";
 import { useRouter } from "next/router";
 import { NextPage } from "next";
 import { useSelector } from "react-redux";
+import MainLayout from "layout/MainLayout";
+import { RootState, useThunkDispatch } from "redux/store";
+import { setProductDetail } from "redux/slice/product/productDetail";
+import { Container, Seo } from "components/desktop/common/component";
+import Breadcrumbs from "components/desktop/product/component/Breadcrumbs";
 import Error404 from "components/desktop/common/component/404";
 import ProductInfo from "components/desktop/product/component/productInfo";
 import ProductShopInfo from "components/desktop/product/component/ProductShopInfo";
-import ProductLayout from "../../components/desktop/product/component/productLayout/index";
-import ProductFromShop from "components/desktop/product/component/productLayout/ProductFromShop";
+import ProductLayout from "components/desktop/product/component/productLayout/index";
 
 const Product: NextPage = () => {
 	const router = useRouter();
@@ -26,11 +24,14 @@ const Product: NextPage = () => {
 		if (asPathSplit?.[asPathSplit.length - 1] === data?.itemid.toString())
 			return;
 		dispatch(setProductDetail(router.asPath));
-	}, [router.query.product, dispatch]);
+	}, [router.query.product, dispatch, data?.itemid, router.asPath]);
 
 	return (
 		<>
-			<Seo title="a" description="a" />
+			<Seo
+				title={data?.name ?? "Shopee"}
+				description={data?.name ?? "Shopee"}
+			/>
 			<MainLayout>
 				<Container>
 					{error ? (

@@ -1,10 +1,11 @@
-import React from "react";
+import React, { Fragment } from "react";
 import { WrapProductPrimaryInfo } from "../../styled";
 import Stars from "components/commons/component/Star";
 import Gicungre from "components/commons/component/Gicungre";
 import Image from "next/image";
+import { Props } from "../Breadcrumbs";
+import { convertNumberToK, convertNumberToVND } from "func";
 
-type Props = {};
 type VoucherProps = {
 	title: string;
 };
@@ -17,32 +18,44 @@ const Voucher = ({ title }: VoucherProps) => {
 	);
 };
 
-const ProductPrimaryInfo = (props: Props) => {
+const ProductPrimaryInfo = ({ data }: Props) => {
 	return (
 		<WrapProductPrimaryInfo>
 			<div className="product_primary_info_name">
-				<span>Yêu Thích</span>
-				<span>
-					Dép Nam Nữ Quai Ngang Thời Trang, Dép M L B - L A Cao Su Dập
-					Nổi Hàng Đẹp
-				</span>
+				{data?.shopee_verified && <span>Yêu Thích</span>}
+				<span>{data?.name}</span>
 			</div>
 			<div className="product_primary_info_sub_name">
 				<div>
-					<span>4.7</span> <Stars star={4.7} font="15px" />
+					<span>{data?.item_rating.rating_star}</span>{" "}
+					<Stars
+						star={data?.item_rating.rating_star ?? 5}
+						font="15px"
+					/>
 				</div>
 				<div>
-					<span>9.3k</span> Đánh giá
+					<span>{convertNumberToK(data?.cmt_count ?? 1000)}</span>{" "}
+					Đánh giá
 				</div>
 				<div>
-					<span>33.3k</span> Đã bán
+					<span>
+						{convertNumberToK(data?.historical_sold ?? 1000)}
+					</span>{" "}
+					Đã bán
 				</div>
 			</div>
 			<div className="product_primary_info_price">
 				<div>
-					<span>đ120.000</span>
-					<span>đ52.000 - đ100.000</span>
-					<span>50% GIẢM</span>
+					<span>{data?.price_before_discount}</span>
+					{data?.price_min && data?.price_max ? (
+						<span>
+							{convertNumberToVND(data?.price_min ?? 1000)} -{" "}
+							{convertNumberToVND(data?.price_max ?? 1000)}
+						</span>
+					) : (
+						<span>{convertNumberToVND(data?.price ?? 1000)}</span>
+					)}
+					<span>{data?.raw_discount}% GIẢM</span>
 				</div>
 				<div>
 					<Gicungre />
@@ -56,12 +69,28 @@ const ProductPrimaryInfo = (props: Props) => {
 					</div>
 				</div>
 			</div>
-			<div className="product_primary_info_voucher">
-				<div>Mã Giảm Giá Của Shop</div>
-				<div>
-					<Voucher title="Giảm 10k" />
+			{data?.shop_vouchers?.[0] && (
+				<div className="product_primary_info_voucher">
+					<div>Mã Giảm Giá Của Shop</div>
+					<div>
+						{data.shop_vouchers?.map((s) => (
+							<Fragment
+								key={s.discount_value + Math.random() * 10000}
+							>
+								<Voucher
+									title={
+										s.discount_percentage
+											? `Giảm ${s.discount_percentage}%`
+											: `Giảm ${convertNumberToK(
+													s.discount_value / 100000
+											  )}`
+									}
+								/>
+							</Fragment>
+						))}
+					</div>
 				</div>
-			</div>
+			)}
 			<div className="product_primary_info_promotion">
 				<div>Combo Khuyến Mãi</div>
 				<div>

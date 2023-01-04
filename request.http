@@ -9,3 +9,14 @@ POST https://shopee.vn/api/v4/banner/batch_list_by_spaces
 				},
 			],
 }
+
+###
+POST http://localhost:3000/api/v4/flash_sale/flash_sale_batch_get_items
+
+{
+    "categoryid":0,
+    "itemids":[5291968457, 2820087763, 18148801466, 388771523, 5270277825, 20567055749, 17480574460, 18904353698,21938847342,5259148451,14063842117,20623170274,18059718865,21248941067,14390492117,21149022412],
+    "limit":16,
+    "promotionid": 130202873303040,
+    "with_dp_items":true
+}

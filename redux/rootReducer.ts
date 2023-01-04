@@ -1,4 +1,6 @@
 import { combineReducers } from "@reduxjs/toolkit";
+import { persistReducer } from "redux-persist";
+import createWebStorage from "redux-persist/lib/storage/createWebStorage";
 import homeBanner from "./slice/home/homeBanner";
 import categoryTree from "./slice/home/categoryTree";
 import flashSale from "./slice/home/flashSale";
@@ -11,11 +13,12 @@ import shopeeMall from "./slice/category/shopeeMall";
 import popularCollectionCat from "./slice/category/popularCollectionCat";
 import itemCat from "./slice/category/itemCat";
 import searchFilter from "./slice/category/searchFilterCat";
-import { persistReducer } from "redux-persist";
-import createWebStorage from "redux-persist/lib/storage/createWebStorage";
 import productDetail from "./slice/product/productDetail";
 import productFromShop from "./slice/product/productFromShop";
 import productMayLike from "./slice/product/productMayLike";
+import allSession from "./slice/flashsale/allSession";
+import allItemids from "./slice/flashsale/allItemids";
+import itemsFlashsale from "./slice/flashsale/items";
 
 const createNoopStorage = () => {
 	return {
@@ -51,6 +54,9 @@ const reducers = combineReducers({
 	productDetail,
 	productFromShop,
 	productMayLike,
+	allSession,
+	allItemids,
+	itemsFlashsale,
 });
 
 const persistConfig = {
@@ -62,6 +68,9 @@ const persistConfig = {
 		"productDetail",
 		"productFromShop",
 		"productMayLike",
+		"allSession",
+		"allItemids",
+		"itemsFlashsale",
 	],
 };
 export const persistedReducer = persistReducer(persistConfig, reducers);

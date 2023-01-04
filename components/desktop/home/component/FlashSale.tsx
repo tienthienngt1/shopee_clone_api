@@ -1,5 +1,5 @@
 import { useEffect, useCallback, useState } from "react";
-import NextImage from "next/image";
+import Image from "next/image";
 import {
 	WrapFlashSaleStyled,
 	FlashSaleHeaderStyled,
@@ -18,6 +18,7 @@ import { ChevronRight } from "react-bootstrap-icons";
 import { useSelector } from "react-redux";
 import { Slide } from "components/desktop/common/component";
 import LazyLoad from "react-lazy-load";
+import { useRouter } from "next/router";
 
 type ItemType = {
 	sale: Data;
@@ -33,7 +34,7 @@ const Item = (props: ItemType) => (
 	>
 		<LazyLoad>
 			<div className="swiper_slide_header">
-				<NextImage
+				<Image
 					src={
 						process.env.NEXT_PUBLIC_BASE_IMAGE_URL +
 						props.sale.image
@@ -64,9 +65,10 @@ const Item = (props: ItemType) => (
 );
 
 type CountDownType = {
-	session: Session;
+	session?: Session;
 };
-function CountDown({ session }: CountDownType) {
+
+export function CountDown({ session }: CountDownType) {
 	const [h, seth] = useState<string[]>(["0", "0"]);
 	const [m, setm] = useState<string[]>(["0", "0"]);
 	const [s, sets] = useState<string[]>(["0", "0"]);
@@ -87,9 +89,9 @@ function CountDown({ session }: CountDownType) {
 		};
 	}, []);
 	useEffect(() => {
-		if (!session.end_time) return;
+		if (!session?.end_time) return;
 		const id = setInterval(() => {
-			const time = session.end_time * 1000 - new Date().getTime();
+			const time = session?.end_time * 1000 - new Date().getTime();
 			if (time < 0) {
 				seth(["0", "0"]);
 				setm(["0", "0"]);
@@ -105,7 +107,7 @@ function CountDown({ session }: CountDownType) {
 			sets(sArr);
 		}, 1000);
 		return () => clearInterval(id);
-	}, [session.end_time, convertMsToTime]);
+	}, [session?.end_time, convertMsToTime]);
 	const firstNumberArr = [5, 4, 3, 2, 1, 0];
 	const secondNumberArr = [9, 8, 7, 6, 5, 4, 3, 2, 1, 0];
 	return (
@@ -163,6 +165,7 @@ function CountDown({ session }: CountDownType) {
 }
 
 export function FlashSale() {
+	const router = useRouter();
 	const { data, session } = useSelector(
 		(state: RootState) => state.flashSale
 	);
@@ -170,7 +173,7 @@ export function FlashSale() {
 		<WrapFlashSaleStyled>
 			<FlashSaleHeaderStyled>
 				<div>
-					<NextImage
+					<Image
 						src={flashSaleLogo}
 						alt="flash_sale_log"
 						width={120}
@@ -194,7 +197,18 @@ export function FlashSale() {
 				>
 					{data?.[0]
 						? data.map((sale: Data) => (
-								<SwiperSlide key={sale.itemid}>
+								<SwiperSlide
+									key={sale.itemid}
+									onClick={() =>
+										router.push({
+											pathname: "flashsale",
+											query: {
+												itemid: sale.itemid,
+												promotionId: sale.promotionid,
+											},
+										})
+									}
+								>
 									<Item sale={sale} />
 								</SwiperSlide>
 						  ))

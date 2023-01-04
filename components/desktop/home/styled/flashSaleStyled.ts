@@ -24,7 +24,14 @@ export const FlashSaleHeaderStyled = styled.div`
 	}
 `;
 
-export const FlashSaleMainStyled = styled.div``;
+export const FlashSaleMainStyled = styled.div`
+	.swiper-slide {
+		cursor: pointer;
+		&:hover {
+			transform: translateY(-2px);
+		}
+	}
+`;
 
 type Props = {
 	percent: number;

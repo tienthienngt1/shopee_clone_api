@@ -49,7 +49,6 @@ export const ItemHeader = styled.div`
 		top: 0px;
 		right: 0px;
 		font-size: 12px;
-		opacity: 0.9;
 		background-color: #ffd839;
 		opacity: 0.8;
 		color: rgb(255, 0, 0, 0.8);

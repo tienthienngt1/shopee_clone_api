@@ -16,7 +16,7 @@ export default async function handler(
 	if (
 		req.url?.includes("recommend") ||
 		req.url?.includes("search") ||
-		req.url?.includes("item")
+		req.url?.includes("/item/")
 	) {
 		try {
 			const resExtra = await axios.get(

@@ -14,7 +14,7 @@ const ProductInfo = (props: Props) => {
 				<ProductInfoImage {...props} />
 			</ProductInfoLeft>
 			<ProductInfoRight>
-				<ProductPrimaryInfo />
+				<ProductPrimaryInfo {...props} />
 			</ProductInfoRight>
 		</WrapProductInfo>
 	);
