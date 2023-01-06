@@ -4,8 +4,11 @@ import { NextPage } from "next";
 import { useSelector } from "react-redux";
 import MainLayout from "layout/MainLayout";
 import { RootState, useThunkDispatch } from "redux/store";
-import { setProductDetail } from "redux/slice/product/productDetail";
-import { Container, Seo } from "components/desktop/common/component";
+import {
+	resetProductDetail,
+	setProductDetail,
+} from "redux/slice/product/productDetail";
+import { Container, Loading, Seo } from "components/desktop/common/component";
 import Breadcrumbs from "components/desktop/product/component/Breadcrumbs";
 import Error404 from "components/desktop/common/component/404";
 import ProductInfo from "components/desktop/product/component/productInfo";
@@ -14,17 +17,25 @@ import ProductLayout from "components/desktop/product/component/productLayout/in
 
 const Product: NextPage = () => {
 	const router = useRouter();
-	const { data, error } = useSelector(
+	const { data, status } = useSelector(
 		(state: RootState) => state.productDetail
 	);
 	const dispatch = useThunkDispatch();
+
 	useEffect(() => {
-		if (!router.query.product) return;
-		const asPathSplit = router.query.product.toString().split(".");
-		if (asPathSplit?.[asPathSplit.length - 1] === data?.itemid.toString())
-			return;
-		dispatch(setProductDetail(router.asPath));
-	}, [router.query.product, dispatch, data?.itemid, router.asPath]);
+		if (router.query.product && status !== "fulfilled" && router.asPath) {
+			console.log("dispatch");
+			console.log("router: " + router.query.product);
+			console.log("status: " + status);
+			console.log("router.asPath: " + router.asPath);
+
+			dispatch(setProductDetail(router.asPath));
+		}
+		// reset data when unmout
+		return () => {
+			dispatch(resetProductDetail());
+		};
+	}, [router.query.product, dispatch, router.asPath]);
 
 	return (
 		<>
@@ -32,17 +43,19 @@ const Product: NextPage = () => {
 				title={data?.name ?? "Shopee"}
 				description={data?.name ?? "Shopee"}
 			/>
-			<MainLayout>
+			<MainLayout fixed={false}>
 				<Container>
-					{error ? (
+					{status === "error" ? (
 						<Error404 />
-					) : (
+					) : status === "fulfilled" ? (
 						<>
 							<Breadcrumbs data={data} />
 							<ProductInfo data={data} />
 							<ProductShopInfo />
 							<ProductLayout />
 						</>
+					) : (
+						<Loading />
 					)}
 				</Container>
 			</MainLayout>

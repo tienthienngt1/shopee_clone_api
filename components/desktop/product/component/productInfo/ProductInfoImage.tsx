@@ -10,6 +10,7 @@ import {
 	Pinterest,
 	Twitter,
 } from "react-bootstrap-icons";
+import { convertNumberToK } from "func";
 
 const ProductInfoImage = ({ data }: Props) => {
 	const [isHover, setHover] = useState(false);
@@ -43,7 +44,8 @@ const ProductInfoImage = ({ data }: Props) => {
 				</div>
 				<div>
 					{" "}
-					<Heart /> Đã thích (6.5k)
+					<Heart /> Đã thích (
+					{convertNumberToK(data?.liked_count ?? 100)})
 				</div>
 			</div>
 		</WrapProductInfoImage>

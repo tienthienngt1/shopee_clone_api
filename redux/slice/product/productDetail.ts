@@ -4,6 +4,10 @@ import { hostname } from "func";
 import { toast } from "react-toastify";
 
 export type ProductDetailData = {
+	add_on_deal_info: {
+		add_on_deal_id?: number;
+		add_on_deal_label?: string;
+	} | null;
 	bundle_deal_info: {
 		bundle_deal_id?: number;
 		bundle_deal_label?: string;
@@ -43,16 +47,23 @@ export type ProductDetailData = {
 		name: string;
 		value: string;
 	}[];
+	models: {
+		name: string;
+		price: number;
+		price_before_discount: number;
+		stock: number;
+		raw_discount: number;
+	}[];
 };
 
 type ProductDetailState = {
 	data: ProductDetailData | null;
-	error: boolean;
+	status: "fulfilled" | "error" | "loading";
 };
 
 const initialState: ProductDetailState = {
 	data: null,
-	error: false,
+	status: "loading",
 };
 
 const productDetailState = createSlice({
@@ -61,7 +72,19 @@ const productDetailState = createSlice({
 	reducers: {
 		resetProductDetail: (state) => {
 			state.data = null;
-			state.error = false;
+			state.status = "loading";
+		},
+		setSelectedAttribute: (state, action) => {
+			//@ts-ignore
+			state.data = {
+				...state.data,
+				price: action.payload.price,
+				stock: action.payload.stock,
+				raw_discount: action.payload.raw_discount,
+				price_before_discount: action.payload.price_before_discount,
+				price_min: 0,
+				price_max: 0,
+			};
 		},
 	},
 	extraReducers: (builder) => {
@@ -69,14 +92,30 @@ const productDetailState = createSlice({
 			const error = action.payload.error;
 			const data: ProductDetailData = action.payload.data;
 			if (typeof error === "number" && !data) {
-				state.error = true;
+				state.status = "error";
 				toast.error(`Erorr tracking, code: ${action.payload.error}`, {
 					position: toast.POSITION.BOTTOM_RIGHT,
 				});
 			}
 			if (data) {
-				state.error = false;
+				state.status = "fulfilled";
 				state.data = {
+					models: data.models?.map((m) => ({
+						name: m.name,
+						stock: m.stock,
+						price: m.price,
+						price_before_discount: m.price_before_discount,
+						raw_discount: Math.round(
+							((m.price_before_discount - m.price) /
+								m.price_before_discount) *
+								100
+						),
+					})),
+					add_on_deal_info: {
+						add_on_deal_id: data.add_on_deal_info?.add_on_deal_id,
+						add_on_deal_label:
+							data.add_on_deal_info?.add_on_deal_label,
+					},
 					bundle_deal_info: {
 						bundle_deal_id: data.bundle_deal_info?.bundle_deal_id,
 						bundle_deal_label:
@@ -125,13 +164,15 @@ const productDetailState = createSlice({
 
 export const setProductDetail = createAsyncThunk(
 	"productDetail/setProductDetail",
-	async (asPath: string) => {
+	async (asPath: string, thunkApi) => {
 		const asPathArr = asPath.split(".");
 		const res = await axios(
-			`${hostname()}/api/v4/item/get?itemid=${
+			`${process.env.NEXT_PUBLIC_URL_GET_ITEM}item/get?itemid=${
 				asPathArr[asPathArr.length - 1]
 			}&shopid=${asPathArr[asPathArr.length - 2]}`,
-			{ headers: { "af-ac-enc-dat": "null" } }
+			{
+				signal: thunkApi.signal,
+			}
 		);
 		console.log(res.data);
 
@@ -139,6 +180,7 @@ export const setProductDetail = createAsyncThunk(
 	}
 );
 
-export const { resetProductDetail } = productDetailState.actions;
+export const { resetProductDetail, setSelectedAttribute } =
+	productDetailState.actions;
 
 export default productDetailState.reducer;

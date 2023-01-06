@@ -66,7 +66,7 @@ export const WrapProductPrimaryInfo = styled.div`
 	}
 	.product_primary_info {
 		&_name {
-			span:first-child {
+			.shop_verified_label {
 				background-color: rgb(238, 77, 45);
 				color: #fff;
 				padding: 3px;
@@ -135,7 +135,7 @@ export const WrapProductPrimaryInfo = styled.div`
 					font-size: 15px;
 					background-color: rgb(238, 77, 45);
 					color: #fff;
-					padding: 2px 5px;
+					padding: 5px;
 					border-radius: 2px;
 				}
 			}
@@ -159,10 +159,14 @@ export const WrapProductPrimaryInfo = styled.div`
 		&_voucher,
 		&_promotion,
 		&_transport,
+		&_deal,
+		&_attribute,
 		&_quantity {
 			display: flex;
 			padding: 1rem;
 			& > div:first-child {
+				display: flex;
+				align-items: center;
 				width: 20%;
 				font-size: 18px;
 				color: rgb(0, 0, 0, 0.6);
@@ -172,35 +176,84 @@ export const WrapProductPrimaryInfo = styled.div`
 				padding: 0 1rem;
 			}
 		}
-		&_voucher {
+		&_attribute {
 			& > div:last-child {
 				display: flex;
-				align-items: center;
+				flex-wrap: wrap;
+				& > span {
+					text-transform: uppercase;
+					font-size: 16px;
+					border: 1px solid rgb(0, 0, 0, 0.1);
+					padding: 10px 20px;
+					color: rgb(0, 0, 0, 0.8);
+					margin: 5px;
+					&:hover {
+						border: 1px solid #ee4d2d;
+						cursor: pointer;
+					}
+				}
+				span.active {
+					border: 1px solid #ee4d2d;
+					position: relative;
+					span {
+						position: absolute;
+						width: 20px;
+						display: flex;
+						justify-content: flex-end;
+						align-items: flex-end;
+						aspect-ratio: 1/1;
+						color: #fff;
+						right: 0;
+						bottom: 0;
+						background: #ee4d2d;
+						clip-path: polygon(100% 0, 0% 100%, 100% 100%);
+					}
+				}
+				span.disable {
+					opacity: 0.5;
+					&:hover {
+						cursor: no-drop;
+					}
+				}
+			}
+		}
+		&_deal {
+			& > div:last-child {
 				span {
-					padding: 0.5rem 1rem;
+					padding: 5px;
 					background: rgba(208, 1, 27, 0.08);
 					color: #ee4d2d;
-					position: relative;
-					&:before,
-					&:after {
-						content: "";
-						width: 6px;
-						height: calc(100% - 5px);
-						position: absolute;
-						top: 2.5px;
-						background-image: radial-gradient(
-							#fff 2px,
-							transparent 0
-						);
-						background-size: 6px 6px;
-						background-position-x: -6px;
-					}
-					&:before {
-						left: -2.5px;
-					}
-					&:after {
-						right: -2.5px;
-					}
+				}
+			}
+		}
+		&_voucher {
+			& > div {
+				display: flex;
+				align-items: center;
+				flex-wrap: wrap;
+			}
+			span {
+				margin: 5px;
+				padding: 0.5rem 1rem;
+				background: rgba(208, 1, 27, 0.08);
+				color: #ee4d2d;
+				position: relative;
+				&:before,
+				&:after {
+					content: "";
+					width: 6px;
+					height: calc(100% - 5px);
+					position: absolute;
+					top: 2.5px;
+					background-image: radial-gradient(#fff 2px, transparent 0);
+					background-size: 6px 6px;
+					background-position-x: -6px;
+				}
+				&:before {
+					left: -2.5px;
+				}
+				&:after {
+					right: -2.5px;
 				}
 			}
 		}
@@ -222,6 +275,12 @@ export const WrapProductPrimaryInfo = styled.div`
 		}
 		&_quantity {
 			& > div:last-child {
+				display: flex;
+				align-items: center;
+				color: rgb(0, 0, 0, 0.5);
+				font-size: 14px;
+			}
+			& > div:nth-child(2) {
 				& > div {
 					display: flex;
 					width: 150px;
@@ -237,6 +296,7 @@ export const WrapProductPrimaryInfo = styled.div`
 						&:nth-child(1),
 						&:nth-child(3) {
 							width: 25%;
+							user-select: none;
 						}
 						&:nth-child(2) {
 							input {
