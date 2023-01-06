@@ -174,8 +174,6 @@ export const setProductDetail = createAsyncThunk(
 				signal: thunkApi.signal,
 			}
 		);
-		console.log(res.data);
-
 		return res.data;
 	}
 );

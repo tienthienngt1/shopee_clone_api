@@ -21,7 +21,7 @@ export const ProductShopInfoLeft = styled.div`
 		img {
 			border-radius: 50%;
 		}
-		& > div:last-child {
+		& > div.official_shop {
 			position: absolute;
 			bottom: 0;
 			padding: 5px;

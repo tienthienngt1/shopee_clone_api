@@ -24,11 +24,6 @@ const Product: NextPage = () => {
 
 	useEffect(() => {
 		if (router.query.product && status !== "fulfilled" && router.asPath) {
-			console.log("dispatch");
-			console.log("router: " + router.query.product);
-			console.log("status: " + status);
-			console.log("router.asPath: " + router.asPath);
-
 			dispatch(setProductDetail(router.asPath));
 		}
 		// reset data when unmout
