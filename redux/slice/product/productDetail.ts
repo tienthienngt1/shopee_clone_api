@@ -1,6 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-import { hostname } from "func";
 import { toast } from "react-toastify";
 
 export type ProductDetailData = {
@@ -54,6 +53,7 @@ export type ProductDetailData = {
 		stock: number;
 		raw_discount: number;
 	}[];
+	shop_location: string;
 };
 
 type ProductDetailState = {
@@ -91,6 +91,7 @@ const productDetailState = createSlice({
 		builder.addCase(setProductDetail.fulfilled, (state, action) => {
 			const error = action.payload.error;
 			const data: ProductDetailData = action.payload.data;
+			console.log(data.description);
 			if (typeof error === "number" && !data) {
 				state.status = "error";
 				toast.error(`Erorr tracking, code: ${action.payload.error}`, {
@@ -100,6 +101,7 @@ const productDetailState = createSlice({
 			if (data) {
 				state.status = "fulfilled";
 				state.data = {
+					shop_location: data.shop_location,
 					models: data.models?.map((m) => ({
 						name: m.name,
 						stock: m.stock,

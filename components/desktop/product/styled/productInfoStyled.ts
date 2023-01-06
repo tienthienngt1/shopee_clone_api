@@ -3,6 +3,7 @@ export const WrapProductInfo = styled.div`
 	background: #fff;
 	border-radius: 5px;
 	display: flex;
+	margin-top: 1rem;
 `;
 export const ProductInfoLeft = styled.div`
 	width: 40%;

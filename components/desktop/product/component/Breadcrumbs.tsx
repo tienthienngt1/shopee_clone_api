@@ -7,9 +7,10 @@ import { ProductDetailData } from "redux/slice/product/productDetail";
 
 export type Props = {
 	data: ProductDetailData | null;
+	displayName?: boolean;
 };
 
-const Breadcrumbs = ({ data }: Props) => {
+const Breadcrumbs = ({ data, displayName = true }: Props) => {
 	return (
 		<WrapBreadcrumbs>
 			<div>
@@ -25,8 +26,12 @@ const Breadcrumbs = ({ data }: Props) => {
 					</div>
 				</Fragment>
 			))}
-			<ChevronRight />
-			<p>{data?.name}</p>
+			{displayName && (
+				<>
+					<ChevronRight />
+					<p>{data?.name}</p>
+				</>
+			)}
 		</WrapBreadcrumbs>
 	);
 };
