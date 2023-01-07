@@ -91,7 +91,6 @@ const productDetailState = createSlice({
 		builder.addCase(setProductDetail.fulfilled, (state, action) => {
 			const error = action.payload.error;
 			const data: ProductDetailData = action.payload.data;
-			console.log(data.description);
 			if (typeof error === "number" && !data) {
 				state.status = "error";
 				toast.error(`Erorr tracking, code: ${action.payload.error}`, {

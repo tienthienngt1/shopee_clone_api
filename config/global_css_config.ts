@@ -31,4 +31,15 @@ html{
         border-top:1px solid rgb(0,0,0,0.1)
     }
 }
+img{
+    animate: blur 2s;
+}
+@keyframes blur{
+    from: {
+        opacity: 0;
+    }
+    to{
+        opacity: 1
+    }
+}
 `;

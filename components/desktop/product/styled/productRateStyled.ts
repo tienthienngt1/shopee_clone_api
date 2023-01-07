@@ -42,6 +42,10 @@ export const ProductRateHeader = styled.div`
 			border: 1px solid rgb(0, 0, 0, 0.1);
 			background: #fff;
 			font-size: 16px;
+			cursor: pointer;
+			:hover {
+				opacity: 0.7;
+			}
 			&.active {
 				color: #ee4d2d;
 				border: 1px solid #ee4d2d;

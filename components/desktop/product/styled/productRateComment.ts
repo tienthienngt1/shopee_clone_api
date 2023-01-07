@@ -6,7 +6,11 @@ export const WrapProductRateComment = styled.div`
 		& > div:first-child {
 			width: 50px;
 			display: flex;
+			border: 1px solid rgb(0, 0, 0, 0.4);
+			background: #cecece;
+			border-radius: 50%;
 			align-items: center;
+			overflow: hidden;
 		}
 		& > div:last-child {
 			margin-left: 10px;
@@ -38,6 +42,15 @@ export const WrapProductRateComment = styled.div`
 			width: 60%;
 			margin: 1rem 0;
 		}
+		.cover_video {
+			position: relative;
+			& > div:last-child {
+				position: absolute;
+				top: 0;
+				left: 0;
+				z-index: 10;
+			}
+		}
 		& > div:last-child {
 			margin: 1rem 0;
 			display: flex;
@@ -56,21 +69,4 @@ export const WrapProductRateCommentPagination = styled.div`
 	margin: 2rem 0;
 	display: flex;
 	justify-content: flex-end;
-	& > div {
-		padding: 5px 10px;
-		margin: 0 5px;
-		cursor: pointer;
-		&:hover {
-			color: #ee4d2d;
-		}
-	}
-	& > div.active {
-		background: #ee4d2d;
-		border-radius: 3px;
-		color: #fff;
-	}
-	& > div:first-child,
-	& > div:last-child {
-		border: 1px solid rgb(0, 0, 0, 0.1);
-	}
 `;

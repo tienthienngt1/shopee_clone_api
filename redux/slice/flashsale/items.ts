@@ -49,8 +49,6 @@ const itemsFlashsaleState = createSlice({
 	extraReducers: (builder) => {
 		builder.addCase(getItemsFlashsale.fulfilled, (state, action) => {
 			if (action.payload.from === "load") {
-				console.log(action.payload.offset);
-
 				if (state.offset === action.payload.offset) return;
 				if (state.data.length === action.payload.offset) return;
 			}

@@ -20,6 +20,7 @@ import allSession from "./slice/flashsale/allSession";
 import allItemids from "./slice/flashsale/allItemids";
 import itemsFlashsale from "./slice/flashsale/items";
 import shop from "./slice/product/shop";
+import productRating from "./slice/product/productRating";
 
 const createNoopStorage = () => {
 	return {
@@ -59,6 +60,7 @@ const reducers = combineReducers({
 	allItemids,
 	itemsFlashsale,
 	shop,
+	productRating,
 });
 
 const persistConfig = {

@@ -1,15 +1,10 @@
-import React from "react";
 import { WrapProductDetails } from "../../styled";
 import Breadcrumbs from "../Breadcrumbs";
 import { useSelector } from "react-redux";
 import { RootState } from "redux/store";
 
-type Props = {};
-
-const ProductDetails = (props: Props) => {
+const ProductDetails = () => {
 	const { data } = useSelector((state: RootState) => state.productDetail);
-	console.log(data?.description);
-
 	return (
 		<WrapProductDetails>
 			<div>

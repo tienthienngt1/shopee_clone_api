@@ -18,8 +18,10 @@ export const ProductShopInfoLeft = styled.div`
 		width: 25%;
 		flex-direction: column;
 		position: relative;
-		img {
+		& > div:first-child {
+			border: 1px solid rgb(0, 0, 0, 0.3);
 			border-radius: 50%;
+			overflow: hidden;
 		}
 		& > div.official_shop {
 			position: absolute;

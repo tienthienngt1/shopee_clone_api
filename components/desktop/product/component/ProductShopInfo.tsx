@@ -29,7 +29,7 @@ const ProductShopInfo = () => {
 	return (
 		<WrapProductShopInfo>
 			<ProductShopInfoLeft>
-				<div id="test">
+				<div>
 					<div>
 						<Image
 							src={`${process.env.NEXT_PUBLIC_BASE_IMAGE_URL}${data?.avatar}`}
