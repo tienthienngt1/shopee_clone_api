@@ -12,6 +12,7 @@ import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
 import { convertNumberToK } from "func";
 import { convertMsToString } from "../../../../func/convertMsToString";
+import Link from "next/link";
 
 const ProductShopInfo = () => {
 	const dispatch = useThunkDispatch();
@@ -54,7 +55,11 @@ const ProductShopInfo = () => {
 							<ChatLeftDotsFill /> &nbsp; Chat Ngay
 						</div>
 						<div>
-							<Shop /> &nbsp; Xem Shop
+							<Link href={`/shop/${data?.username}`}>
+								<a>
+									<Shop /> &nbsp; Xem Shop
+								</a>
+							</Link>
 						</div>
 					</div>
 				</div>

@@ -9,11 +9,12 @@ type RatingDataT = {
 	ctime: number;
 	comment: string;
 	images: string[];
+	like_count: number;
+	model_name: string;
 	videos: {
 		cover: string;
 		url: string;
 	}[];
-	like_count: number;
 };
 
 type InitialStateT = {
@@ -69,11 +70,12 @@ const productRatingState = createSlice({
 						ctime: r.ctime,
 						comment: r.comment,
 						images: r.images,
+						like_count: r.like_count,
+						model_name: r.product_items?.[0]?.model_name,
 						videos: r.videos?.map((v: any) => ({
 							cover: v.cover,
 							url: v.url,
 						})),
-						like_count: r.like_count,
 					})),
 				};
 				state.status = "fulfilled";

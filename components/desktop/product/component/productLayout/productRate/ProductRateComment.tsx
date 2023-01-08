@@ -162,7 +162,7 @@ const ProductRateComment = () => {
 						<div>
 							<div>
 								{new Date(r.ctime * 1000).toLocaleString()} |
-								Phân loại hàng: Trắng
+								Phân loại hàng: {r.model_name}
 							</div>
 							<div
 								style={{
