@@ -1,5 +1,4 @@
-import { useState, useCallback } from "react";
-import React from "react";
+import { useState } from "react";
 import { ItemFooter, ItemHeader, WrapItem, FindSameProduct } from "../styled/";
 import NextImage from "next/image";
 import LazyLoad from "react-lazy-load";
@@ -12,17 +11,17 @@ import { routerPush } from "func/routerPush";
 type Props = {
 	data: DataCat;
 	isDisplayHover?: boolean;
+	isDisplayLocation?: boolean;
 };
 
-const Item = ({ data, isDisplayHover = true }: Props) => {
+const Item = ({ data, isDisplayHover = true, isDisplayLocation }: Props) => {
 	const router = useRouter();
 	const [isHover, setIsHover] = useState<boolean>(false);
 	const handleClick = () => {
-		routerPush(
-			router,
-			{ product: convertIdToUrl(data.name, data.shopid, data.itemid) },
-			true,
-			"product/[product]"
+		router.replace(
+			`/product/${convertIdToUrl(data.name, data.shopid, data.itemid)}`,
+			undefined,
+			{ scroll: false }
 		);
 	};
 	return (
@@ -33,18 +32,15 @@ const Item = ({ data, isDisplayHover = true }: Props) => {
 			onClick={handleClick}
 		>
 			<ItemHeader>
-				<div className="item_image">
-					<LazyLoad>
-						<NextImage
-							src={
-								process.env.NEXT_PUBLIC_BASE_IMAGE_URL +
-								data.image
-							}
-							alt={data.name}
-							layout="fill"
-							priority={true}
-						/>
-					</LazyLoad>
+				<div className="item_header_image">
+					<NextImage
+						src={
+							process.env.NEXT_PUBLIC_BASE_IMAGE_URL + data.image
+						}
+						alt={data.name}
+						layout="fill"
+						priority={true}
+					/>
 				</div>
 				{/* <div className="item_sub_image"></div> */}
 				<div className="item_discount">{data.raw_discount}%</div>
@@ -93,7 +89,7 @@ const Item = ({ data, isDisplayHover = true }: Props) => {
 						</div>
 					</div>
 				)}
-				{data?.shop_location && (
+				{isDisplayLocation && data?.shop_location && (
 					<div className="item_footer_location">
 						{data.shop_location}
 					</div>

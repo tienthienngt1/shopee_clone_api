@@ -12,6 +12,6 @@ export const routerPush = (
 			query,
 		},
 		undefined,
-		{ scroll: scroll ? true : false }
+		{ scroll }
 	);
 };

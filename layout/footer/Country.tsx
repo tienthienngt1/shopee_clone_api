@@ -1,5 +1,4 @@
-import React from "react";
-import { WrapCountry } from "../styled";
+import { WrapCountry } from "styled/layout/footer";
 
 const Country = () => {
 	return (

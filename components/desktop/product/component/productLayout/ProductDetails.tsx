@@ -16,7 +16,7 @@ const ProductDetails = () => {
 							<Breadcrumbs data={data} displayName={false} />
 						</div>
 					</div>
-					{data?.attributes.map((a) => (
+					{data?.attributes?.map((a) => (
 						<div key={Math.random() * 999999999}>
 							<div>{a.name}</div>
 							<div>{a.value}</div>

@@ -21,10 +21,10 @@ export const WrapItem = styled.div<ItemProps>`
 `;
 
 export const ItemHeader = styled.div`
-	flex-shrink: 0;
 	width: 100%;
 	aspect-ratio: 1/1;
 	position: relative;
+	flex-shrink: 0;
 	.item_is_official {
 		background-color: rgb(242, 82, 32);
 		display: inline;
@@ -69,24 +69,19 @@ export const ItemHeader = styled.div`
 		width: 100%;
 		height: 100%;
 	}
-	.item_image {
+	.item_header_image {
 		width: 100%;
 		height: 100%;
-		& > div {
-			width: 100%;
-			height: 100%;
-			position: relative;
-		}
+		position: relative;
 	}
 `;
 export const ItemFooter = styled.div`
-	flex: 1;
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
 	padding: 5px;
+	flex: 1;
 	.item_footer_name {
-		flex: 1;
 		display: inline-block;
 		word-wrap: break-word;
 		white-space: normal;

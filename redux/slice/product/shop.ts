@@ -13,6 +13,7 @@ type ShopStateDataT = {
 	response_time: number;
 	follower_count: number;
 	last_active_time: number;
+	shopid: number;
 };
 
 type InitialStateT = {
@@ -44,6 +45,7 @@ const shopState = createSlice({
 					is_official_shop: data.is_official_shop,
 					item_count: data.item_count,
 					last_active_time: data.last_active_time,
+					shopid: data.shopid,
 					ctime: data.ctime,
 					follower_count: data.follower_count,
 					response_rate: data.response_rate,

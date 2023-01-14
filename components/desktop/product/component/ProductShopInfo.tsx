@@ -1,4 +1,4 @@
-import React, { ReactNode, useEffect, useRef } from "react";
+import { useEffect } from "react";
 import {
 	ProductShopInfoLeft,
 	ProductShopInfoRight,
@@ -11,9 +11,8 @@ import { resetShop, setShop } from "redux/slice/product/shop";
 import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
 import { convertNumberToK } from "func";
-import { convertMsToString } from "../../../../func/convertMsToString";
+import { convertMsToString } from "func/convertMsToString";
 import Link from "next/link";
-
 const ProductShopInfo = () => {
 	const dispatch = useThunkDispatch();
 	const router = useRouter();

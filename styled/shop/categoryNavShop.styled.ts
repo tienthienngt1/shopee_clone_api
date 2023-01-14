@@ -10,8 +10,8 @@ export const WrapCategoryNavShop = styled.div`
 export const CategoryNavShopStyled = styled.div`
 	display: flex;
 	& > div.active {
-		color: #b0011b;
-		border-bottom: 5px solid #b0011b;
+		color: #ee4d2d;
+		border-bottom: 5px solid #ee4d2d;
 	}
 	& > div {
 		cursor: pointer;
@@ -37,9 +37,10 @@ export const WrapViewMore = styled.div`
 		border-radius: 5px;
 		overflow-y: scroll;
 		background: #fff;
+		z-index: 99999;
 		& > div {
 			:hover {
-				color: #b0011b;
+				color: #ee4d2d;
 			}
 			padding: 10px;
 		}

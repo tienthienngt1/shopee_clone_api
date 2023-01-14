@@ -6,7 +6,7 @@ import {
 	Globe,
 	ChevronDown,
 } from "react-bootstrap-icons";
-import { WrapStyled, WrapSubStyled } from "../styled";
+import { WrapStyled, WrapSubStyled } from "styled/layout/header";
 
 const SubLeft = () => {
 	return (

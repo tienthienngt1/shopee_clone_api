@@ -85,9 +85,9 @@ const Pagination = ({
 			{pageLast.length > 0 &&
 				pageLast.map((p) => (
 					<div
-						key={p + Math.random() * 9999999}
-						className={currentPage === p ? "active" : ""}
-						onClick={() => handleSelectPage(p)}
+                        key={p + Math.random() * 9999999}
+                        className={currentPage === p ? "active" : ""}
+                        onClick={() => { if (currentPage === p) return; handleSelectPage(p) }}
 					>
 						{p}
 					</div>

@@ -1,15 +1,12 @@
-import React from "react";
 import {
 	FooterEndBottom,
 	FooterEndHeader,
 	FooterEndBody,
 	WrapFooterEnd,
-} from "../styled";
+} from "styled/layout/footer";
 import NextImage from "next/image";
 
-type Props = {};
-
-const FooterEnd = (props: Props) => {
+const FooterEnd = () => {
 	return (
 		<WrapFooterEnd>
 			<FooterEndHeader>

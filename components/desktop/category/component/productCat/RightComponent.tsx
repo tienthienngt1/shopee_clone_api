@@ -25,6 +25,7 @@ const RightComponent = ({ router }: ProductCatProps) => {
 		{ title: "Mới nhất", id: "ctime" },
 		{ title: "Bán chạy", id: "sales" },
 	];
+
 	const handleFilter = (id: string, queryWord: string) => {
 		router.push(
 			{
@@ -40,6 +41,7 @@ const RightComponent = ({ router }: ProductCatProps) => {
 			{ scroll: false }
 		);
 	};
+
 	const handleFilterPage = (id: number, pageid?: number) => {
 		let page;
 		if (pageid) {
@@ -63,10 +65,12 @@ const RightComponent = ({ router }: ProductCatProps) => {
 			false
 		);
 	};
+
 	useEffect(() => {
 		setCurrentPage(router.query.page ? Number(router.query.page) : 1);
 		setTotalPage(Math.floor(total / 60) + (total % 60 > 0 ? 1 : 0));
 	}, [router.query.page, total]);
+
 	useEffect(() => {
 		let arr = [];
 		for (let i = 1; i <= totalPage; i++) {
@@ -77,6 +81,7 @@ const RightComponent = ({ router }: ProductCatProps) => {
 		if (totalPage - currentPage > 2) arr.push(0);
 		setPageArr(arr);
 	}, [totalPage, currentPage]);
+
 	return (
 		<WrapRightComponent>
 			<WrapRightComponentHeader>

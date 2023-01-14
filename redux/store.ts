@@ -10,6 +10,7 @@ import {
 	PERSIST,
 	PURGE,
 	REGISTER,
+	persistStore,
 } from "redux-persist";
 
 export const store = configureStore({
@@ -34,6 +35,7 @@ export const store = configureStore({
 		}),
 });
 
+export const persistor = persistStore(store);
 export type RootState = ReturnType<typeof store.getState>;
 export type TypedDispatch = ThunkDispatch<RootState, any, AnyAction>;
 export const useThunkDispatch = () => useDispatch<TypedDispatch>();
