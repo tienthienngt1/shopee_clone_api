@@ -1,12 +1,5 @@
 import { Search, Cart2 } from "react-bootstrap-icons";
-import {
-	WrapLogoStyled,
-	WrapMainStyled,
-	WrapCartStyled,
-	WrapSearchStyled,
-	WrapSearchInputStyled,
-	WrapSearchCategoryStyled,
-} from "styled/layout/header";
+import { WrapLogoStyled, WrapMainStyled, WrapCartStyled, WrapSearchStyled, WrapSearchInputStyled, WrapSearchCategoryStyled } from "styled/layout/header";
 import { LogoSvg } from "components/desktop/common/component";
 import Link from "next/link";
 import { useSearchPrefill } from "swrHooks/search/useSearchPrefill";
@@ -16,7 +9,9 @@ const Logo = () => {
 	return (
 		<WrapLogoStyled>
 			<Link href="/">
-				<LogoSvg />
+				<a>
+					<LogoSvg />
+				</a>
 			</Link>
 		</WrapLogoStyled>
 	);
@@ -35,12 +30,7 @@ const SearchMain = () => {
 					<Search />
 				</div>
 			</WrapSearchInputStyled>
-			<WrapSearchCategoryStyled>
-				{trendingSearch &&
-					trendingSearch?.data?.querys?.map((s) => (
-						<span key={s.text + s.count}>{s.text}</span>
-					))}
-			</WrapSearchCategoryStyled>
+			<WrapSearchCategoryStyled>{trendingSearch && trendingSearch?.data?.querys?.map((s) => <span key={s.text + s.count}>{s.text}</span>)}</WrapSearchCategoryStyled>
 		</WrapSearchStyled>
 	);
 };

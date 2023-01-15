@@ -8,5 +8,12 @@ const fetcher = (url: string) =>
 		.then((res) => res.data);
 
 export const useGetFooterLayout = () => {
-	return useSWR<GetFooterLayoutT>("/api/v4/pages/get_footer_layout", fetcher);
+	return useSWR<GetFooterLayoutT>(
+		"/api/v4/pages/get_footer_layout",
+		fetcher,
+		{
+			revalidateOnFocus: false,
+			revalidateIfStale: false,
+		}
+	);
 };

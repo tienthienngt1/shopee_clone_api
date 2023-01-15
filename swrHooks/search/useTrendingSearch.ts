@@ -5,6 +5,10 @@ import { SearchTrendingT } from "types/commons/search.type";
 export const useTrendingSearch = () => {
 	return useSWR<SearchTrendingT>(
 		"/api/v4/search/trending_search?bundle=popsearch&limit=8&offset=0",
-		fetcher
+		fetcher,
+		{
+			revalidateOnFocus: false,
+			revalidateIfStale: false,
+		}
 	);
 };

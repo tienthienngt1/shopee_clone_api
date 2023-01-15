@@ -36,3 +36,19 @@ export type GetFooterLayoutT = {
 		}[];
 	};
 };
+
+export type GetCategoryTreeDataT = {
+	data: {
+		category_list: {
+			catid: number;
+			display_name: string;
+			image: string;
+			children: {
+				catid: number;
+				display_name: string;
+				image: string;
+				parent_catid: number;
+			}[];
+		}[];
+	};
+};
